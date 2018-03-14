@@ -97,7 +97,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">爱加HOME</li>
                             <li>
-                                <a href="<%$smarty.const.__CONTROLLER__%>/index">
+                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
                                     <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 今日新品 </span>
                                 </a>
                             </li>
@@ -195,7 +195,7 @@
                                                 </div>
 
                                                 <div class="shop-item__block ">
-                                                    <a href="<%$smarty.const.__APP__%>/sale/buyware?ware_id=<%$v['id']%>" class="shop-item__button">购买</a>
+                                                    <a href="<%$smarty.const.__APP__%>/sale/buyware?token=<%$token%>&ware_id=<%$v['id']%>" class="shop-item__button">购买</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,17 +209,13 @@
                     <footer class="page_footer ds ms">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-5 col-md-5 col-sm-12 footer-block__01 to_animate decoration__line_l offset_padding_top_90 offset_padding_bottom_85" >
+                                <div class="col-lg-6 footer-block__01 to_animate decoration__line_l  " >
                                     <div class="widget widget_text page-footer__logo">
                                         <p class="page-footer__logo-wrapper"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_bottom.png" alt=""></p>
-                                        <p>我们每天会由爱加HOME社交购物平台向您推荐3-4款产品.</p>
-                                    </div>
-                                    <div class="widget widget__payment">
-                                        <h3 class="widget__payment-title">支付方式</h3>
-                                        <div class="big">
-                                            <a href="#"><i class="fa fa-cc-visa"></i></a>
-                                            <a href="#"><i class="fa fa-wechat"></i></a>
-                                        </div>
+                                        <p>&nbsp;&nbsp;首先，欢迎您的到来，爱加HOME社交购物平台是全球供应链双向一体化电商服务平台。您现在所在的群即属于爱加HOME社交购物平台。本平台是将集团线下实体便利店所签约的
+                                            供应商、厂家的产品直接向您推荐，所有商品均来自经集团考察审核过的正规渠道，所有产品在便利店及超市均有销售。通过本社交购物频台所销售的产品，因为减少
+                                            了店租，运输等高昂的成本，所以价格要便宜很多，真正将边界与实惠带到您的身边。
+                                            我们每天会由爱加HOME社交购物平台向您推荐3-4款产品.</p>
                                     </div>
                                 </div>
                             </div>

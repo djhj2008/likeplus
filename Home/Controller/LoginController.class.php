@@ -8,7 +8,8 @@ class LoginController extends HomeController {
 		}
 
 		public function login(){
-		    var_dump();
+            $ip = get_client_ip();
+            $token = md5($ip);
 			if($_POST['name'] && $_POST['password']){
 				$pwd   =trim($_POST['password']);
 				$phone  =trim($_POST['name']);
@@ -38,16 +39,15 @@ class LoginController extends HomeController {
                     $this->display();
                     exit;
 				}
-				
-                    $nameArr=array(
-                        'phone'=>$phone,
-                        'password'=>$pwd
-                        );
-                    $userFind=M('lp_sales')->where($nameArr)->find();
-                    if($userFind){
-                            session('name',$userFind['name']);
-                            session('id',  $userFind['auto_id']);
-                    $this ->redirect('sale/index',array(),0,'');
+                $nameArr=array(
+                    'phone'=>$phone,
+                    'password'=>$pwd
+                    );
+                $userFind=M('lp_sales')->where($nameArr)->find();
+                if($userFind){
+                    session('name',$userFind['name']);
+                    session('id',  $userFind['auto_id']);
+                    $this ->redirect('sale/index',array('token'=>$token),0,'');
 				}else{
 						$jarr=array('ret'=>array('ret_message'=>'register error','status_code'=>10000107));
                         //echo json_encode(array('UserInfo'=>$jarr));

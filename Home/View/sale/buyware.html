@@ -104,7 +104,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">爱加HOME</li>
                             <li>
-                                <a href="<%$smarty.const.__CONTROLLER__%>/index">
+                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
                                     <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 今日新品 </span>
                                 </a>
                             </li>
@@ -216,10 +216,24 @@
                                                             <p class="text-custom font-16 mt-2">RMB</p>
                                                         </div>
                                                     </div>
+                                                    <%if empty($model) neq true %>
+                                                        <div class="form-group row">
+                                                         <div>
+                                                             <p class="text-muted font-16  mt-2">型号:</p>
+                                                         </div>
+                                                        <div class="col-6">
+                                                            <select name="model" id="model" class="form-control" data-style="btn-light">
+                                                                    <%foreach $model as $v%>
+                                                                        <option value ="model_sub"><%$v['model']%></option>
+                                                                    <%/foreach%>
+                                                            </select>
+                                                        </div>
+                                                        </div>
+                                                    <%/if%>
                                                     </div>
                                                     <div class="form-group row">
                                                         <div  class="col offset-8">
-                                                            <button type="submit" class="btn btn-github" onclick="creat_order()">
+                                                            <button type="button" class="btn btn-github" onclick="creat_order()">
                                                                 下单
                                                             </button>
                                                         </div>
@@ -232,22 +246,15 @@
                         <!-- end row -->
                     </div> <!-- container -->
                 </div> <!-- content -->
-
                 <footer class="footer text-right">
                     Copyright &copy; 2018.爱加社区
                 </footer>
-
             </div>
-
-
             <!-- ============================================================== -->
             <!-- End Right content here -->
             <!-- ============================================================== -->
-
-
         </div>
         <!-- END wrapper -->
-
     </body>
     <script type="text/javascript">
         function code1(){
@@ -289,13 +296,29 @@
             var price = count*<%$ware[0]["out_price"]%>;
             document.getElementById('money').value=price.toFixed(2);
         }
+    </script>
 
+    <script type="text/javascript">
         function search_user(){
             window.location.href="<%$smarty.const.__CONTROLLER__%>/userinfo?ware_id=<%$ware_id%>";
         }
 
         function creat_order(){
-            window.location.href="<%$smarty.const.__CONTROLLER__%>/addorder?uid=<%$uid%>&ware_id=<%$$ware_id%>";
+            var count = $('#count').val();
+            var model = $('#model').find("option:selected").text();
+            var model_len = $('#model').length;
+            var user = "<%$user%>";
+            var addr = "<%$addr%>";
+            if(user==""||addr==""){
+                alert("请选择用户详细地址.");
+                return;
+            }
+            var url = "<%$smarty.const.__CONTROLLER__%>/addorder?uid=<%$uid%>" +
+                    "&ware_id=<%$ware_id%>&user=<%$user%>$addr=<%$addr%>&count="+count
+           if(model_len>0){
+               url+="model="+model;
+            }
+            window.location.href=url;
         }
     </script>
     <!-- jQuery  -->
