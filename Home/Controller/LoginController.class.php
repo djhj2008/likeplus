@@ -30,32 +30,32 @@ class LoginController extends HomeController {
 				$phoneFind=M('lp_sales')->where(array('phone'=>$phone))->find();
 				//var_dump($phoneFind);
 				if($phoneFind==NULL){
-					   echo "<script language=\"JavaScript\">\r\n";
-						 echo " alert(\"未注册用户，请联系管理员!\");\r\n";
-						 echo " history.back();\r\n";
-						 echo "</script>";
-						 $this->display();
-						 exit;
+                    echo "<script language=\"JavaScript\">\r\n";
+                    echo " alert(\"未注册用户，请联系管理员!\");\r\n";
+                    echo " history.back();\r\n";
+                    echo "</script>";
+                    $this->display();
+                    exit;
 				}
 				
-				$nameArr=array(
-					'phone'=>$phone,
-					'password'=>$pwd
-					);
-				$userFind=M('lp_sales')->where($nameArr)->find();
-				if($userFind){
-						session('name',$userFind['name']);
-          	            session('id',  $userFind['auto_id']);
-        		$this ->redirect('sale/index',array(),0,'');
+                    $nameArr=array(
+                        'phone'=>$phone,
+                        'password'=>$pwd
+                        );
+                    $userFind=M('lp_sales')->where($nameArr)->find();
+                    if($userFind){
+                            session('name',$userFind['name']);
+                            session('id',  $userFind['auto_id']);
+                    $this ->redirect('sale/index',array(),0,'');
 				}else{
 						$jarr=array('ret'=>array('ret_message'=>'register error','status_code'=>10000107));
-            //echo json_encode(array('UserInfo'=>$jarr));
-             echo "<script language=\"JavaScript\">\r\n";
-						 echo " alert(\"密码错误!\");\r\n";
-						 echo " history.back();\r\n";
-						 echo "</script>";
-						 $this->display();
-						 exit;
+                        //echo json_encode(array('UserInfo'=>$jarr));
+                         echo "<script language=\"JavaScript\">\r\n";
+                         echo " alert(\"密码错误!\");\r\n";
+                         echo " history.back();\r\n";
+                         echo "</script>";
+                         $this->display();
+                         exit;
 				}
 			}
 			$this->display();
@@ -133,7 +133,7 @@ class LoginController extends HomeController {
            }
            
            echo "<span style='color:blue'>请输入复杂的密码,你的密码级别为{$score}级</span>";
-        }else if($exists==null){
+        }else if($wd==null){
             echo"<span style='color:red'>密码不能为空.</span>";
         }
     }

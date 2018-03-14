@@ -219,86 +219,13 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <div  class="col offset-8">
-                                                            <button type="submit" class="btn btn-github">
-                                                                确定
+                                                            <button type="submit" class="btn btn-github" onclick="creat_order()">
+                                                                下单
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </form>
                                         </div>
-                                        <!--div class="card-box">
-                                            <div class="form-group row">
-                                                <div>
-                                            <h4 class="mt-0 font-20">地址信息</h4>
-                                            <p class="text-muted font-14 mb-2">
-                                                请填写或选择订单的详细地址信息.
-                                            </p>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <div class="col-6 offset-2">
-                                                        <button type="button"
-                                                                class="btn btn-github">
-                                                            <i class="fa fa-address-book mr-0"></i>
-                                                            <span>查找</span> </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <form role="form">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-4 col-form-label">姓名<span class="text-danger">*</span></label>
-                                                    <div class="col-8">
-                                                        <input type="text" required parsley-type="email" class="form-control"
-                                                               id="inputEmail3" placeholder="真实姓名">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="hori-pass1" class="col-4 col-form-label">电话<span class="text-danger">*</span></label>
-                                                    <div class="col-8">
-                                                        <input id="hori-pass1" type="number" placeholder="手机号" required
-                                                               class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row" >
-                                                    <label for="hori-pass1" class="col-4 col-form-label">地址:<span class="text-danger">*</span></label>
-                                                    <div class="col-8">
-                                                        <select name="pro" id="pro" class="form-control" data-style="btn-light"></select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row" >
-                                                    <label for="hori-pass1" class="col-4 col-form-label">城市:<span class="text-danger">*</label>
-                                                    <div class="col-8">
-                                                        <select name="ci" id="ci" class="form-control" data-style="btn-light"></select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row" >
-                                                    <label for="hori-pass1" class="col-4 col-form-label">区县:<span class="text-danger">*</label>
-                                                    <div class="col-8">
-                                                        <select name="ar" id="ar" class="form-control" data-style="btn-light"></select>
-                                                    </div>
-                                                </div>
-
-                                                <script type="text/javascript">
-                                                    new PCAS('pro', 'ci', 'ar', '辽宁省', '', '');
-                                                </script>
-
-                                                <div class="form-group row" >
-                                                    <label for="hori-pass1" class="col-4 col-form-label">详细地址:<span class="text-danger">*</label>
-                                                    <div class="col-8">
-                                                        <textarea required class="form-control" name="ad" id="ad"></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <div class="col-8 offset-4">
-                                                        <button type="submit" class="btn btn-github">
-                                                            确定
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div-->
                                 </div>
                             </div> <!-- end col -->
                         </div>
@@ -362,7 +289,11 @@
             }
 
             function search_user(){
-                window.location.href="<%$smarty.const.__CONTROLLER__%>/userinfo?ware_id=<%$ware[0]['auto_id']%>";
+                window.location.href="<%$smarty.const.__CONTROLLER__%>/userinfo?ware_id=<%$ware_id%>";
+            }
+
+            function creat_order(){
+                window.location.href="<%$smarty.const.__CONTROLLER__%>/addorder?uid=<%$uid%>&ware_id=<%$$ware_id%>";
             }
         </script>
 

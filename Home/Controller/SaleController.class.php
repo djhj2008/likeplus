@@ -22,34 +22,40 @@ class SaleController extends HomeController {
         $this->display();
     }
 		
-    public function buyware(){
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $uid=$_GET['uid'];
-        if($uid!=null&&!empty($uid)){
-            $users=M('lp_users')->where(array('auto_id'=>$uid))->limit(0,1)->select();
+    public function buyware()
+    {
+        $salesname = $_SESSION['name'];
+        $this->assign('salesname', $salesname);
+        $uid = $_GET['uid'];
+        if ($uid != null && !empty($uid)) {
+            $users = M('lp_users')->where(array('auto_id' => $uid))->limit(0, 1)->select();
 
             $pro = $users[0]['province'];
             $city = $users[0]['city'];
             $area = $users[0]['area'];
             $ad = $users[0]['addr'];
             //var_dump($users);
-            $user=$users[0]['name']."&nbsp;&nbsp;&nbsp;&nbsp;".$users[0]['phone'];
-            $addr=$pro.$city.$area."<br>".$ad;
-            if($users) {
+            $user = $users[0]['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;" . $users[0]['phone'];
+            $addr = $pro . $city . $area . "<br>" . $ad;
+            if ($users) {
                 //var_dump($addr);
+                $this->assign('uid', $uid);
                 $this->assign('user', $user);
                 $this->assign('addr', $addr);
             }
         }
-
-        $id=$_GET['ware_id'];
-        //var_dump($id);
-        $ware=M('lp_wares')->where(array('auto_id'=>$id))->select();
-        $this->assign('devSelect',$ware);
-        //var_dump($ware);
-        $this->assign('ware',$ware);
-        $this->display();
+        $ware_id = $_GET['ware_id'];
+        $this->assign('$ware_id', $ware_id);
+        $ware = M('lp_wares')->where(array('auto_id' => $ware_id))->select();
+        if ($ware) {
+            if($ware['model']==1) {
+                $model = M('lp_ware_model')->where(array('ware_id' => $ware_id))->select();
+                var_dump($model);
+                exit;
+            }
+            $this->assign('ware', $ware);
+            $this->display();
+        }
     }
 
     public function userinfo(){
@@ -171,9 +177,13 @@ class SaleController extends HomeController {
                 $this ->redirect('sale/userinfo',array('ware_id'=>$ware_id),0,'');
             }
         }
-
-
         //$this ->redirect('sale/buyware.html',array(),0,'');
+    }
+
+    public function addorder(){
+        $ware_id=$_GET['ware_id'];
+        $uid=$_GET['uid'];
+
     }
 
 
