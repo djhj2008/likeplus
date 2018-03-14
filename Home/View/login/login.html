@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title></title>
-    <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>common.css?version=1.01.05"/>
-    <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>login.css?version=1.01.05"/>
+    <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>common.css?version=1.01.01"/>
+    <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>login.css?version=1.01.01"/>
+    <!-- jQuery  -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
     <style>
         .login_bg{
             background: #ffffff;
@@ -16,7 +18,7 @@
     <div id="login"></div>
     <div class="login_bg">
         <div id="logo">
-            <img src="<%$smarty.const.AIMAGE_URL%>logo.png" alt=""/>
+            <!--img src="<%$smarty.const.AIMAGE_URL%>logo.png" alt=""/-->
         </div>
         <form action="" onSubmit="return chkinput(this)" method="post">
             <div class="userName">
@@ -58,11 +60,10 @@
     </div>
 </body>
 </html>
-<script>
+<script type="text/javascript">
     $(document).ready(function(){
         var strName = localStorage.getItem('keyName');
         var strPass = localStorage.getItem('keyPass');
-        alert(strName);
         if(strName){
             $('#name').val(strName);
         }
@@ -72,32 +73,35 @@
 
     });
 
-
-
     function chkinput(form){
-        var strName = $(form.name.value);
-        var strPass = $(form.password.value);
-        localStorage.setItem('keyName',$strName);
-        alert(strName);
-        return(false);
-        if(strName==""){
+        var strName = $('#name').val();
+        var strPass =  $('#password').val();
+        //localStorage.setItem('keyName',$strName);
+        if(!window.localStorage){
+            alert("浏览器支持localstorage");
+            return false;
+        }else{
+            alert("浏览器不支持localstorage");
+            return false;
+            //主逻辑业务
+        }
+        if(form.name.value==""){
             alert('请输入手机号.');
             form.name.select();
             return(false);
         }
 
-        if(strPass==""){
+        if(form.password.value==""){
             alert('请输入密码.');
             form.password.select();
             return(false);
         }
 
         if($('#rember').is('checked')){
-            localStorage.setItem('keyPass',$strName);
+            //.setItem('keyPass',$strPass);
         }else{
-            localStorage.removeItem('keyPass');
+            //localStorage.removeItem('keyPass');
         }
-
         return(true);
-  }
+    }
 </script>

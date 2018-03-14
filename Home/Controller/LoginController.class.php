@@ -8,6 +8,7 @@ class LoginController extends HomeController {
 		}
 
 		public function login(){
+		    var_dump();
 			if($_POST['name'] && $_POST['password']){
 				$pwd   =trim($_POST['password']);
 				$phone  =trim($_POST['name']);
