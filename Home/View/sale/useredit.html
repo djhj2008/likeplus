@@ -103,7 +103,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">爱加HOME</li>
                             <li>
-                                <a href="<%$smarty.const.__CONTROLLER__%>/index">
+                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
                                     <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 今日新品 </span>
                                 </a>
                             </li>
@@ -111,16 +111,15 @@
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="buyware.html">今日订单</a></li>
-                                    <li><a href="tables-datatable.html">历史订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">今日订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="userinfo.html">成员信息</a></li>
-                                    <li><a href="tables-datatable.html">成员订单信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo?token=<%$token%>">成员信息</a></li>
                                 </ul>
                             </li>
 
@@ -149,8 +148,6 @@
             </div>
             <!-- Left Sidebar End -->
 
-
-
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->
@@ -164,7 +161,7 @@
                         <h4 class="mt-0 font-20">地址信息</h4>
                             </div>
                         </div>
-                        <form role="form" action="<%$smarty.const.__APP__%>/sale/usersave?uid=<%$user[0]['auto_id']%>&ware_id=<%$ware_id%>"   method="post">
+                        <form role="form" action="<%$smarty.const.__APP__%>/sale/usersave?uid=<%$user[0]['auto_id']%>&ware_id=<%$ware_id%>&token=<%$token%>"   method="post">
                             <div class="form-group row">
                                 <label for="name" class="col-4 col-form-label">姓名</label>
                                 <div class="col-8">

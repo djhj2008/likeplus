@@ -112,16 +112,15 @@
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="buyware.html">今日订单</a></li>
-                                    <li><a href="tables-datatable.html">历史订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">今日订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="userinfo.html">成员信息</a></li>
-                                    <li><a href="tables-datatable.html">成员订单信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo?token=<%$token%>">成员信息</a></li>
                                 </ul>
                             </li>
 
@@ -149,7 +148,6 @@
                 <!-- Sidebar -left -->
             </div>
             <!-- Left Sidebar End -->
-
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -300,23 +298,24 @@
 
     <script type="text/javascript">
         function search_user(){
-            window.location.href="<%$smarty.const.__CONTROLLER__%>/userinfo?ware_id=<%$ware_id%>";
+            window.location.href="<%$smarty.const.__CONTROLLER__%>/userinfo?ware_id=<%$ware_id%>&token=<%$token%>";
         }
 
         function creat_order(){
             var count = $('#count').val();
             var model = $('#model').find("option:selected").text();
             var model_len = $('#model').length;
+            var price = $('#money').val();
             var user = "<%$user%>";
             var addr = "<%$addr%>";
             if(user==""||addr==""){
                 alert("请选择用户详细地址.");
                 return;
             }
-            var url = "<%$smarty.const.__CONTROLLER__%>/addorder?uid=<%$uid%>" +
-                    "&ware_id=<%$ware_id%>&user=<%$user%>$addr=<%$addr%>&count="+count
+            var url = "<%$smarty.const.__CONTROLLER__%>/addorder?uid=<%$uid%>&token=<%$token%>"+
+                    "&ware_id=<%$ware_id%>&count="+count+"&money="+price;
            if(model_len>0){
-               url+="model="+model;
+               url+="&model="+model;
             }
             window.location.href=url;
         }

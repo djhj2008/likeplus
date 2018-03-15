@@ -187,8 +187,8 @@
                                             <td class="hide-phone"><%$v["city"]%></td>
                                             <td class="hide-phone"><%$v["area"]%></td>
                                             <td class="hide-phone"><%$v["addr"]%></td>
-                                            <td><a href="<%$smarty.const.__APP__%>/sale/useredit?uid=<%$v['auto_id']%>&token=<%$token%>&ware_id=<%$ware_id%>">编辑</a>&nbsp;|&nbsp;
-                                                <a href="<%$smarty.const.__APP__%>/sale/buyware?uid=<%$v['auto_id']%>&token=<%$token%>&ware_id=<%$ware_id%>">选择</a></td>
+                                            <td><a href="<%$smarty.const.__APP__%>/sale/myuseredit?uid=<%$v['auto_id']%>&token=<%$token%>">编辑</a>
+                                            </td>
                                         </tr>
                                         <%/foreach%>
                                         </tbody>
@@ -283,7 +283,7 @@
 
 
             function useradd(){
-                window.location.href="<%$smarty.const.__CONTROLLER__%>/useradd?ware_id=<%$ware_id%>&token=<%$token%>";
+                window.location.href="<%$smarty.const.__CONTROLLER__%>/myuseradd?ware_id=<%$ware_id%>&token=<%$token%>";
             }
         </script>
 

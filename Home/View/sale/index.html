@@ -105,16 +105,15 @@
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="buyware.html">今日订单</a></li>
-                                    <li><a href="tables-datatable.html">历史订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">今日订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="userinfo.html">成员信息</a></li>
-                                    <li><a href="tables-datatable.html">成员订单信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo?token=<%$token%>">成员信息</a></li>
                                 </ul>
                             </li>
 

@@ -48,8 +48,8 @@ function Alert($Str,$Typ="back",$TopWindow="",$Tim=100){
         //Die();
         Default:
             if($Typ!=""){
-                //echo "window.{$WinName}.location.href='{$Typ}';";
-                echo "window.{$WinName}.location=('{$Typ}');";
+                echo "window.location.href='{$Typ}';";
+                //echo "window.{$WinName}.location=('{$Typ}');";
             }
     }
     echo "}".chr(10);

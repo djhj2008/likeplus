@@ -1,32 +1,33 @@
-<?php /* Smarty version Smarty-3.1.6, created on 2018-03-12 01:25:32
+<?php /* Smarty version Smarty-3.1.6, created on 2018-03-15 17:13:53
          compiled from "D:/amp/Apache24/htdocs/likeplus/Home/View\Sale\userinfo.html" */ ?>
-<?php /*%%SmartyHeaderCode:276245aa4da9da00544-39558536%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:109405aa9e06cd8fbd4-61471514%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '526984d58ea25d5559aae4bdf39c80af265f48ef' => 
     array (
       0 => 'D:/amp/Apache24/htdocs/likeplus/Home/View\\Sale\\userinfo.html',
-      1 => 1520789108,
+      1 => 1521105084,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '276245aa4da9da00544-39558536',
+  'nocache_hash' => '109405aa9e06cd8fbd4-61471514',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.6',
-  'unifunc' => 'content_5aa4da9dbb844',
+  'unifunc' => 'content_5aa9e06cf2db3',
   'variables' => 
   array (
     'salesname' => 0,
+    'token' => 0,
     'users' => 0,
     'v' => 0,
     'ware_id' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5aa4da9dbb844')) {function content_5aa4da9dbb844($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_5aa9e06cf2db3')) {function content_5aa9e06cf2db3($_smarty_tpl) {?><!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -144,7 +145,8 @@ images/logo_sm.png" alt="" height="64">
                             <li class="menu-title">爱加HOME</li>
                             <li>
                                 <a href="<?php echo @__CONTROLLER__;?>
-/index">
+/index?token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
+">
                                     <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 今日新品 </span>
                                 </a>
                             </li>
@@ -152,16 +154,21 @@ images/logo_sm.png" alt="" height="64">
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="buyware.html">今日订单</a></li>
-                                    <li><a href="tables-datatable.html">历史订单</a></li>
+                                    <li><a href="<?php echo @__CONTROLLER__;?>
+/myorder?token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
+">今日订单</a></li>
+                                    <li><a href="<?php echo @__CONTROLLER__;?>
+/hisorder?token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
+">历史订单</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="userinfo.html">成员信息</a></li>
-                                    <li><a href="tables-datatable.html">成员订单信息</a></li>
+                                    <li><a href="<?php echo @__CONTROLLER__;?>
+/myuserinfo?token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
+">成员信息</a></li>
                                 </ul>
                             </li>
 
@@ -189,8 +196,6 @@ images/logo_sm.png" alt="" height="64">
                 <!-- Sidebar -left -->
             </div>
             <!-- Left Sidebar End -->
-
-
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -243,10 +248,12 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 </td>
                                             <td><a href="<?php echo @__APP__;?>
 /sale/useredit?uid=<?php echo $_smarty_tpl->tpl_vars['v']->value['auto_id'];?>
+&token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
 &ware_id=<?php echo $_smarty_tpl->tpl_vars['ware_id']->value;?>
 ">编辑</a>&nbsp;|&nbsp;
                                                 <a href="<?php echo @__APP__;?>
 /sale/buyware?uid=<?php echo $_smarty_tpl->tpl_vars['v']->value['auto_id'];?>
+&token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
 &ware_id=<?php echo $_smarty_tpl->tpl_vars['ware_id']->value;?>
 ">选择</a></td>
                                         </tr>
@@ -364,6 +371,7 @@ assets/js/jquery.app.js"></script>
             function useradd(){
                 window.location.href="<?php echo @__CONTROLLER__;?>
 /useradd?ware_id=<?php echo $_smarty_tpl->tpl_vars['ware_id']->value;?>
+&token=<?php echo $_smarty_tpl->tpl_vars['token']->value;?>
 ";
             }
         </script>
