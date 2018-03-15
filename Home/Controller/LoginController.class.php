@@ -29,10 +29,16 @@ class LoginController extends HomeController {
                     'password'=>$pwd
                     );
                 $userFind=M('lp_sales')->where($nameArr)->find();
-                if($userFind){
-                    session('name',$userFind['name']);
-                    session('id',  $userFind['auto_id']);
-                    $this ->redirect('sale/index',array('token'=>$token),0,'');
+                if($userFind) {
+                    if($userFind['role']==1) {
+                        session('name', $userFind['name']);
+                        session('id', $userFind['auto_id']);
+                        $this->redirect('manager/index', array('token' => $token), 0, '');
+                    }else{
+                        session('name', $userFind['name']);
+                        session('id', $userFind['auto_id']);
+                        $this->redirect('sale/index', array('token' => $token), 0, '');
+                    }
 				}else{
 						$jarr=array('ret'=>array('ret_message'=>'register error','status_code'=>10000107));
                         //echo json_encode(array('UserInfo'=>$jarr));

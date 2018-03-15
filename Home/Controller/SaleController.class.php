@@ -435,6 +435,7 @@ class SaleController extends HomeController {
         $uid = $_GET['uid'];
         $count = $_GET['count'];
         $money = $_GET['money'];
+        $model = $_GET['model'];
         $this->assign('ware_id',$ware_id);
 
         $sn = str_pad($id,4,'0',STR_PAD_LEFT);
@@ -457,6 +458,10 @@ class SaleController extends HomeController {
             'sn'=>$sn,
             'price'=>$money,
         );
+        if(!empty($model)){
+            $order['ware_model']=$model;
+        }
+
         $ret=D('lp_order')->add($order);
         if($ret) {
             $myorder = M('lp_order')->where(array('auto_id' => $ret))->select();
@@ -507,6 +512,11 @@ class SaleController extends HomeController {
         if($order) {
             $this->assign('myorder',$order);
         }
+        $sum=0;
+        for($i=0;$i<count($order);$i++){
+            $sum +=$order[$i]['price'];
+        }
+        $this->assign('money',$sum);
         //var_dump($order);
         $this->display();
     }

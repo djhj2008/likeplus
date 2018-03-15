@@ -7,29 +7,28 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
         <!-- App favicon -->
         <link rel="shortcut icon" href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/images/favicon.ico">
-
-        <!-- DataTables -->
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-        <!-- Responsive datatable examples -->
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
-
         <!-- App css -->
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css" rel="stylesheet" type="text/css" />
-
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css?version=1.01.02" rel="stylesheet" type="text/css" />
         <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
 
+        <js file='__PUBLIC__/Uploadify/jquery-1.9.1.min.js'/>
+        <js file='__PUBLIC__/Uploadify/jquery.uploadify.min.js'/>
+        <!-- Bootstrap fileupload css -->
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-fileupload/bootstrap-fileupload.css" rel="stylesheet" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>main.css?version=1.01.02" id="color-switcher-link">
+        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>animations.css">
+        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>fonts.css">
+
     </head>
-
-
     <body>
-
         <!-- Begin page -->
         <div id="wrapper">
             <!-- Top Bar Start -->
@@ -154,138 +153,70 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card-box table-responsive">
-                                    <div class="col-6 mb-2">
-                                        <button type="button" id="search_user" onclick="useradd()"
-                                                class="btn btn-github" >
-                                            <i class="fa fa-user-plus mr-0"></i>
-                                            <span>添加用户</span> </button>
-                                    </div>
-                                    <h4 class="m-t-0 header-title"><b>用户信息:</b></h4>
-                                    <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                        <thead>
-                                        <tr>
-                                            <th>姓名</th>
-                                            <th>电话</th>
-                                            <th class="hide-phone">省</th>
-                                            <th class="hide-phone">市</th>
-                                            <th class="hide-phone">区县</th>
-                                            <th class="hide-phone">详细地址</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <%foreach $users as $v%>
-                                        <tr>
-                                            <td><%$v["name"]%></td>
-                                            <td><%$v["phone"]%></td>
-                                            <td class="hide-phone"><%$v["province"]%></td>
-                                            <td class="hide-phone"><%$v["city"]%></td>
-                                            <td class="hide-phone"><%$v["area"]%></td>
-                                            <td class="hide-phone"><%$v["addr"]%></td>
-                                            <td><a href="<%$smarty.const.__APP__%>/sale/myuseredit?uid=<%$v['auto_id']%>&token=<%$token%>">编辑</a>
-                                            </td>
-                                        </tr>
-                                        <%/foreach%>
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="file_holder">
+                                <form action="<%$smarty.const.__CONTROLLER__%>/upload" enctype="multipart/form-data" method="post" >
+                                    <input type="file" name="photo[]" />
+                                    <input type="file" name="photo[]" />
+                                    <input type="file" name="photo[]" />
+                                    <input type="submit" value="提交" >
+                                </form>
                             </div>
                         </div>
-                        <!-- end row -->
-                    </div> <!-- container -->
-                </div> <!-- content -->
-
-                <footer class="footer text-right">
-                    2017 - 2018 © Abstack. - Coderthemes.com
-                </footer>
-
+                    </div>
+                    <footer class="footer text-right">
+                        Copyright &copy; 2018.爱加社区
+                    </footer>
             </div>
-
-
+            </div>
             <!-- ============================================================== -->
             <!-- End Right content here -->
             <!-- ============================================================== -->
-
-
         </div>
         <!-- END wrapper -->
-
-
-
-        <!-- jQuery  -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
-
-        <!-- Required datatable js -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.bootstrap4.min.js"></script>
-        <!-- Buttons examples -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.buttons.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.bootstrap4.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jszip.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/pdfmake.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/vfs_fonts.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.html5.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.print.min.js"></script>
-        <!-- Responsive examples -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/responsive.bootstrap4.min.js"></script>
-
-        <!-- App js -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                //Buttons examples
-                var table = $('#datatable-buttons').DataTable({
-                    lengthChange: false,
-                    info: false,
-                    buttons: ['excel'],
-                    language: {
-                        "sProcessing": "处理中...",
-                        "sLengthMenu": "显示 _MENU_ 项结果",
-                        "sZeroRecords": "没有匹配结果",
-                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                        "sInfoPostFix": "",
-                        "sSearch": "搜索:",
-                        "sUrl": "",
-                        "sEmptyTable": "表中数据为空",
-                        "sLoadingRecords": "载入中...",
-                        "sInfoThousands": ",",
-                        "oPaginate": {
-                            "sFirst": "首页",
-                            "sPrevious": "上页",
-                            "sNext": "下页",
-                            "sLast": "末页"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": 以升序排列此列",
-                            "sSortDescending": ": 以降序排列此列"
-                        }
-                    }
-                });
-
-                table.buttons().container()
-                        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-            } );
-
-
-            function useradd(){
-                window.location.href="<%$smarty.const.__CONTROLLER__%>/myuseradd?ware_id=<%$ware_id%>&token=<%$token%>";
-            }
-        </script>
-
     </body>
+    <script type="text/javascript">
+        //上传插件
+        $(function() {
+            $('#file_upload').uploadify({
+                'swf'      : '__PUBLIC__/uploadify/uploadify.swf',//进度动画
+                'uploader' : '{:U("Index/uploadify")}',
+                'width' : 120,    //上传按钮宽度
+                'height' : 30,    //上传按钮高度
+                //'buttonText' : '上传头像',//提示
+                'buttonImage' : '__PUBLIC__/Uploadify/browse-btn.png',    //上传按钮背景图地址 经测试火狐未安装flash图片显示错误
+                'fileTypeDesc' : 'Image File',    //选择文件提示文字
+                'fileTypeExts' : '*.jpeg; *.jpg; *.png; *.gif',    //允许选择的文件类型
+                'onUploadSuccess' : function(file, data, response) {
+                    $('#img').attr('src','__ROOT__/Uploads/'+ data);
+                },
+            });
+        });
+    </script>
+    <!-- jQuery  -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/counterup/jquery.counterup.min.js"></script>
+
+    <!-- Bootstrap fileupload js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+
+    <!-- Chart JS -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/chart.js/chart.bundle.js"></script>
+
+    <!-- init dashboard -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.dashboard.init.js"></script>
+
+    <!-- App js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
+
+    <script src="<%$smarty.const.AJS_URL%>compressed.js"></script>
+    <script src="<%$smarty.const.AJS_URL%>main.js"></script>
 </html>
