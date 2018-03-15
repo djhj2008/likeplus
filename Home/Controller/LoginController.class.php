@@ -13,22 +13,7 @@ class LoginController extends HomeController {
 			if($_POST['name'] && $_POST['password']){
 				$pwd   =trim($_POST['password']);
 				$phone  =trim($_POST['name']);
-				
-				if($phone=='admin'){
-					if($pwd == 'admin1023'){
-						 session('name','admin');
-                         session('id','1');
-						 $this ->redirect('sale/index',array(),0,'');
-					}else{
-						 echo "<script language=\"JavaScript\">\r\n";
-						 echo " alert(\"密码错误，请联系管理员!\");\r\n";
-						 echo " history.back();\r\n";
-						 echo "</script>";
-						 $this->display();
-					}
-					exit;
-				}
-				
+
 				$phoneFind=M('lp_sales')->where(array('phone'=>$phone))->find();
 				//var_dump($phoneFind);
 				if($phoneFind==NULL){
