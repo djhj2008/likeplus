@@ -26,26 +26,52 @@ class ManagerController extends HomeController {
 
     //自带上传类
     public function upload(){
+        $sn = $_POST['sn'];
         $upload = new \Think\Upload();// 实例化上传类
-        $upload->maxSize   =     3145728 ;// 设置附件上传大小
+        $upload->maxSize   =     31457280 ;// 设置附件上传大小
         $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','pdf');// 设置附件上传类型
         $upload->rootPath  =     'home/public/Uploads/'; // 设置附件上传根目录
-        $upload->savePath  =     ''; // 设置附件上传（子）目录
+        $upload->savePath  =     $sn.'/'; // 设置附件上传（子）目录
         // 上传文件
         $info   =   $upload->upload();
         if(!$info) {// 上传错误提示错误信息
-            var_dump($upload->getError());
+            echo $upload->getError()."\r\n";
             exit;
         }else{// 上传成功
-            var_dump('上传成功！');
             foreach($info as $file){
-                var_dump($file);
                 $filename[]= $file['savepath'].$file['savename'];
             }
         }
+
+        $name = $_POST['name'];
+        $in_price = $_POST['in_price'];
+        $out_price = $_POST['out_price'];
+        $data = $_POST['data'];
+        $pic_path = $_POST['pic_path'];
+        $video_url= $_POST['video_url'];
+
+        $ware=array(
+            'name'=>$name,
+            'type'=>1,
+            'model'=>0,
+            'number'=>$sn,
+            'in_price'=>$in_price,
+            'out_price'=>$out_price,
+            'flag'=>0,
+            'factory_info'=>$info,
+            'data'=>$data,
+            'pic_url'=>$filename[0],
+            'pic_path'=>$pic_path,
+            'video_url'=>$video_url,
+
+        );
+        var_dump($ware);
+
         $this->assign('filename', $filename);
         $this->display();
     }
+
+
     //插件图像上传
     public function uploadify(){
         if (!empty($_FILES)) {

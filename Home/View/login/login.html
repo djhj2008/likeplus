@@ -23,7 +23,7 @@
         <form action="" onSubmit="return chkinput(this)" method="post">
             <div class="userName">
                 <lable>用户名：</lable>
-                <input type="text" name="name" id="name" placeholder="请输入用户名" />
+                <input type="text" name="name" id="name" oninput="chkname()" placeholder="请输入用户名" />
             </div>
             <div class="passWord">
                 <lable>密&nbsp;&nbsp;&nbsp;码：</lable>
@@ -103,6 +103,18 @@
             localStorage.setItem('keyPass',strPass);
         }else{
             localStorage.removeItem('keyPass');
+        }
+        return(true);
+    }
+
+    function chkname(){
+        var strName = $('#name').val();
+        var strPass =  $('#password').val();
+        var strPreName = localStorage.getItem('keyName');
+
+        if(strPreName!=strName){
+            localStorage.removeItem('keyPass');
+            $('#password').val("");
         }
         return(true);
     }
