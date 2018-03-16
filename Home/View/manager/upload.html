@@ -103,22 +103,23 @@
                             <li class="menu-title">爱加HOME</li>
                             <li>
                                 <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
-                                    <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 今日新品 </span>
+                                    <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 新商品上传 </span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
+                                <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 商品和订单 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>">商品管理</a></li>
                                     <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">今日订单</a></li>
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单查询</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo?token=<%$token%>">成员信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/mysaleinfo?token=<%$token%>">社长信息</a></li>
                                 </ul>
                             </li>
 
@@ -153,13 +154,30 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                    <h3><></h3>
+                    <h3>商品名称:<%$ware['name']%></h3>
+                    <h3>编号:<%$ware['number']%></h3>
+                    <h3>进货价:<%$ware['in_price']%></h3>
+                    <h3>售价:<%$ware['out_price']%></h3>
+                    <h3>其他平台价格:<%$ware['other_price']%></h3>
+                    <h3>商品介绍:<br><%$ware['factory_info']%></h3>
+                    <h3>上架日期:<%$ware['date']%></h3>
+                    <h3>视频地址:<%$ware['video_url']%></h3>
+                    <h3>图片:</h3>
                     <%foreach $filename as $file%>
                     <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$file%>" alt="" height="300">
                     <%/foreach%>
-                    <footer class="footer text-right">
-                        Copyright &copy; 2018.爱加社区
-                    </footer>
+                    <div >
+                        <div class="clo-2 mt-2">
+                            <button type="button" class="btn btn-github" onclick="addware()">
+                                继续添加
+                            </button>
+                        </div>
+                        <div class="clo-2 mt-3">
+                            <button type="button" class="btn btn-github" onclick="checkware()">
+                                查看商品
+                            </button>
+                        </div>
+                    </div>
             </div>
             </div>
             <!-- ============================================================== -->
@@ -168,6 +186,19 @@
         </div>
         <!-- END wrapper -->
     </body>
+    <footer class="footer text-right">
+        Copyright &copy; 2018.爱加社区
+    </footer>
+
+<script type="text/javascript">
+    function addware(){
+    window.location.href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>";
+    }
+
+    function checkware(){
+    window.location.href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>";
+    }
+</script>
     <!-- jQuery  -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>

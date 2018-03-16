@@ -12,7 +12,6 @@ class ManagerController extends HomeController {
             //exit;
         }
         $this->assign('token',$token);
-
         $salesname = $_SESSION['name'];
         $id = $_SESSION['id'];
         $this->assign('salesname', $salesname);
@@ -21,12 +20,18 @@ class ManagerController extends HomeController {
             //Alert("身份验证失败!","login/login","",100);
             //exit;
         }
+        $date = date("Y-m-d");
+        $this->assign('date', $date);
         $this->display();
     }
 
     //自带上传类
     public function upload(){
         $sn = $_POST['sn'];
+        if(empty($sn)){
+            $this->display();
+            exit;
+        }
         $upload = new \Think\Upload();// 实例化上传类
         $upload->maxSize   =     31457280 ;// 设置附件上传大小
         $upload->exts      =     array('jpg', 'gif', 'png', 'jpeg','pdf');// 设置附件上传类型
@@ -35,7 +40,10 @@ class ManagerController extends HomeController {
         // 上传文件
         $info   =   $upload->upload();
         if(!$info) {// 上传错误提示错误信息
-            echo $upload->getError()."\r\n";
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"请选择上传图片!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
             exit;
         }else{// 上传成功
             foreach($info as $file){
@@ -50,10 +58,19 @@ class ManagerController extends HomeController {
         $pic_path = $_POST['pic_path'];
         $video_url= $_POST['video_url'];
         $finfo = $_POST['info'];
-
-        var_dump(bin2hex($finfo));
+        $other_price = $_POST['other_price'];
+        $video_url = $_POST['video_url'];
 
         $finfo3 = str_replace("\r\n","<br>",$finfo);
+
+        $ret=D('lp_wares')->where(array('number'=>$sn))->find();
+        if(!empty($ret)){
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"编号重复，请修改编号!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
 
         $ware=array(
             'name'=>$name,
@@ -62,15 +79,16 @@ class ManagerController extends HomeController {
             'number'=>$sn,
             'in_price'=>$in_price,
             'out_price'=>$out_price,
-            'flag'=>0,
+            'other_price'=>$other_price,
+            'flag'=>1,
             'factory_info'=>$finfo3,
-            'data'=>$date,
+            'date'=>$date,
             'pic_url'=>$filename[0],
             'pic_path'=>$pic_path,
             'video_url'=>$video_url,
         );
         $ret=D('lp_wares')->add($ware);
-        if($ret){
+        if(empty($ret)){
             echo $ret;
             exit;
         }
@@ -79,34 +97,85 @@ class ManagerController extends HomeController {
         $this->display();
     }
 
-
-    //插件图像上传
-    public function uploadify(){
-        if (!empty($_FILES)) {
-            //图片上传设置
-            $config = array(
-                'maxSize'    =>    3145728,
-                'savePath'   =>    '',
-                'saveName'   =>    array('uniqid',''),
-                'exts'       =>    array('jpg', 'gif', 'png', 'jpeg'),
-                'autoSub'    =>    true,
-                'subName'    =>    array('date','Ymd'),
-            );
-            $upload = new \Think\Upload($config);// 实例化上传类
-            $images = $upload->upload();
-            //判断是否有图
-            if($images){
-                $info=$images['Filedata']['savepath'].$images['Filedata']['savename'];
-                //返回文件地址和名给JS作回调用
-                echo $info;
-            }else{
-                $this->error($upload->getError());//获取失败信息
-            }
+    public function myware(){
+        $token = $_GET['token'];
+        //var_dump($token);
+        $ip = get_client_ip();
+        $mytoken = md5($ip);
+        //var_dump($mytoken);
+        if(empty($token)||empty($mytoken)||$token!=$mytoken){
+            //Alert("网络状态变化，请重新登陆!","login/login","",100);
+            //exit;
         }
-        $model = M('img');
-        // 保存当前数据对象
-        $data['goods_img'] = $info;
-        $model->add($data);
+        $this->assign('token',$token);
+
+        $salesname=$_SESSION['name'];
+        $this->assign('salesname',$salesname);
+        $id=$_SESSION['id'];
+
+        $today=strtotime(date('Y-m-d 00:00:00'));
+        $data = array('egt',$today);
+
+        $wares=M('lp_wares')->where(array( 'unix_timestamp(date)'=>$data))->select();
+        if($wares) {
+            $this->assign('myware',$wares);
+        }
+        //var_dump($order);
+        $this->display();
+    }
+
+    public function changeware()
+    {
+        $token = $_GET['token'];
+        //var_dump($token);
+        $ip = get_client_ip();
+        $mytoken = md5($ip);
+        //var_dump($mytoken);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert("网络状态变化，请重新登陆!","login/login","",100);
+            //exit;
+        }
+
+        $this->assign('token', $token);
+
+        $salesname = $_SESSION['name'];
+        $this->assign('salesname', $salesname);
+        $id = $_SESSION['id'];
+        $ware_id = $_GET['ware_id'];
+        $flag = $_GET['flag'];
+        $save_flag = array();
+        if ($flag == 1) {
+            $save_flag['flag'] = 0;
+         }else{
+            $save_flag['flag'] = 1;
+        }
+        $user = M('lp_wares');
+        $ret=$user->where(array('auto_id'=>$ware_id))->save($save_flag);
+
+        if(!empty($ret)){
+            echo "<script language=\"JavaScript\">\r\n";
+            if ($flag == 1) {
+                echo " alert(\"下架成功!\");\r\n";
+            }else {
+                echo " alert(\"上架成功!\");\r\n";
+            }
+            echo "window.location.href='myware?token={$token}';\r\n";
+            echo "</script>";
+            exit;
+        }else{
+            echo "<script language=\"JavaScript\">\r\n";
+            if ($flag == 1) {
+                echo " alert(\"下架失败!\");\r\n";
+            }else {
+                echo " alert(\"上架失败!\");\r\n";
+            }
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
+        //exit;
+        //$this ->redirect('manager/myware',array('token'=>$token),0,'');
+
     }
 }
 ?>

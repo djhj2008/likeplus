@@ -250,7 +250,7 @@ class SaleController extends HomeController {
         $this->assign('uid',$uid);
         $this->assign('ware_id',$ware_id);
         //var_dump($user);
-        $this ->redirect('sale/userinfo',array('ware_id'=>$ware_id),0,'');
+        $this ->redirect('sale/userinfo',array('ware_id'=>$ware_id,'token'=>$token),0,'');
     }
 
     public function usersaveonly(){
@@ -313,7 +313,7 @@ class SaleController extends HomeController {
         }
         $this->assign('uid',$uid);
         //var_dump($user);
-        $this ->redirect('sale/myuserinfo',array(),0,'');
+        $this ->redirect('sale/myuserinfo',array('token'=>$token),0,'');
     }
 
     public function myuseradd(){

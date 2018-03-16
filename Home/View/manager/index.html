@@ -97,22 +97,23 @@
                             <li class="menu-title">爱加HOME</li>
                             <li>
                                 <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
-                                    <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 今日新品 </span>
+                                    <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 新商品上传 </span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
+                                <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 商品和订单 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>">商品管理</a></li>
                                     <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">今日订单</a></li>
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单查询</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo?token=<%$token%>">成员信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/mysaleinfo?token=<%$token%>">社长信息</a></li>
                                 </ul>
                             </li>
 
@@ -147,8 +148,9 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                    <div class="row">
-                        <div class="col">
+
+                        <div class="row">
+                            <div class="col-md-6">
                             <div class="file_holder">
                                 <form action="<%$smarty.const.__CONTROLLER__%>/upload" enctype="multipart/form-data" method="post" >
                                     <label class="col-4 col-form-label">商品编号:</label>
@@ -167,55 +169,47 @@
                                     <div class="col-8">
                                         <input type="number" name="out_price" />
                                     </div>
+                                    <label class="col-4 col-form-label">其他平台价格:</label>
+                                    <div class="col-8">
+                                        <input type="number" name="other_price" />
+                                    </div>
                                     <label class="col-4 col-form-label">上架时间:</label>
                                     <div class="col-8 mb-2">
-                                        <input type="date" name="date" />
+                                        <input type="date" name="date" value="<%$date%>" />
                                     </div>
                                     <label class="col-4 col-form-label">商品图片:</label>
                                     <div class="col-8">
                                         <input type="file" name="photo" />
                                     </div>
-                                    <label for="info" class="col-4 col-form-label">商品介绍:</label>
+                                    <label class="col-4 col-form-label">视频资料地址图片:</label>
                                     <div class="col-8">
+                                        <input type="url" name="video_url" />
+                                    </div>
+                                    <label for="info" class="col-4 col-form-label">商品介绍:</label>
+                                    <div class="col-12">
                                         <textarea required class="form-control" name="info" id="info"></textarea>
                                     </div>
                                     <div class="col-8 mt-2">
-                                        <input type="submit" calss="col-mt-2" value="提交" >
+                                        <input type="submit" calss="col-mt-2" value="上传商品" >
                                     </div>
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <!-- end row -->
-                    <footer class="footer text-right">
-                        Copyright &copy; 2018.爱加社区
-                    </footer>
-            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                </div>
             </div>
             <!-- ============================================================== -->
             <!-- End Right content here -->
             <!-- ============================================================== -->
         </div>
+        <footer class="footer text-right">
+            Copyright &copy; 2018.爱加社区
+        </footer>
         <!-- END wrapper -->
     </body>
-    <script type="text/javascript">
-        //上传插件
-        $(function() {
-            $('#file_upload').uploadify({
-                'swf'      : '__PUBLIC__/uploadify/uploadify.swf',//进度动画
-                'uploader' : '{:U("Index/uploadify")}',
-                'width' : 120,    //上传按钮宽度
-                'height' : 30,    //上传按钮高度
-                //'buttonText' : '上传头像',//提示
-                'buttonImage' : '__PUBLIC__/Uploadify/browse-btn.png',    //上传按钮背景图地址 经测试火狐未安装flash图片显示错误
-                'fileTypeDesc' : 'Image File',    //选择文件提示文字
-                'fileTypeExts' : '*.jpeg; *.jpg; *.png; *.gif',    //允许选择的文件类型
-                'onUploadSuccess' : function(file, data, response) {
-                    $('#img').attr('src','__ROOT__/Uploads/'+ data);
-                },
-            });
-        });
-    </script>
 
     <!-- jQuery  -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
