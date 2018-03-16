@@ -11,16 +11,15 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/images/favicon.ico">
 
-        <!-- X editable -->
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-xeditable/css/bootstrap-editable.css" rel="stylesheet" />
-
         <!-- App css -->
+        <link href="<%$smarty.const.ABOOT_URL%>bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css" rel="stylesheet" type="text/css" />
 
         <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
+
 
     </head>
     <body>
@@ -170,11 +169,15 @@
                                     </div>
                                     <label class="col-4 col-form-label">上架时间:</label>
                                     <div class="col-8 mb-2">
-                                        <td><a href="#" id="inline-dob" data-type="combodate" emptytext="空" data-value="2018-01-01" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY" data-pk="1"  data-title="选择上架日期"></a></td>
+                                        <input type="date" name="date" />
                                     </div>
                                     <label class="col-4 col-form-label">商品图片:</label>
                                     <div class="col-8">
                                         <input type="file" name="photo" />
+                                    </div>
+                                    <label for="info" class="col-4 col-form-label">商品介绍:</label>
+                                    <div class="col-8">
+                                        <textarea required class="form-control" name="info" id="info"></textarea>
                                     </div>
                                     <div class="col-8 mt-2">
                                         <input type="submit" calss="col-mt-2" value="提交" >
@@ -222,10 +225,8 @@
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
 
-    <!-- Xeditable -->
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/moment/moment.js?version=1.01.01" type="text/javascript"></script>
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-xeditable/js/bootstrap-editable.min.js?version=1.01.01" type="text/javascript"></script>
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.xeditable.init.js" type="text/javascript"></script>
+    <!-- Init js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.form-pickers.init.js"></script>
 
     <!-- App js -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>

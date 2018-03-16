@@ -46,9 +46,14 @@ class ManagerController extends HomeController {
         $name = $_POST['name'];
         $in_price = $_POST['in_price'];
         $out_price = $_POST['out_price'];
-        $data = $_POST['data'];
+        $date = $_POST['date'];
         $pic_path = $_POST['pic_path'];
         $video_url= $_POST['video_url'];
+        $finfo = $_POST['info'];
+
+        var_dump(bin2hex($finfo));
+
+        $finfo3 = str_replace("\r\n","<br>",$finfo);
 
         $ware=array(
             'name'=>$name,
@@ -58,15 +63,18 @@ class ManagerController extends HomeController {
             'in_price'=>$in_price,
             'out_price'=>$out_price,
             'flag'=>0,
-            'factory_info'=>$info,
-            'data'=>$data,
+            'factory_info'=>$finfo3,
+            'data'=>$date,
             'pic_url'=>$filename[0],
             'pic_path'=>$pic_path,
             'video_url'=>$video_url,
-
         );
-        var_dump($ware);
-
+        $ret=D('lp_wares')->add($ware);
+        if($ret){
+            echo $ret;
+            exit;
+        }
+        $this->assign('ware', $ware);
         $this->assign('filename', $filename);
         $this->display();
     }
