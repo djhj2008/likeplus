@@ -9,7 +9,6 @@ class LoginController extends HomeController {
 
 		public function login(){
             $ip = get_client_ip();
-            $token = md5($ip);
 			if($_POST['name'] && $_POST['password']){
 				$pwd   =trim($_POST['password']);
 				$phone  =trim($_POST['name']);
@@ -30,14 +29,11 @@ class LoginController extends HomeController {
                     );
                 $userFind=M('lp_sales')->where($nameArr)->find();
                 if($userFind) {
+                    $token = md5($ip.$userFind['auto_id']);
                     if($userFind['role']==1) {
-                        session('name', $userFind['name']);
-                        session('id', $userFind['auto_id']);
-                        $this->redirect('manager/index', array('token' => $token), 0, '');
+                        $this->redirect('manager/index', array('token' => $token,'sale_id'=>$userFind['auto_id']), 0, '');
                     }else{
-                        session('name', $userFind['name']);
-                        session('id', $userFind['auto_id']);
-                        $this->redirect('sale/index', array('token' => $token), 0, '');
+                        $this->redirect('sale/index', array('token' => $token,'sale_id'=>$userFind['auto_id']), 0, '');
                     }
 				}else{
 						$jarr=array('ret'=>array('ret_message'=>'register error','status_code'=>10000107));
@@ -87,7 +83,7 @@ class LoginController extends HomeController {
             echo"<span style='color:red'>密码不能为空</span>";
         }else if(!$wd==null){
             $score = 0;
-           if(preg_match("/[0-9]+/",$str))
+           if(preg_match("/[0-9]+/",$wd))
            {
               $score ++; 
            }
@@ -148,7 +144,7 @@ class LoginController extends HomeController {
 
     public function checkshoujisal(){
         $ph = addslashes($_GET['name']);
-        //$exists = D('lp_sales')->where("phone='$ph'")->find();
+        $exists = D('lp_sales')->where("phone='$ph'")->find();
         if($ph==""){
             echo"<span style='color:red'>手机号不能为空</span>";
         }else if(!preg_match('/^1[34578]\d{9}$/',$ph)){

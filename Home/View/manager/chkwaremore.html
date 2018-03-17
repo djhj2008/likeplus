@@ -102,7 +102,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">爱加HOME</li>
                             <li>
-                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
+                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>&sale_id=<%$id%>">
                                     <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 新商品上传 </span>
                                 </a>
                             </li>
@@ -110,15 +110,15 @@
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 商品和订单 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>">商品管理</a></li>
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">订单管理</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>&sale_id=<%$id%>">商品管理</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>&sale_id=<%$id%>">订单管理</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/mysaleinfo?token=<%$token%>">社长信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/mysaleinfo?token=<%$token%>&sale_id=<%$id%>">社长信息</a></li>
                                 </ul>
                             </li>
 
@@ -160,17 +160,17 @@
                                 <h4>默认显示最新的商品:</h4>
                                 <ul class="nav nav-pills navtab-bg nav-justified">
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>" class="nav-link">
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
                                             商品
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwarebydate?token=<%$token%>" class="nav-link">
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwarebydate?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
                                             按日期查询
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>" class="nav-link active">
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>" class="nav-link active">
                                             更多查询
                                         </a>
                                     </li>
@@ -179,7 +179,7 @@
                                     <div class="tab-pane fade show active" id="chkwarebydate">
                                         <div class="card-box table-responsive">
                                             <h4 class="m-t-0 header-title"><b>商品信息:</b></h4>
-                                            <table id="datatable-buttons2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                 <thead>
                                                 <tr>
                                                     <td>名&nbsp;&nbsp;称</td>
@@ -217,16 +217,17 @@
                                                     </td>
                                                     <td>
                                                         <%if $v["flag"] eq 0 %>
-                                                        <a href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>">上架</a>
+                                                        <a href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>">上架</a>
                                                         <%else%>
-                                                        <a href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>">下架</a>
+                                                        <a href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>">下架</a>
                                                         <%/if%>
+                                                        <a href="<%$smarty.const.__APP__%>/manager/editwaremore?token=<%$token%>&ware_id=<%$v['auto_id']%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>">&nbsp;|&nbsp;编辑</a>
                                                     </td>
                                                 </tr>
                                                 <%/foreach%>
                                                 </tbody>
                                             </table>
-                                            <form action="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>"  method="post" >
+                                            <form action="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>"  method="post" >
                                                 <div class="col-8">
                                                     <h4 class="m-t-0 header-title"><b>开始日期:</b></h4>
                                                     <input type="date" name="date1" value="<%$date1%>" />
@@ -242,58 +243,6 @@
                                 </div>
                             </div>
                         </div> <!-- end col -->
-                        <!--div class="col-md-12">
-                            <div class="card-box table-responsive">
-                                <h4 class="m-t-0 header-title"><b>商品信息:</b></h4>
-                                <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                    <thead>
-                                    <tr>
-                                        <td>名&nbsp;&nbsp;称</td>
-                                        <td>编号</td>
-                                        <td>进&nbsp;货&nbsp;价</td>
-                                        <td>零售价</td>
-                                        <td>其他平台价格</td>
-                                        <td>上架时间</td>
-                                        <th>产品说明</th>
-                                        <th>图片</th>
-                                        <th>视频地址</th>
-                                        <th>状态</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    <%foreach $myware as $v%>
-                                    <tr>
-                                        <td><%$v["name"]%></td>
-                                        <td><%$v["number"]%></td>
-                                        <td><%$v["in_price"]%></td>
-                                        <td><%$v["out_price"]%></td>
-                                        <td><%$v["other_price"]%></td>
-                                        <td><%$v["date"]%></td>
-                                        <td><%$v["factory_info"]%></td>
-                                        <td><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$v['pic_url']%>" alt="" height="60"></td>
-                                        <td><%$v["video_url"]%></td>
-                                        <td>
-                                            <%if $v["flag"] eq 0 %>
-                                            <a>停止出售</a>
-                                            <%else%>
-                                            <a>出售中</a>
-                                            <%/if%>
-                                        </td>
-                                        <td>
-                                            <%if $v["flag"] eq 0 %>
-                                            <a href="<%$smarty.const.__APP__%>/manager/changeware?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>">上架</a>
-                                            <%else%>
-                                            <a href="<%$smarty.const.__APP__%>/manager/changeware?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>">下架</a>
-                                            <%/if%>
-                                        </td>
-                                    </tr>
-                                    <%/foreach%>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div-->
                     </div>
                     <!-- end row -->
                     </div>
@@ -311,7 +260,7 @@
 
     <script type="text/javascript">
         function allmyware(){
-            window.location.href="<%$smarty.const.__CONTROLLER__%>/allmyware?token=<%$token%>";
+            window.location.href="<%$smarty.const.__CONTROLLER__%>/allmyware?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>";
         }
 
     </script>

@@ -486,15 +486,16 @@ class SaleController extends HomeController {
         $this->assign('salesname',$salesname);
         $id=$_SESSION['id'];
 
-        $today=strtotime(date('Y-m-d 00:00:00'));
+        $today=date('Y-m-d 00:00:00',time());
+        $end_time = date("Y-m-d H:i:s", strtotime($today) + 86400 - 1);
+        $date = array('between', array($today, $end_time));
 
-        $data = array('egt',$today);
         $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
         $order=$User->Distinct(true)
             ->where(array('myorder.sale_id' => $id,
                 'myorder.user_id=myuser.auto_id',
                 'myorder.ware_id=myware.auto_id',
-                'unix_timestamp(myorder.time)'=>$data))
+                'myorder.time'=>$date))
             ->field('myorder.time as time,
             myorder.sn as sn,
             myware.name as name,
@@ -537,15 +538,29 @@ class SaleController extends HomeController {
         $this->assign('salesname',$salesname);
         $id=$_SESSION['id'];
 
-        $today=strtotime(date('Y-m-d 00:00:00'));
+        $today = $_POST['date1'];
+        $end_time = $_POST['date2'];
 
-        $data = array('egt',$today);
+        if (empty($today)) {
+            $date = date("Y-m-d");
+            $this->assign('date1', $date);
+            $this->assign('date2', $date);
+            $this->display();
+            exit;
+        }
+        $this->assign('date1',$today);
+        $this->assign('date2',$end_time);
+
+        $today = date("Y-m-d 0:0:0", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
+        $date = array('between', array($today, $end_time));
+
         $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
         $order=$User->Distinct(true)
             ->where(array('myorder.sale_id' => $id,
                 'myorder.user_id=myuser.auto_id',
-                'myorder.ware_id=myware.auto_id'
-                ))
+                'myorder.ware_id=myware.auto_id',
+                'myorder.time'=>$date))
             ->field('myorder.time as time,
             myorder.sn as sn,
             myware.name as name,

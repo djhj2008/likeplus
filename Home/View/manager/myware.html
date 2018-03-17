@@ -102,7 +102,7 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">爱加HOME</li>
                             <li>
-                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
+                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>&sale_id=<%$id%>">
                                     <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 新商品上传 </span>
                                 </a>
                             </li>
@@ -110,15 +110,15 @@
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 商品和订单 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>">商品管理</a></li>
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">订单管理</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>&sale_id=<%$id%>">商品管理</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>&sale_id=<%$id%>">订单管理</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/mysaleinfo?token=<%$token%>">社长信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/mysaleinfo?token=<%$token%>&sale_id=<%$id%>">社长信息</a></li>
                                 </ul>
                             </li>
 
@@ -160,17 +160,17 @@
                                 <h4>默认显示最新的商品:</h4>
                                 <ul class="nav nav-pills navtab-bg nav-justified">
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>"  class="nav-link active">
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>&sale_id=<%$id%>"  class="nav-link active">
                                             商品
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwarebydate?token=<%$token%>" class="nav-link">
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwarebydate?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
                                             按日期查询
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>" class="nav-link">
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
                                             更多查询
                                         </a>
                                     </li>
@@ -217,9 +217,9 @@
                                                     </td>
                                                     <td>
                                                         <%if $v["flag"] eq 0 %>
-                                                        <a href="<%$smarty.const.__APP__%>/manager/changeware?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>">上架</a>
+                                                        <a href="<%$smarty.const.__APP__%>/manager/changeware?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>&sale_id=<%$id%>">上架</a>
                                                         <%else%>
-                                                        <a href="<%$smarty.const.__APP__%>/manager/changeware?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>">下架</a>
+                                                        <a href="<%$smarty.const.__APP__%>/manager/changeware?token=<%$token%>&ware_id=<%$v['auto_id']%>&flag=<%$v['flag']%>&sale_id=<%$id%>">下架</a>
                                                         <%/if%>
                                                     </td>
                                                 </tr>

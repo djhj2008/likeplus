@@ -6,17 +6,24 @@ class ManagerController extends HomeController
 {
     public function index()
     {
+        //error_reporting(E_ALL);
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert(NULL,"登陆失败.","login");
+            exit;
+        }
+
         $token = $_GET['token'];
         $ip = get_client_ip();
-        $mytoken = md5($ip);
+        $mytoken = md5($ip.$id);
+
         if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+            Alert(NULL,NULL,"login");
+            exit;
         }
+        $this->assign('id', $id);
         $this->assign('token', $token);
-        $salesname = $_SESSION['name'];
-        $id = $_SESSION['id'];
-        $this->assign('salesname', $salesname);
+
         $userFind = M('lp_sales')->where(array('auto_id' => $id, 'role' => 1))->find();
         if (empty($userFind)) {
             //Alert("身份验证失败!","login/login","",100);
@@ -30,6 +37,21 @@ class ManagerController extends HomeController
     //自带上传类
     public function upload()
     {
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
         $sn = $_POST['sn'];
         if (empty($sn)) {
             $this->display();
@@ -43,10 +65,8 @@ class ManagerController extends HomeController
         // 上传文件
         $info = $upload->upload();
         if (!$info) {// 上传错误提示错误信息
-            echo "<script language=\"JavaScript\">\r\n";
-            echo " alert(\"请选择上传图片!\");\r\n";
-            echo " history.back();\r\n";
-            echo "</script>";
+            Alert("请选择上传图片!","back",NULL);
+            exit;
             exit;
         } else {// 上传成功
             foreach ($info as $file) {
@@ -103,20 +123,20 @@ class ManagerController extends HomeController
 
     public function myware()
     {
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
         $this->assign('token', $token);
-
-        $salesname = $_SESSION['name'];
-        $this->assign('salesname', $salesname);
-        $id = $_SESSION['id'];
 
         $time = strtotime(date('Y-m-d 00:00:00'), time());
         $end_time = date("Y-m-d", $time + 86400 - 1);
@@ -136,31 +156,37 @@ class ManagerController extends HomeController
 
     public function chkwarebydate()
     {
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $salesname = $_SESSION['name'];
-        $this->assign('salesname', $salesname);
-        $id = $_SESSION['id'];
-
         $today = $_POST['date'];
-        $end_time = date("Y-m-d", strtotime($today) + 86400 - 1);
-        $date = array('between', array($today, $end_time));
-
+        if (empty($today)){
+            $today = $_GET['date'];
+        }
         if (empty($today)) {
             $date = date("Y-m-d");
             $this->assign('date', $date);
             $this->display();
             exit;
         }
+        $this->assign('date', $today);
+        $today =date("Y-m-d 00:00:00", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($today));
+        $date = array('between', array($today, $end_time));
+
+
         $user = M('lp_wares');
         $wares = $user->where(array('date' => $date))->select();
         //var_dump($user->getLastSql());
@@ -168,30 +194,33 @@ class ManagerController extends HomeController
         if ($wares) {
             $this->assign('dateware', $wares);
         }
-        $this->assign('date', $today);
         $this->display();
     }
 
     public function chkwaremore()
     {
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
         $this->assign('token', $token);
-
-        $salesname = $_SESSION['name'];
-        $this->assign('salesname', $salesname);
-        $id = $_SESSION['id'];
 
         $today = $_POST['date1'];
         $end_time = $_POST['date2'];
-        $date = array('between', array($today, $end_time));
+
+        if (empty($today)) {
+            $today = $_GET['date1'];
+            $end_time = $_GET['date2'];
+        }
 
         if (empty($today)) {
             $date = date("Y-m-d");
@@ -200,6 +229,13 @@ class ManagerController extends HomeController
             $this->display();
             exit;
         }
+        $this->assign('date1', $today);
+        $this->assign('date2', $end_time);
+
+        $today = date("Y-m-d 0:0:0", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
+        $date = array('between', array($today, $end_time));
+
         $user = M('lp_wares');
         $wares = $user->where(array('date' => $date))->select();
         //var_dump($user->getLastSql());
@@ -207,28 +243,26 @@ class ManagerController extends HomeController
         if ($wares) {
             $this->assign('dateware', $wares);
         }
-        $this->assign('date1', $today);
-        $this->assign('date2', $end_time);
         $this->display();
     }
 
     public function changeware()
     {
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            Alert("网络状态变化，请重新登陆!", "login/login", "", 100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $salesname = $_SESSION['name'];
-        $this->assign('salesname', $salesname);
-        $id = $_SESSION['id'];
         $ware_id = $_GET['ware_id'];
         $flag = $_GET['flag'];
         $save_flag = array();
@@ -247,7 +281,7 @@ class ManagerController extends HomeController
             } else {
                 echo " alert(\"上架成功!\");\r\n";
             }
-            echo "window.location.href='myware?token={$token}';\r\n";
+            echo "window.location.href='myware?token={$token}&sale_id={$id}';\r\n";
             echo "</script>";
             exit;
         } else {
@@ -268,21 +302,23 @@ class ManagerController extends HomeController
 
     public function changewarebydate()
     {
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            Alert("网络状态变化，请重新登陆!", "login/login", "", 100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $salesname = $_SESSION['name'];
-        $this->assign('salesname', $salesname);
-        $id = $_SESSION['id'];
+        $date = $_GET['date'];
+
         $ware_id = $_GET['ware_id'];
         $flag = $_GET['flag'];
         $save_flag = array();
@@ -301,7 +337,7 @@ class ManagerController extends HomeController
             } else {
                 echo " alert(\"上架成功!\");\r\n";
             }
-            echo "window.location.href='mywarebydate?token={$token}';\r\n";
+            echo "window.location.href='chkwarebydate?token={$token}&sale_id={$id}&date={$date}';\r\n";
             echo "</script>";
             exit;
         } else {
@@ -315,28 +351,28 @@ class ManagerController extends HomeController
             echo "</script>";
             exit;
         }
-        //exit;
-        //$this ->redirect('manager/myware',array('token'=>$token),0,'');
-
     }
 
     public function changewaremore()
     {
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            Alert("网络状态变化，请重新登陆!", "login/login", "", 100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $salesname = $_SESSION['name'];
-        $this->assign('salesname', $salesname);
-        $id = $_SESSION['id'];
+        $date1 = $_GET['date1'];
+        $date2 = $_GET['date2'];
+
         $ware_id = $_GET['ware_id'];
         $flag = $_GET['flag'];
         $save_flag = array();
@@ -355,7 +391,7 @@ class ManagerController extends HomeController
             } else {
                 echo " alert(\"上架成功!\");\r\n";
             }
-            echo "window.location.href='mywaremore?token={$token}';\r\n";
+            echo "window.location.href='chkwaremore?token={$token}&sale_id={$id}&date1={$date1}&date2={$date2}';\r\n";
             echo "</script>";
             exit;
         } else {
@@ -369,8 +405,399 @@ class ManagerController extends HomeController
             echo "</script>";
             exit;
         }
-        //exit;
-        //$this ->redirect('manager/myware',array('token'=>$token),0,'');
     }
+
+    public function editwaremore(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+
+        $date1 = $_GET['date1'];
+        $date2 = $_GET['date2'];
+        $this->assign('date1', $date1);
+        $this->assign('date2', $date2);
+
+
+        $ware = D('lp_wares')->where(array('auto_id' => $_GET['ware_id']))->find();
+        if ($ware) {
+            $time = strtotime($ware['date']);
+            $date = date('Y-m-d',$time);
+            $this->assign('date', $date);
+            $this->assign('ware', $ware);
+            $this->display();
+            exit;
+         }else{
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"商品错误!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
+    }
+
+    public function uploadmore(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $date1 = $_GET['date1'];
+        $date2 = $_GET['date2'];
+        $this->assign('date1', $date1);
+        $this->assign('date2', $date2);
+
+        if(!empty($_POST)) {
+            $sn = $_POST['sn'];
+            if (empty($sn)) {
+                $this->display();
+                exit;
+            }
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize = 31457280;// 设置附件上传大小
+            $upload->exts = array('jpg', 'gif', 'png', 'jpeg', 'pdf');// 设置附件上传类型
+            $upload->rootPath = 'home/public/Uploads/'; // 设置附件上传根目录
+            $upload->savePath = $sn . '/'; // 设置附件上传（子）目录
+            // 上传文件
+            $info = $upload->upload();
+            if (!$info) {// 上传错误提示错误信息
+
+            } else {// 上传成功
+                foreach ($info as $file) {
+                    $filename[] = $file['savepath'] . $file['savename'];
+                }
+            }
+            $name = $_POST['name'];
+            $in_price = $_POST['in_price'];
+            $out_price = $_POST['out_price'];
+            $date = $_POST['date'];
+            $pic_path = $_POST['pic_path'];
+            $finfo = $_POST['info'];
+            $other_price = $_POST['other_price'];
+            $video_url = $_POST['video_url'];
+            $finfo3 = str_replace("\r\n", "<br>", $finfo);
+
+            $ware_id = $_POST['ware_id'];
+            if(empty($ware_id)){
+                $ware_id=$_GET['ware_id'];
+            }
+            $user = D('lp_wares');
+            $ret = $user->where(array('auto_id' => $ware_id))->find();
+
+            if (empty($ret)) {
+                echo "<script language=\"JavaScript\">\r\n";
+                echo " alert(\"商品错误!\");\r\n";
+                echo " history.back();\r\n";
+                echo "</script>";
+                exit;
+            }
+
+
+            $ware = array();
+            if($name!=$ret['name']){
+                $ware[ 'name'] = $name;
+            }
+            if($sn!=$ret['number']){
+                $ware[ 'number'] = $sn;
+            }
+            if($in_price!=$ret['in_price']){
+                $ware[ 'in_price'] = $in_price;
+            }
+            if($out_price!=$ret['out_price']){
+                $ware[ 'out_price'] = $out_price;
+            }
+            if($other_price!=$ret['other_price']){
+                $ware[ 'other_price'] = $other_price;
+            }
+            if($finfo3!=$ret['factory_info']){
+                $ware[ 'factory_info'] = $finfo3;
+            }
+            if(date("Y-m-d 0:0:0", strtotime($date))!=date("Y-m-d 0:0:0", strtotime($ret['date']))){
+                $ware[ 'date'] = $date;
+            }
+            if(!empty($filename[0])){
+                $ware[ 'pic_url'] = $filename[0];
+            }
+            if($video_url!=$ret['video_url']){
+                $ware[ 'video_url'] = $video_url;
+            }
+
+            if(!empty($ware)){
+                $ware[ 'time'] = time();
+                $ret2 = M('lp_wares')->where(array('auto_id' => $ware_id))->save($ware);
+                if (empty($ret2)) {
+                    echo $ret2;
+                    exit;
+                }
+            }
+            $this->assign('ware', $ret);
+            $this->assign('filename', $ret['pic_url']);
+            $this->display();
+        }
+
+    }
+
+    public function myorder(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $today = $_POST['date1'];
+        $end_time = $_POST['date2'];
+
+        if (empty($today)) {
+            $date = date("Y-m-d");
+            $this->assign('date1', $date);
+            $this->assign('date2', $date);
+            $this->display();
+            exit;
+        }
+        $this->assign('date1',$today);
+        $this->assign('date2',$end_time);
+
+        $today = date("Y-m-d 0:0:0", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
+        $date = array('between', array($today, $end_time));
+
+        $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
+        $order=$User->Distinct(true)
+            ->where(array(
+                'myorder.user_id=myuser.auto_id',
+                'myorder.ware_id=myware.auto_id',
+                'myorder.time'=>$date))
+            ->field('myorder.auto_id as auto_id,
+            myorder.time as time,
+            myorder.sn as sn,
+            myware.name as name,
+            myorder.ware_model as model,
+            myorder.count as count,
+            myuser.name as uname,
+            myuser.phone as phone,
+            myuser.province as pro,
+            myuser.city as city,
+            myuser.area as area,
+            myuser.addr as addr,
+            myorder.price as price,
+            myorder.flag as flag')->select();
+
+        if($order) {
+            $this->assign('myorder',$order);
+        }
+        $sum=0;
+        for($i=0;$i<count($order);$i++){
+            $sum +=$order[$i]['price'];
+        }
+        $this->assign('money',$sum);
+        $this->display();
+    }
+
+    function makeorder(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $order_id = $_GET['order_id'];
+        $save_flag = array(
+            'flag'=>2
+        );
+        $user = M('lp_order');
+        $ret = $user->where(array('auto_id' => $order_id))->save($save_flag);
+
+        if (!empty($ret)) {
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"订单确认成功!\");\r\n";
+            echo "window.location.href='myorder?token={$token}';\r\n";
+            echo "</script>";
+            exit;
+        } else {
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"订单确认失败!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
+    }
+
+    function cancelorder(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $order_id = $_GET['order_id'];
+        $save_flag = array(
+            'flag'=>3
+        );
+
+        $user = M('lp_order');
+        $ret = $user->where(array('auto_id' => $order_id))->save($save_flag);
+
+        if (!empty($ret)) {
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"订单取消成功!\");\r\n";
+            echo "window.location.href='myorder?token={$token}';\r\n";
+            echo "</script>";
+            exit;
+        } else {
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"订单取消失败!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
+    }
+
+    public function mysaleinfo()
+    {
+        //error_reporting(E_ALL);
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert(NULL,"登陆失败.","login");
+            exit;
+        }
+
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $qos = array();
+        $qos['role']=array('neq',1);
+        $userFind = M('lp_sales')->where( $qos)->select();
+
+        if (empty($userFind)) {
+            Alert("身份验证失败!",NULL,"login");
+            exit;
+        }
+        $date = date("Y-m-d");
+        $this->assign('sales', $userFind);
+        $this->display();
+    }
+
+    public function chksaleorder(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $today = $_POST['date1'];
+        $end_time = $_POST['date2'];
+
+        if (empty($today)) {
+            $date = date("Y-m-d");
+            $this->assign('date1', $date);
+            $this->assign('date2', $date);
+            $this->display();
+            exit;
+        }
+        $this->assign('date1',$today);
+        $this->assign('date2',$end_time);
+
+        $today = date("Y-m-d 0:0:0", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
+        $date = array('between', array($today, $end_time));
+
+        $sid = $_GET['sid'];
+        $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
+        $order=$User->Distinct(true)
+            ->where(array(
+                'myorder.user_id=myuser.auto_id',
+                'myorder.ware_id=myware.auto_id',
+                'myorder.sale_id'=>$sid))
+            ->field('myorder.auto_id as auto_id,
+            myorder.time as time,
+            myorder.sn as sn,
+            myware.name as name,
+            myorder.ware_model as model,
+            myorder.count as count,
+            myuser.name as uname,
+            myuser.phone as phone,
+            myuser.province as pro,
+            myuser.city as city,
+            myuser.area as area,
+            myuser.addr as addr,
+            myorder.price as price,
+            myorder.flag as flag')->select();
+
+        if($order) {
+            $this->assign('myorder',$order);
+        }
+        $sum=0;
+        for($i=0;$i<count($order);$i++){
+            $sum +=$order[$i]['price'];
+        }
+        $this->assign('money',$sum);
+        $this->display();
+    }
+
 }
 ?>
