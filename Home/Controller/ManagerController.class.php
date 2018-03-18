@@ -848,14 +848,17 @@ class ManagerController extends HomeController
         $this->assign('id', $id);
         $this->assign('token', $token);
 
+        $role = M('lp_sales')->where( array('auto_id'=>$id))->field('role')->find();
+        if(!empty($role)){
+            $this->assign('role', $role['role']);
+            //var_dump($role);
+            //exit;
+        }
+
         $qos = array();
         $qos['role']=array('neq',1);
         $userFind = M('lp_sales')->where( $qos)->select();
 
-        if (empty($userFind)) {
-            Alert("身份验证失败!",NULL,"login");
-            exit;
-        }
         $date = date("Y-m-d");
         $this->assign('sales', $userFind);
         $this->display();
