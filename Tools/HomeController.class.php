@@ -45,7 +45,8 @@ class HomeController extends Controller{
         //有一些操作，允许在"退出的状态"也让访问
         $rang_ac = "Manager-login,Manager-register,Login-login,Login-register,Login-index";
         //进行访问设备判断,也就是对操作系统的判断
-        if ($this->getOS()=='windows' || $this->getOS()=='mac' || $this->getOS()=='unix' || $this->getOS()=='linux') { 
+        /*
+        if ($this->getOS()=='windows' || $this->getOS()=='mac' || $this->getOS()=='unix' || $this->getOS()=='linux') {
         //① 用户不在登录状态
         //② 用户的操作 还没有在$rang_ac出现
            function userset(){
@@ -64,8 +65,7 @@ class HomeController extends Controller{
 eof;
             		echo $js;
             }
-            
-
-        }
+        }*/
     }
 }
+?>

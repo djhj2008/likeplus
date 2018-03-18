@@ -16,11 +16,6 @@
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css?version=1.01.02" rel="stylesheet" type="text/css" />
         <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
 
-        <js file='__PUBLIC__/Uploadify/jquery-1.9.1.min.js'/>
-        <js file='__PUBLIC__/Uploadify/jquery.uploadify.min.js'/>
-        <!-- Bootstrap fileupload css -->
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-fileupload/bootstrap-fileupload.css" rel="stylesheet" />
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>main.css?version=1.01.02" id="color-switcher-link">
@@ -113,8 +108,9 @@
                             </li>
 
                             <li class="menu-title">更多内容</li>
+
                             <li>
-                                <a href="#"><i class="fi-share"></i> <span> 开发中 </span> <span class="menu-arrow"></span></a>
+                                <a href="#"><i class="fi-share"></i> <span> 开发中 </span></a>
                                 <!--ul class="nav-second-level nav" aria-expanded="false">
                                     <li><a href="javascript: void(0);">开发中 1.1</a></li>
                                     <li><a href="javascript: void(0);" aria-expanded="false">开发中 1.2 <span class="menu-arrow"></span></a>
@@ -142,23 +138,48 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                    <h3>商品名称:<%$ware['name']%></h3>
-                    <h3>编号:<%$ware['number']%></h3>
-                    <h3>进货价:<%$ware['in_price']%></h3>
-                    <h3>售价:<%$ware['out_price']%></h3>
-                    <h3>其他平台价格:<%$ware['other_price']%></h3>
-                    <h3>商品介绍:<br><%$ware['factory_info']%></h3>
-                    <h3>上架日期:<%$ware['date']%></h3>
-                    <h3>视频地址:<%$ware['video_url']%></h3>
-                    <h3>图片:</h3>
-                    <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$ware['pic_url']%>" alt="" height="300">
-                    <div >
-                        <div class="clo-2 mt-3">
-                            <button type="button" class="btn btn-github" onclick="checkware()">
-                                查看商品
-                            </button>
+                    <div class="container-fluid">
+                        <div class="card-box">
+                            <div class="form-group row">
+                                <div>
+                                    <h4 class="mt-0 font-20">地址信息</h4>
+                                </div>
+                            </div>
+                            <form role="form" action="<%$smarty.const.__APP__%>/sale/saleedit?uid=<%$user[0]['auto_id']%>&token=<%$token%>&sale_id=<%$id%>"  method="post">
+                                <div class="form-group row">
+                                    <label for="oldpass" class="col-2 col-form-label">原密码</label>
+                                    <div class="col-4">
+                                        <input type="password" required class="form-control"
+                                               id="oldpass" name="oldpass" placeholder="请输入原始密码">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="pass" class="col-2 col-form-label">新密码</label>
+                                    <div class="col-4">
+                                        <input type="password" required class="form-control"
+                                               id="pass" name="pass" placeholder="请输入新密码">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="pass2" class="col-2 col-form-label">确认新密码</label>
+                                    <div class="col-4">
+                                        <input type="password" required class="form-control"
+                                               id="pass2" name="pass2" placeholder="请再次输入新密码">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-2">
+                                        <button type="submit" class="btn btn-github">
+                                            确定
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </div>
+                    </div> <!-- container -->
+                    <footer class="footer text-right">
+                        Copyright &copy; 2018.爱加社区
+                    </footer>
             </div>
             </div>
             <!-- ============================================================== -->
@@ -167,15 +188,6 @@
         </div>
         <!-- END wrapper -->
     </body>
-    <footer class="footer text-right">
-        Copyright &copy; 2018.爱加社区
-    </footer>
-
-<script type="text/javascript">
-    function checkware(){
-        window.location.href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>";
-    }
-</script>
     <!-- jQuery  -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
@@ -185,9 +197,6 @@
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/counterup/jquery.counterup.min.js"></script>
-
-    <!-- Bootstrap fileupload js -->
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 
     <!-- Chart JS -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/chart.js/chart.bundle.js"></script>

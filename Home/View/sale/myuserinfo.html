@@ -60,18 +60,8 @@
                                 </div>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-head"></i> <span>个人信息</span>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-cog"></i> <span>设置</span>
-                                </a>
-
-                                <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-help"></i> <span>技术支持</span>
+                                <a href="<%$smarty.const.__APP__%>/sale/saleinfo?token=<%$token%>&sale_id=<%$id%>" class="dropdown-item notify-item">
+                                    <i class="fi-head"></i> <span>修改密码</span>
                                 </a>
 
                                 <!-- item-->
@@ -94,6 +84,7 @@
             </div>
             <!-- Top Bar End -->
 
+
             <!-- ========== Left Sidebar Start ========== -->
             <div class="left side-menu">
                 <div class="slimscroll-menu" id="remove-scroll">
@@ -103,23 +94,27 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">爱加HOME</li>
                             <li>
-                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>">
+                                <a href="<%$smarty.const.__CONTROLLER__%>/index?token=<%$token%>&sale_id=<%$id%>">
                                     <i class="fa fa-desktop"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 今日新品 </span>
                                 </a>
                             </li>
-
+                            <li>
+                                <a href="<%$smarty.const.__CONTROLLER__%>/hisware?token=<%$token%>&sale_id=<%$id%>">
+                                    <i class="fa fa-amazon"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 商品查询 </span>
+                                </a>
+                            </li>
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>">今日订单</a></li>
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>">历史订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>&sale_id=<%$id%>">今日订单</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>&sale_id=<%$id%>">历史订单</a></li>
                                 </ul>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-group"></i> <span> 我的群组 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo?token=<%$token%>">成员信息</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo?token=<%$token%>&sale_id=<%$id%>">成员信息</a></li>
                                 </ul>
                             </li>
 
@@ -187,7 +182,7 @@
                                             <td class="hide-phone"><%$v["city"]%></td>
                                             <td class="hide-phone"><%$v["area"]%></td>
                                             <td class="hide-phone"><%$v["addr"]%></td>
-                                            <td><a href="<%$smarty.const.__APP__%>/sale/myuseredit?uid=<%$v['auto_id']%>&token=<%$token%>">编辑</a>
+                                            <td><a href="<%$smarty.const.__APP__%>/sale/myuseredit?uid=<%$v['auto_id']%>&token=<%$token%>&sale_id=<%$id%>">编辑</a>
                                             </td>
                                         </tr>
                                         <%/foreach%>
@@ -283,7 +278,7 @@
 
 
             function useradd(){
-                window.location.href="<%$smarty.const.__CONTROLLER__%>/myuseradd?ware_id=<%$ware_id%>&token=<%$token%>";
+                window.location.href="<%$smarty.const.__CONTROLLER__%>/myuseradd?ware_id=<%$ware_id%>&token=<%$token%>&sale_id=<%$id%>";
             }
         </script>
 

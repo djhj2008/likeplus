@@ -4,6 +4,134 @@ use Tools\HomeController;
 use Think\Controller;
 class ManagerController extends HomeController
 {
+    public function saleinfo(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $this->display();
+    }
+
+    public function saleedit(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        if(!empty($_POST)){
+            $oldpwd=$_POST['oldpass'];
+            $pwd=$_POST['pass'];
+            $pwd2=$_POST['pass2'];
+            if($pwd!=$pwd2){
+                Alert("新密码不匹配.","back",NULL);
+                exit;
+            }
+            $ret = M('lp_sales')->where(array('auto_id'=>$id ,'password'=>md5($oldpwd)))
+                ->find();
+            if(empty($ret)){
+                Alert("原密码错误.","back",NULL);
+                exit;
+            }
+            $ret2 = M('lp_sales')->where(array('auto_id'=>$id ))->save(array('password'=>md5($pwd)));
+            if(empty($ret2)){
+                Alert("修改失败.","back",NULL);
+                exit;
+            }else{
+                Alert("修改成功,请重新登录.",NULL,"login");
+                exit;
+            }
+        }
+        Alert("修改失败.","back",NULL);
+        exit;
+    }
+
+    public function regsale(){
+        //error_reporting(E_ALL);
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert(NULL,"登陆失败.","login");
+            exit;
+        }
+
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        if(!empty($_POST)){
+            $name=$_POST['name'];
+            $phone=$_POST['number'];
+            $info=$_POST['info'];
+            $pwd = substr($phone,5,6);
+            $phone2=$_POST['number2'];
+
+            $ret = M('lp_sales')->where(array('phone'=>$phone ))
+                ->find();
+
+            if(!empty($ret)){
+                Alert("手机已被注册.","back",NULL);
+                exit;
+            }
+            $user = array();
+            $ret2 = M('lp_sales')->where(array('phone'=>$phone2 ))
+                ->find();
+            if(empty($phone2)){
+                $user['lev1_id'] = 0;
+            }else{
+                if(empty($ret2)){
+                    Alert("推荐人不存在.","back",NULL);
+                    exit;
+                }else {
+                    $user['lev1_id'] = $ret2['auto_id'];
+                }
+            }
+            $user['name']=$name;
+            $user['group_name']=$info;
+            $user['phone']=$phone;
+            $user['password']=md5($pwd);
+            $user['role']=0;
+            $ret3 = M('lp_sales')->add($user);
+            if(empty($ret3)){
+                Alert("注册失败.","back",NULL);
+                exit;
+            }else{
+                echo "<script language=\"JavaScript\">\r\n";
+                echo " alert(\"注册成功.\");\r\n";
+                echo "</script>";
+                $this ->redirect('manager/mysaleinfo',array('token'=>$token,'sale_id'=>$id),0,'');
+                exit;
+            }
+        }
+        $this->display();
+    }
+
     public function index()
     {
         //error_reporting(E_ALL);

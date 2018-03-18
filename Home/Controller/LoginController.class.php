@@ -25,7 +25,7 @@ class LoginController extends HomeController {
 				}
                 $nameArr=array(
                     'phone'=>$phone,
-                    'password'=>$pwd
+                    'password'=>md5($pwd)
                     );
                 $userFind=M('lp_sales')->where($nameArr)->find();
                 if($userFind) {

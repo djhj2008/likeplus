@@ -6,6 +6,7 @@ define('APP_DEBUG',true);//开发调试模式
 define('ACSS_URL','/likeplus/Home/Public/css/');
 define('JQPLOT','/likeplus/Home/Public/jqplot/');
 
+define('LIKEPLUS','/likeplus/Home/');
 define('AJS_URL','/likeplus/Home/Public/js/');
 define('ABOOT_URL','/likeplus/Home/Public/bootstrap/');
 define('ACK_URL','/likeplus/Home/Public/ckeditor/');

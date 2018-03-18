@@ -24,12 +24,11 @@
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css" rel="stylesheet" type="text/css" />
 
         <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
-        <script src="<%$smarty.const.AJS_URL%>region_select.js?version=1.01.01"></script>
+
     </head>
 
 
     <body>
-
         <!-- Begin page -->
         <div id="wrapper">
             <!-- Top Bar Start -->
@@ -142,160 +141,137 @@
                 <!-- Sidebar -left -->
             </div>
             <!-- Left Sidebar End -->
-
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                    <div class="container-fluid">
-                        <div class="card-box">
-                        <div class="form-group row">
-                            <div>
-                        <h4 class="mt-0 font-20">地址信息</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-box table-responsive">
+                                <div class="col-6 mb-2">
+                                </div>
+                                    <h4 class="m-t-0 header-title"><b>商品信息:</b></h4>
+                                    <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <td>名&nbsp;&nbsp;称</td>
+                                            <td>编号</td>
+                                            <td>零售价</td>
+                                            <td>其他平台价格</td>
+                                            <td>上架时间</td>
+                                            <th>产品说明</th>
+                                            <th>图片</th>
+                                            <th>视频地址</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <%foreach $wares as $v%>
+                                        <tr>
+                                            <td><%$v["name"]%></td>
+                                            <td><%$v["number"]%></td>
+                                            <td><%$v["out_price"]%></td>
+                                            <td><%$v["other_price"]%></td>
+                                            <td><%$v["date"]%></td>
+                                            <td><%$v["factory_info"]%></td>
+                                            <td><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$v['pic_url']%>" alt="" height="60"></td>
+                                            <td><%$v["video_url"]%></td>
+                                        </tr>
+                                        <%/foreach%>
+                                        </tbody>
+                                    </table>
+                                    <form action="<%$smarty.const.__CONTROLLER__%>/hisware?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>"  method="post" >
+                                        <div class="col-8">
+                                            <h4 class="m-t-0 header-title"><b>开始日期:</b></h4>
+                                            <input type="date" name="date1" value="<%$date1%>" />
+                                            <h4 class="m-t-0 header-title"><b>结束日期:</b></h4>
+                                            <input type="date" name="date2" value="<%$date2%>" />
+                                        </div>
+                                        <div class="col-8 mt-2">
+                                            <button type="submit" class="btn btn-github" >查询</button>
+                                        </div>
+                                    </form>
                             </div>
                         </div>
-                        <form role="form" action="<%$smarty.const.__APP__%>/sale/usersave?uid=<%$user[0]['auto_id']%>&ware_id=<%$ware_id%>&token=<%$token%>&sale_id=<%$id%>"   method="post">
-                            <div class="form-group row">
-                                <label for="name" class="col-4 col-form-label">姓名</label>
-                                <div class="col-8">
-                                    <input type="text" required parsley-type="email" class="form-control"
-                                           id="name" name="name" placeholder="真实姓名" value="<%$user[0]['name']%>">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="number" class="col-4 col-form-label">电话</label>
-                                <div class="col-8">
-                                    <input id="number" name="number" type="number" placeholder="手机号" required
-                                           class="form-control" value="<%$user[0]['phone']%>">
-                                </div>
-                            </div>
-                            <div class="form-group row" >
-                                <label for="pro" class="col-4 col-form-label">省:</label>
-                                <div class="col-8">
-                                    <select name="pro" id="pro" class="form-control" data-style="btn-light"></select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row" >
-                                <label for="ci" class="col-4 col-form-label">城市:</label>
-                                <div class="col-8">
-                                    <select name="ci" id="ci" class="form-control" data-style="btn-light" ></select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row" >
-                                <label for="ar" class="col-4 col-form-label">区县:</label>
-                                <div class="col-8">
-                                    <select name="ar" id="ar" class="form-control" data-style="btn-light"></select>
-                                </div>
-                            </div>
-
-                            <script type="text/javascript">
-                                new PCAS('pro', 'ci', 'ar',"<%$user[0]['province']%>", "<%$user[0]['city']%>","<%$user[0]['area']%>");
-                            </script>
-
-                            <div class="form-group row" >
-                                <label for="ad" class="col-4 col-form-label">详细地址:</label>
-                                <div class="col-8">
-                                    <textarea required class="form-control" name="ad" id="ad"><%$user[0]['addr']%></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-8 offset-4">
-                                    <button type="submit" class="btn btn-github">
-                                        确定
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
-                    </div> <!-- container -->
+                    <!-- end row -->
                 </div> <!-- content -->
-
                 <footer class="footer text-right">
                     2017 - 2018 © Abstack. - Coderthemes.com
                 </footer>
-
             </div>
-
-
             <!-- ============================================================== -->
             <!-- End Right content here -->
             <!-- ============================================================== -->
-
-
         </div>
         <!-- END wrapper -->
-
-
-
-        <!-- jQuery  -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
-
-        <!-- Required datatable js -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.bootstrap4.min.js"></script>
-        <!-- Buttons examples -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.buttons.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.bootstrap4.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jszip.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/pdfmake.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/vfs_fonts.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.html5.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.print.min.js"></script>
-        <!-- Responsive examples -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.responsive.min.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/responsive.bootstrap4.min.js"></script>
-
-        <!-- App js -->
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
-        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                //Buttons examples
-                var table = $('#datatable-buttons').DataTable({
-                    lengthChange: false,
-                    info: false,
-                    buttons: ['excel'],
-                    language: {
-                        "sProcessing": "处理中...",
-                        "sLengthMenu": "显示 _MENU_ 项结果",
-                        "sZeroRecords": "没有匹配结果",
-                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                        "sInfoPostFix": "",
-                        "sSearch": "搜索:",
-                        "sUrl": "",
-                        "sEmptyTable": "表中数据为空",
-                        "sLoadingRecords": "载入中...",
-                        "sInfoThousands": ",",
-                        "oPaginate": {
-                            "sFirst": "首页",
-                            "sPrevious": "上页",
-                            "sNext": "下页",
-                            "sLast": "末页"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": 以升序排列此列",
-                            "sSortDescending": ": 以降序排列此列"
-                        }
-                    }
-                });
-
-                table.buttons().container()
-                        .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-            } );
-
-        </script>
-
     </body>
+    <!-- jQuery  -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jszip.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/pdfmake.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/vfs_fonts.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.html5.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.print.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+    <!-- App js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //Buttons examples
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                info: false,
+                buttons: ['excel'],
+                language: {
+                    "sProcessing": "处理中...",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sZeroRecords": "没有匹配结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                    "sInfoPostFix": "",
+                    "sSearch": "搜索:",
+                    "sUrl": "",
+                    "sEmptyTable": "表中数据为空",
+                    "sLoadingRecords": "载入中...",
+                    "sInfoThousands": ",",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上页",
+                        "sNext": "下页",
+                        "sLast": "末页"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": 以升序排列此列",
+                        "sSortDescending": ": 以降序排列此列"
+                    }
+                }
+            });
+
+            table.buttons().container()
+                .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+        } );
+
+
+    </script>
 </html>

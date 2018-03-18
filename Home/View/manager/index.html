@@ -44,7 +44,7 @@
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="false" aria-expanded="false">
-                                <i class="fa fa-user-o mr-0"></i> <span class="ml-1"><i class="mdi mdi-chevron-down"></i> </span>
+                                <i class="fa fa-user-o mr-0"></i> <span class="ml-1"><%$salesname%><i class="mdi mdi-chevron-down"></i> </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                                 <!-- item-->
@@ -53,8 +53,8 @@
                                 </div>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="fi-head"></i> <span>个人信息</span>
+                                <a href="<%$smarty.const.__APP__%>/manager/saleinfo?token=<%$token%>&sale_id=<%$id%>" class="dropdown-item notify-item">
+                                    <i class="fi-head"></i> <span>修改密码</span>
                                 </a>
 
                                 <!-- item-->
@@ -76,7 +76,6 @@
                 </nav>
             </div>
             <!-- Top Bar End -->
-
             <!-- ========== Left Sidebar Start ========== -->
             <div class="left side-menu">
                 <div class="slimscroll-menu" id="remove-scroll">
@@ -109,7 +108,7 @@
                             <li class="menu-title">更多内容</li>
 
                             <li>
-                                <a href="#"><i class="fi-share"></i> <span> 开发中 </span> <span class="menu-arrow"></span></a>
+                                <a href="#"><i class="fi-share"></i> <span> 开发中 </span></a>
                                 <!--ul class="nav-second-level nav" aria-expanded="false">
                                     <li><a href="javascript: void(0);">开发中 1.1</a></li>
                                     <li><a href="javascript: void(0);" aria-expanded="false">开发中 1.2 <span class="menu-arrow"></span></a>
@@ -142,7 +141,7 @@
                             <div class="col-md-6">
                             <div class="file_holder">
                                 <h4>请填写全部商品信息:</h4>
-                                <form action="<%$smarty.const.__CONTROLLER__%>/upload" enctype="multipart/form-data" method="post" >
+                                <form action="<%$smarty.const.__CONTROLLER__%>/upload?token=<%$token%>&sale_id=<%$id%>" enctype="multipart/form-data" method="post" >
                                     <label class="col-4 col-form-label">商品编号:</label>
                                     <div class="col-8">
                                         <input id="sn" name="sn" type="text" placeholder="商品编号" required>

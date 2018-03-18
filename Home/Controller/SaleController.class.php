@@ -4,22 +4,21 @@ use Tools\HomeController;
 use Think\Controller;
 class SaleController extends HomeController {
     public function index(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-
-        $devSelect=M('lp_sales')->select();
         $wares = M('lp_wares wares, lp_ware_type type')->where('wares.type = type.type and wares.flag = 1')
         ->field('wares.auto_id as id, 
         wares.name as name,
@@ -34,27 +33,136 @@ class SaleController extends HomeController {
         $this->assign('wares',$wares);
         $this->display();
     }
+
+    public function saleinfo(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $this->display();
+    }
+
+    public function saleedit(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        if(!empty($_POST)){
+            $oldpwd=$_POST['oldpass'];
+            $pwd=$_POST['pass'];
+            $pwd2=$_POST['pass2'];
+            if($pwd!=$pwd2){
+                Alert("新密码不匹配.","back",NULL);
+                exit;
+            }
+            $ret = M('lp_sales')->where(array('auto_id'=>$id ,'password'=>md5($oldpwd)))
+                ->find();
+            if(empty($ret)){
+                Alert("原密码错误.","back",NULL);
+                exit;
+            }
+            $ret2 = M('lp_sales')->where(array('auto_id'=>$id ))->save(array('password'=>md5($pwd)));
+            if(empty($ret2)){
+                Alert("修改失败.","back",NULL);
+                exit;
+            }else{
+                Alert("修改成功,请重新登录.",NULL,"login");
+                exit;
+            }
+        }
+        Alert("修改失败.","back",NULL);
+        exit;
+    }
+
+    public function hisware(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $today = $_POST['date1'];
+        $end_time = $_POST['date2'];
+
+        if (empty($today)) {
+            $today = $_GET['date1'];
+            $end_time = $_GET['date2'];
+        }
+
+        if (empty($today)) {
+            $date = date("Y-m-d");
+            $this->assign('date1', $date);
+            $this->assign('date2', $date);
+            $this->display();
+            exit;
+        }
+        $this->assign('date1', $today);
+        $this->assign('date2', $end_time);
+
+        $today = date("Y-m-d 0:0:0", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
+        $date = array('between', array($today, $end_time));
+
+        $wares = M('lp_wares wares, lp_ware_type type')->where(array('wares.type = type.type' , 'wares.flag = 1','wares.date'=>$date))
+                ->order('wares.auto_id desc' )->select();
+
+        $this->assign('wares',$wares);
+        $this->display();
+    }
+
     public function login(){
         $this ->redirect('login/login',array(),0,'');
     }
 
     public function buyware()
     {
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname = $_SESSION['name'];
-        $this->assign('salesname', $salesname);
         $uid = $_GET['uid'];
-
         if ($uid != null && !empty($uid)) {
             $users = M('lp_users')->where(array('auto_id' => $uid))->limit(0, 1)->select();
 
@@ -89,125 +197,122 @@ class SaleController extends HomeController {
     }
 
     public function userinfo(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
         $ware_id=$_GET['ware_id'];
-
         $users=M('lp_users')->where(array('sale_id'=>$id))->select();
         $this->assign('users',$users);
         $this->assign('ware_id',$ware_id);
         //var_dump($users);
         $this->display();
-        //$this ->redirect('sale/buyware.html',array(),0,'');
     }
 
     public function myuserinfo(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
         $ware_id=$_GET['ware_id'];
-
         $users=M('lp_users')->where(array('sale_id'=>$id))->select();
         $this->assign('users',$users);
         $this->assign('ware_id',$ware_id);
         //var_dump($users);
         $this->display();
-        //$this ->redirect('sale/buyware.html',array(),0,'');
     }
 
     public function useredit(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
         $ware_id=$_GET['ware_id'];
         $uid=$_GET['uid'];
-
         $user=M('lp_users')->where(array('auto_id'=>$uid))->select();
         $this->assign('user',$user);
         $this->assign('ware_id',$ware_id);
         //var_dump($user);
         $this->display();
-        //$this ->redirect('sale/buyware.html',array(),0,'');
     }
 
     public function myuseredit(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
         $ware_id=$_GET['ware_id'];
         $uid=$_GET['uid'];
-
         $user=M('lp_users')->where(array('auto_id'=>$uid))->select();
         $this->assign('user',$user);
         //var_dump($user);
         $this->display();
-        //$this ->redirect('sale/buyware.html',array(),0,'');
     }
 
     public function usersave(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
         $ware_id=$_GET['ware_id'];
         $uid=$_GET['uid'];
         if(empty($uid)||empty($ware_id)){
-            $this ->redirect('sale/index',array(),0,'');
+            $this ->redirect('sale/index',array('token'=>$token,'sale_id'=>$id),0,'');
             exit;
         }
         $user=M('lp_users')->where(array('auto_id'=>$uid))->select();
@@ -250,28 +355,28 @@ class SaleController extends HomeController {
         $this->assign('uid',$uid);
         $this->assign('ware_id',$ware_id);
         //var_dump($user);
-        $this ->redirect('sale/userinfo',array('ware_id'=>$ware_id,'token'=>$token),0,'');
+        $this ->redirect('sale/userinfo',array('token'=>$token,'sale_id'=>$id,'uid'=>$uid,'ware_id'=>ware_id),0,'');
     }
 
     public function usersaveonly(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
-
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
         $uid=$_GET['uid'];
         if(empty($uid)){
-            $this ->redirect('sale/myuserinfo',array(),0,'');
+            $this ->redirect('sale/myuserinfo',array('token'=>$token,'sale_id'=>$id),0,'');
             exit;
         }
         $user=M('lp_users')->where(array('auto_id'=>$uid))->select();
@@ -313,28 +418,28 @@ class SaleController extends HomeController {
         }
         $this->assign('uid',$uid);
         //var_dump($user);
-        $this ->redirect('sale/myuserinfo',array('token'=>$token),0,'');
+        $this ->redirect('sale/myuserinfo',array('token'=>$token,'sale_id'=>$id,'uid'=>$uid),0,'');
     }
 
     public function myuseradd(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
         if(empty($id)){
             $this ->redirect('login/index',array(),0,'');
         }
-
         $name = $_POST['name'];
         $phone = $_POST['number'];
         $pro = $_POST['pro'];
@@ -358,27 +463,27 @@ class SaleController extends HomeController {
             if(empty($ret)){
                 $this->display();
             }else{
-                $this ->redirect('sale/userinfo',array(),0,'');
+                $this ->redirect('sale/myuserinfo',array('token'=>$token,'sale_id'=>$id),0,'');
             }
         }
-        //$this ->redirect('sale/buyware.html',array(),0,'');
     }
 
     public function useradd(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
         if(empty($id)){
             $this ->redirect('login/index',array(),0,'');
         }
@@ -409,27 +514,26 @@ class SaleController extends HomeController {
                 $this->assign('ware_id',$ware_id);
                 $this->display();
             }else{
-                $this ->redirect('sale/userinfo',array('ware_id'=>$ware_id),0,'');
+                $this ->redirect('sale/userinfo',array('token'=>$token,'sale_id'=>$id,'ware_id'=>$ware_id),0,'');
             }
         }
-        //$this ->redirect('sale/buyware.html',array(),0,'');
     }
 
     public function addorder(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
-
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
         $ware_id=$_GET['ware_id'];
         $uid = $_GET['uid'];
@@ -444,7 +548,7 @@ class SaleController extends HomeController {
         $nowtime = date('YmdHis',$time);//
         $sn =$sn.$nowtime.rand(10,99);
 
-        $ware=M('lp_wares')->where(array('auto_id'=>$ware_id))->select();
+        //$ware=M('lp_wares')->where(array('auto_id'=>$ware_id))->select();
         $users=M('lp_users')->where(array('auto_id'=>$uid))->select();
         $this->assign('users',$users);
         $this->assign('ware_id',$ware_id);
@@ -471,20 +575,20 @@ class SaleController extends HomeController {
     }
 
     public function myorder(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
-
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
         $today=date('Y-m-d 00:00:00',time());
         $end_time = date("Y-m-d H:i:s", strtotime($today) + 86400 - 1);
@@ -523,24 +627,23 @@ class SaleController extends HomeController {
     }
 
     public function hisorder(){
-        $token = $_GET['token'];
-        //var_dump($token);
-        $ip = get_client_ip();
-        $mytoken = md5($ip);
-        //var_dump($mytoken);
-        if(empty($token)||empty($mytoken)||$token!=$mytoken){
-            //Alert("网络状态变化，请重新登陆!","login/login","",100);
-            //exit;
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
         }
-        $this->assign('token',$token);
-
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
         $today = $_POST['date1'];
         $end_time = $_POST['date2'];
-
         if (empty($today)) {
             $date = date("Y-m-d");
             $this->assign('date1', $date);
@@ -579,19 +682,6 @@ class SaleController extends HomeController {
             $this->assign('myorder',$order);
         }
         //var_dump($order);
-        $this->display();
-    }
-
-    public function todayorder(){
-        $salesname=$_SESSION['name'];
-        $this->assign('salesname',$salesname);
-        $id=$_SESSION['id'];
-        $ware_id=$_GET['ware_id'];
-        $uid = $_GET['uid'];
-        $ware=M('lp_wares')->where(array('auto_id'=>$ware_id))->select();
-        $users=M('lp_users')->where(array('auto_id'=>$uid))->select();
-        $this->assign('users',$users);
-        $this->assign('ware_id',$ware_id);
         $this->display();
     }
 }

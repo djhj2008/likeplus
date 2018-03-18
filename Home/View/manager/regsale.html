@@ -7,25 +7,19 @@
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
         <!-- App favicon -->
         <link rel="shortcut icon" href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/images/favicon.ico">
+
         <!-- App css -->
+        <link href="<%$smarty.const.ABOOT_URL%>bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css?version=1.01.02" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css" rel="stylesheet" type="text/css" />
+
         <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
 
-        <js file='__PUBLIC__/Uploadify/jquery-1.9.1.min.js'/>
-        <js file='__PUBLIC__/Uploadify/jquery.uploadify.min.js'/>
-        <!-- Bootstrap fileupload css -->
-        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-fileupload/bootstrap-fileupload.css" rel="stylesheet" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>main.css?version=1.01.02" id="color-switcher-link">
-        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>animations.css">
-        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>fonts.css">
 
     </head>
     <body>
@@ -113,8 +107,9 @@
                             </li>
 
                             <li class="menu-title">更多内容</li>
+
                             <li>
-                                <a href="#"><i class="fi-share"></i> <span> 开发中 </span> <span class="menu-arrow"></span></a>
+                                <a href="#"><i class="fi-share"></i> <span> 开发中</span></a>
                                 <!--ul class="nav-second-level nav" aria-expanded="false">
                                     <li><a href="javascript: void(0);">开发中 1.1</a></li>
                                     <li><a href="javascript: void(0);" aria-expanded="false">开发中 1.2 <span class="menu-arrow"></span></a>
@@ -139,43 +134,82 @@
             <!-- ============================================================== -->
             <!-- Start right Content here -->
             <!-- ============================================================== -->
-            <div class="content-page">
-                <!-- Start content -->
-                <div class="content">
-                    <h3>商品名称:<%$ware['name']%></h3>
-                    <h3>编号:<%$ware['number']%></h3>
-                    <h3>进货价:<%$ware['in_price']%></h3>
-                    <h3>售价:<%$ware['out_price']%></h3>
-                    <h3>其他平台价格:<%$ware['other_price']%></h3>
-                    <h3>商品介绍:<br><%$ware['factory_info']%></h3>
-                    <h3>上架日期:<%$ware['date']%></h3>
-                    <h3>视频地址:<%$ware['video_url']%></h3>
-                    <h3>图片:</h3>
-                    <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$ware['pic_url']%>" alt="" height="300">
-                    <div >
-                        <div class="clo-2 mt-3">
-                            <button type="button" class="btn btn-github" onclick="checkware()">
-                                查看商品
-                            </button>
+            <div class="wrapper-page">
+                <div class="account-pages">
+                    <div class="account-box">
+                        <div class="account-logo-box">
+                            <h2 class="text-uppercase text-center">
+                                <a href="index.html" class="text-success">
+                                    <span><img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo.png" alt="" height="120"></span>
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="account-content">
+                            <form  action="<%$smarty.const.__CONTROLLER__%>/regsale?token=<%$token%>&sale_id=<%$id%>" method="post">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="name" class="col-4">姓名</label>
+                                        <input  type="text" id="name" name="name" required="" placeholder="姓名">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="number" class="col-4">电话</label>
+                                        <input  type="number" id="number" name="number" required="" placeholder="电话">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="info" class="col-4">群组名称</label>
+                                        <input  type="text" id="info" name="info" required="" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label for="number" class="col-4">推荐人电话</label>
+                                        <input  type="number" id="number2" name="number2"  placeholder="没有推荐人请不要填写">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <div class="checkbox checkbox-success">
+                                            <input id="remember" type="checkbox" checked="checked">
+                                            <label for="remember">
+                                                同意 <a href="#">爱加HOME社交平台运营条例</a>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row text-center m-t-10">
+                                    <div class="col-12">
+                                        <button class="btn btn-block btn-gradient waves-effect waves-light" type="submit">注册</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
                         </div>
                     </div>
+                </div>
+                <!-- end card-box-->
             </div>
-            </div>
+            <!-- end wrapper -->
             <!-- ============================================================== -->
             <!-- End Right content here -->
             <!-- ============================================================== -->
         </div>
+        <footer class="footer text-right">
+            Copyright &copy; 2018.爱加社区
+        </footer>
         <!-- END wrapper -->
     </body>
-    <footer class="footer text-right">
-        Copyright &copy; 2018.爱加社区
-    </footer>
 
-<script type="text/javascript">
-    function checkware(){
-        window.location.href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>";
-    }
-</script>
     <!-- jQuery  -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
@@ -183,22 +217,11 @@
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/waypoints/lib/jquery.waypoints.min.js"></script>
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/counterup/jquery.counterup.min.js"></script>
 
-    <!-- Bootstrap fileupload js -->
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-
-    <!-- Chart JS -->
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/chart.js/chart.bundle.js"></script>
-
-    <!-- init dashboard -->
-    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.dashboard.init.js"></script>
+    <!-- Init js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.form-pickers.init.js"></script>
 
     <!-- App js -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
-
-    <script src="<%$smarty.const.AJS_URL%>compressed.js"></script>
-    <script src="<%$smarty.const.AJS_URL%>main.js"></script>
 </html>

@@ -1,6 +1,5 @@
 <?php
-use JPush\Client as JPush;  
-
+use JPush\Client as JPush;
 function http($url, $data='', $method='GET'){
     $curl = curl_init(); // 启动一个CURL会话  
     curl_setopt($curl, CURLOPT_URL, $url); // 要访问的地址  
@@ -23,44 +22,22 @@ function http($url, $data='', $method='GET'){
     return $tmpInfo; // 返回数据  
 }
 
-function Alert($Str,$Typ="back",$TopWindow="",$Tim=100){
-    echo "<script>".chr(10);
-    if(!empty($Str)){
-        echo "alert(\"Warning:\\n\\n{$Str}\\n\\n\");".chr(10);
+function gettopdir($win){
+    return "/likeplus/index.php/".$win;
+}
+
+function Alert($Str,$Typ,$TopWindow){
+    $url = gettopdir($TopWindow);
+    if(empty($Str)){
+        $Str="网络状态变化，请重新登陆!";
     }
-    echo "function _r_r_(){";
-    $WinName=(!empty($TopWindow))?"top":"self";
-    switch (StrToLower($Typ)){
-        case "#":
-            break;
-        case "back":
-            echo $WinName.".history.go(-1);".chr(10);
-            break;
-        case "reload":
-            echo $WinName.".window.location.reload();".chr(10);
-            break;
-        case "close":
-            echo "window.opener=null;window.close();".chr(10);
-            break;
-        case "function":
-            echo "var _T=new function('return {$TopWindow}')();_T();".chr(10);
-            break;
-        //Die();
-        Default:
-            if($Typ!=""){
-                echo "window.location.href='{$Typ}';";
-                //echo "window.{$WinName}.location=('{$Typ}');";
-            }
+    echo "<script language=\"JavaScript\">\r\n";
+    echo " alert(\"{$Str}\");\r\n";
+    if($Typ=="back") {
+        echo " history.back();\r\n";
+    }else {
+        echo "window.location.href='$url';\r\n";
     }
-    echo "}".chr(10);
-    //為防止Firefox不執行setTimeout
-    echo "if(setTimeout(\"_r_r_()\",".$Tim.")==2){_r_r_();}";
-    if($Tim==100){
-        echo "_r_r_();".chr(10);
-    }else{
-        echo "setTimeout(\"_r_r_()\",".$Tim.");".chr(10);
-    }
-    echo "</script>".chr(10);
-    Exit();
+    echo "</script>";
 }
 ?>
