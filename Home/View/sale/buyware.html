@@ -182,7 +182,8 @@
                                         </div>
                                     </div>
                                         <div class="col-18">
-                                                <form>
+                                                <form action="<%$smarty.const.__APP__%>/sale/addorder?uid=<%$uid%>&ware_id=<%$ware_id%>&token=<%$token%>&sale_id=<%$id%>" onSubmit="return chkinput(this)"  method="post">
+                                                    <fieldset>
                                                     <div class="card-box">
                                                     <div class="form-group row">
                                                         <h4 class="font-20 mr-4"><b><%$ware[0]['name']%></b></h4>
@@ -195,7 +196,7 @@
                                                         </div>
                                                         <div class="btn-group col-6">
                                                             <button type="button" id="del" onclick="code1()" class="btn btn-github mb-3 mt-2">-</button>
-                                                            <input type="text" id="count" oninput="code3()" class="form-control  mb-3 mt-2" value="1"/>
+                                                            <input type="number" id="count" name="count" oninput="code3()" class="form-control  mb-3 mt-2" value="1"/>
                                                             <button type="button" id="add" onclick="code2()" class="btn btn-github mb-3 mt-2">+</button>
                                                         </div>
                                                     </div>
@@ -204,7 +205,7 @@
                                                         <p class="text-muted font-16  mt-2">总价:</p>
                                                         </div>
                                                         <div class="col-6">
-                                                            <input type="text" id="money" class="form-control" readonly="" value="<%$ware[0]['out_price']%>"/>
+                                                            <input type="text" id="money" name="money" class="form-control" readonly="" value="<%$ware[0]['out_price']%>"/>
                                                         </div>
                                                         <div>
                                                             <p class="text-custom font-16 mt-2">RMB</p>
@@ -216,22 +217,31 @@
                                                              <p class="text-muted font-16  mt-2">型号:</p>
                                                          </div>
                                                         <div class="col-6">
-                                                            <select name="model" id="model" class="form-control" data-style="btn-light">
+                                                            <select name="model" id="model"  class="form-control" data-style="btn-light">
                                                                     <%foreach $model as $v%>
-                                                                        <option value ="model_sub"><%$v['model']%></option>
+                                                                        <option value="<%$v['ware_id']%>"><%$v['model']%></option>
                                                                     <%/foreach%>
                                                             </select>
                                                         </div>
                                                         </div>
                                                     <%/if%>
+                                                    <div class="form-group row" >
+                                                        <div>
+                                                            <p class="text-muted font-16  mt-2">备注信息:</p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <textarea class="form-control" name="winfo" id="winfo" placeholder="颜色,款式等要求(50字以内)"></textarea>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <div  class="col offset-8">
-                                                            <button type="button" class="btn btn-github" onclick="creat_order()">
+                                                            <button type="submit" class="btn btn-github" onclick="">
                                                                 下单
                                                             </button>
                                                         </div>
                                                     </div>
+                                                </fieldset>
                                                 </form>
                                         </div>
                                 </div>
@@ -297,6 +307,15 @@
             window.location.href="<%$smarty.const.__CONTROLLER__%>/userinfo?ware_id=<%$ware_id%>&token=<%$token%>&sale_id=<%$id%>";
         }
 
+        function chkinput(form) {
+            var user = "<%$user%>";
+            var addr = "<%$addr%>";
+            if(user==""||addr==""){
+                alert("请选择用户详细地址.");
+                return false;
+            }
+        }
+
         function creat_order(){
             var count = $('#count').val();
             var model = $('#model').find("option:selected").text();
@@ -306,8 +325,9 @@
             var addr = "<%$addr%>";
             if(user==""||addr==""){
                 alert("请选择用户详细地址.");
-                return;
+                return false;
             }
+            var winfo = $('#winfo').val();
             var url = "<%$smarty.const.__CONTROLLER__%>/addorder?uid=<%$uid%>&token=<%$token%>&sale_id=<%$id%>"+
                     "&ware_id=<%$ware_id%>&count="+count+"&money="+price;
            if(model_len>0){

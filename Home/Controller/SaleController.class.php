@@ -537,9 +537,11 @@ class SaleController extends HomeController {
 
         $ware_id=$_GET['ware_id'];
         $uid = $_GET['uid'];
-        $count = $_GET['count'];
-        $money = $_GET['money'];
-        $model = $_GET['model'];
+
+        $count = $_POST['count'];
+        $money = $_POST['money'];
+        $model = $_POST['model'];
+        $winfo = $_POST['winfo'];
         $this->assign('ware_id',$ware_id);
 
         $sn = str_pad($id,4,'0',STR_PAD_LEFT);
@@ -550,6 +552,9 @@ class SaleController extends HomeController {
 
         //$ware=M('lp_wares')->where(array('auto_id'=>$ware_id))->select();
         $users=M('lp_users')->where(array('auto_id'=>$uid))->select();
+        if(empty($users)){
+
+        }
         $this->assign('users',$users);
         $this->assign('ware_id',$ware_id);
 
@@ -564,6 +569,9 @@ class SaleController extends HomeController {
         );
         if(!empty($model)){
             $order['ware_model']=$model;
+        }
+        if(!empty($winfo)){
+            $order['winfo']=$winfo;
         }
 
         $ret=D('lp_order')->add($order);
