@@ -731,6 +731,7 @@ class ManagerController extends HomeController
             myware.name as name,
             myorder.ware_model as model,
             myorder.count as count,
+            myorder.winfo as winfo,
             myuser.name as uname,
             myuser.phone as phone,
             myuser.province as pro,
