@@ -150,6 +150,14 @@
                                     <div class="col-8">
                                         <input type="text" name="name" />
                                     </div>
+                                    <label class="col-4 col-form-label">商品类型:</label>
+                                    <div class="col-4">
+                                    <select name="type" id="type" class="form-control" data-style="btn-light">
+                                        <%foreach $type as $v%>
+                                            <option value ="<%$v['type']%>"><%$v['name']%></option>
+                                        <%/foreach%>
+                                    </select>
+                                    </div>
                                     <label class="col-4 col-form-label">商品进货价:</label>
                                     <div class="col-8">
                                         <input type="number" name="in_price" />

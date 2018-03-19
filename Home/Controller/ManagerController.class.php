@@ -152,11 +152,26 @@ class ManagerController extends HomeController
         $this->assign('id', $id);
         $this->assign('token', $token);
 
+
         $userFind = M('lp_sales')->where(array('auto_id' => $id, 'role' => 1))->find();
         if (empty($userFind)) {
-            //Alert("身份验证失败!","login/login","",100);
-            //exit;
+            Alert("身份验证失败!","login/login","",100);
+            exit;
         }
+
+        $type = M('lp_ware_type')->select();
+
+        if(empty($type)){
+
+        }else{
+            $this->assign('type', $type);
+        }
+
+        if (empty($userFind)) {
+            Alert("身份验证失败!","login/login","",100);
+            exit;
+        }
+
         $date = date("Y-m-d");
         $this->assign('date', $date);
         $this->display();
@@ -211,6 +226,7 @@ class ManagerController extends HomeController
         $finfo = $_POST['info'];
         $other_price = $_POST['other_price'];
         $video_url = $_POST['video_url'];
+        $type = $_POST['type'];
 
         $finfo3 = str_replace("\r\n", "<br>", $finfo);
 
@@ -225,7 +241,6 @@ class ManagerController extends HomeController
 
         $ware = array(
             'name' => $name,
-            'type' => 1,
             'model' => 0,
             'number' => $sn,
             'in_price' => $in_price,
@@ -239,6 +254,9 @@ class ManagerController extends HomeController
             'pic_path' => $pic_path,
             'video_url' => $video_url,
         );
+        if(!empty($type)){
+            $ware['type']=$type;
+        }
         $ret = D('lp_wares')->add($ware);
         if (empty($ret)) {
             echo $ret;
