@@ -187,7 +187,7 @@
                                                     <div class="card-box">
                                                     <div class="form-group row">
                                                         <h4 class="font-20 mr-4"><b><%$ware[0]['name']%></b></h4>
-                                                        <p class="text-custom mt-2 font-16">单价:<%$ware[0]['out_price']%> RMB</p>
+                                                        <p class="text-custom mt-2 font-16">单价:￥<%sprintf("%.02f", $ware[0]['out_price']*0.88)%></p>
                                                     </div>
 
                                                     <div class="form-group row">
@@ -205,7 +205,7 @@
                                                         <p class="text-muted font-16  mt-2">总价:</p>
                                                         </div>
                                                         <div class="col-6">
-                                                            <input type="text" id="money" name="money" class="form-control" readonly="" value="<%$ware[0]['out_price']%>"/>
+                                                            <input type="text" id="money" name="money" class="form-control" readonly="" value="￥<%sprintf('%.02f', $ware[0]['out_price']*0.88)%>"/>
                                                         </div>
                                                         <div>
                                                             <p class="text-custom font-16 mt-2">RMB</p>
@@ -270,7 +270,7 @@
                 count = 1;
             }
             document.getElementById('count').value=count;
-            var price = count*<%$ware[0]["out_price"]%>;
+            var price = count*<%$ware[0]["out_price"]%>*0.88;
             document.getElementById('money').value=price.toFixed(2);
         }
 
@@ -283,7 +283,7 @@
                 count = 100;
             }
             document.getElementById('count').value=count;
-            var price = count*<%$ware[0]["out_price"]%>;
+            var price = count*<%$ware[0]["out_price"]%>*0.88;
             document.getElementById('money').value=price.toFixed(2);
         }
 
