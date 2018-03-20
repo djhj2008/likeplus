@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>爱加HOME</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/images/favicon.ico">
+
+        <!-- App css -->
+        <link href="<%$smarty.const.ABOOT_URL%>bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
+
+
+    </head>
+    <body>
+        <!-- Begin page -->
+        <div id="wrapper">
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="wrapper-page">
+                <div class="account-pages">
+                    <div class="account-box">
+                        <div class="account-logo-box">
+                            <h2 class="text-uppercase text-center">
+                                <a href="index.html" class="text-success">
+                                    <span><img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo.png" alt="" height="120"></span>
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="account-content">
+                            <form  action="<%$smarty.const.__CONTROLLER__%>/regsale?" method="post">
+                                <div class="form-group row">
+                                    <div class="col-8">
+                                        <label for="name" class="col-4">姓名</label>
+                                        <input  type="text" id="name" name="name" required="" placeholder="姓名">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-8">
+                                        <label for="number" class="col-4">电话</label>
+                                        <input  type="number" id="number" name="number" required="" placeholder="电话">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-8">
+                                        <label for="info" class="col-4">群组号码</label>
+                                        爱加<input  type="number" id="info" name="info" required="" placeholder="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-8">
+                                        <label for="number" class="col-4">推荐人群号</label>
+                                        爱加<input  type="number" id="number2" name="number2"  placeholder="没有推荐人请不要填写">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-8">
+                                        <div class="checkbox checkbox-success">
+                                            <input id="remember" type="checkbox" checked="checked">
+                                            <label for="remember">
+                                                同意 <a href="#">爱加HOME社交平台运营条例</a>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row text-center m-t-10">
+                                    <div class="col-8">
+                                        <button class="btn btn-block btn-gradient waves-effect waves-light" type="submit">注册</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end card-box-->
+            </div>
+            <!-- end wrapper -->
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+        </div>
+        <footer class="footer text-right">
+            Copyright &copy; 2018.爱加社区
+        </footer>
+        <!-- END wrapper -->
+    </body>
+
+    <!-- jQuery  -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
+
+    <!-- Init js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.form-pickers.init.js"></script>
+
+    <!-- App js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
+</html>
