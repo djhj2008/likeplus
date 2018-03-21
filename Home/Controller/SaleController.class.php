@@ -134,8 +134,17 @@ class SaleController extends HomeController {
         $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
         $date = array('between', array($today, $end_time));
 
-        $wares = M('lp_wares wares, lp_ware_type type')->where(array('wares.type = type.type' , 'wares.flag = 1','wares.date'=>$date))
-                ->order('wares.auto_id desc' )->select();
+        $wares = M('lp_wares wares, lp_ware_type type')
+            ->where(array('wares.type = type.type' , 'wares.flag = 1','wares.date'=>$date))
+            ->order('wares.auto_id desc' )
+            ->field('wares.name as name,
+                     wares.out_price as out_price,
+                     wares.number as number,
+                     wares.other_price as other_price,
+                     wares.factory_info as factory_info,
+                     wares.flag as flag,
+                     wares.pic_url as pic_url,
+                     wares.video_url as video_url')->select();
 
         $this->assign('wares',$wares);
         $this->display();
