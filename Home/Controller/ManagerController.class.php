@@ -99,8 +99,15 @@ class ManagerController extends HomeController
                 Alert("手机已被注册.","back",NULL);
                 exit;
             }
+            $ret = M('lp_sales')->where(array('group_name'=>$info))
+                ->find();
+            if(!empty($ret)){
+                Alert("群号以被注册.","back",NULL);
+                exit;
+            }
+
             $user = array();
-            $ret2 = M('lp_sales')->where(array('phone'=>$phone2 ))
+            $ret2 = M('lp_sales')->where(array('group_name'=>$phone2 ))
                 ->find();
             if(empty($phone2)){
                 $user['lev1_id'] = 0;

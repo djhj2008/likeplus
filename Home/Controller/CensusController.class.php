@@ -6,6 +6,73 @@ class CensusController extends Controller {
 
     }
 
+    public function auto_reg(){
+
+        $census = M('lp_census')->order('group_num asc')->select();
+
+        $sale_err = array();
+        $count=0;
+        foreach ($census as $user){
+            $name=$user['name'];
+            $phone=$user['phone'];
+            $info=$user['group_num'];
+            $pwd = substr($phone,5,6);
+            $phone2=$user['levl_group'];
+
+            $ret = M('lp_sales')->where(array('phone'=>$phone ))
+                ->find();
+
+            if(!empty($ret)){
+                $sale_err1[]=$name;
+                continue;
+            }
+
+            $ret = M('lp_sales')->where(array('group_name'=>$info))
+                ->find();
+            if(!empty($ret)){
+                $sale_err2[]=$name;
+                continue;
+            }
+            //var_dump($phone2);
+            $user = array();
+            $ret2 = M('lp_sales')->where(array('group_name'=>$phone2 ))
+                ->find();
+            if($phone2==0){
+                $user['lev1_id'] = 0;
+            }
+            else{
+                if(empty($ret2)){
+                    $sale_err3[]=$name;
+                    continue;
+                }else {
+                    $user['lev1_id'] = $ret2['auto_id'];
+                }
+            }
+
+            //var_dump($user['lev1_id']);
+            $user['name']=$name;
+            $user['group_name']=$info;
+            $user['phone']=$phone;
+            $user['password']=md5($pwd);
+            $user['role']=0;
+            //$count++;
+            //var_dump($user);
+            $ret3 = M('lp_sales')->add($user);
+
+            if(empty($ret3)){
+                $sale_err4[]=$name;
+            }else{
+                $sale_err5[]=$name;
+            }
+        }
+        //var_dump($sale_err1);
+        //var_dump($sale_err2);
+        //var_dump($sale_err3);
+        //var_dump($sale_err4);
+        var_dump($sale_err5);
+        exit;
+    }
+
     public function regsale(){
         if(!empty($_POST)){
             $name=$_POST['name'];
@@ -41,7 +108,19 @@ class CensusController extends Controller {
     public function mysaleinfo()
     {
 
-        $userFind = M('lp_census')->order('group_num desc')->select();
+        $user=M('lp_sales');
+        $userFind =  $user
+            ->join('as sale1 left join lp_sales as sale2 on sale1.lev1_id=sale2.auto_id')
+            ->where('sale1.group_name>1020')
+            ->field('sale1.name as name,
+            sale1.phone as phone,
+            sale1.group_name as group_num,
+            sale2.group_name as levl_group')
+            ->order('sale1.group_name asc')->select();
+
+        //var_dump($user->getLastSql());
+        //exit;
+
         $this->assign('sales', $userFind);
         $this->display();
     }

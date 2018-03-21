@@ -56,24 +56,28 @@
                                             <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                 <thead>
                                                 <tr>
+                                                    <th>群组信息(爱加-)</th>
+                                                    <th>推荐人(爱加-)</th>
                                                     <th>姓名</th>
                                                     <th>电话</th>
-                                                    <th>群组信息</th>
-                                                    <th>推荐人</th>
+
+
                                                 </tr>
                                                 </thead>
 
                                                 <tbody>
                                                 <%foreach $sales as $v%>
                                                 <tr>
-                                                    <td><%$v["name"]%></td>
-                                                    <td><%$v["phone"]%></td>
-                                                    <td>爱加<%$v["group_num"]%></td>
+                                                    <td><%$v["group_num"]%></td>
                                                     <%if $v["levl_group"] eq 0 %>
                                                     <td>无</td>
                                                     <%else%>
-                                                    <td>爱加<%$v["levl_group"]%></td>
+                                                    <td><%$v["levl_group"]%></td>
                                                     <%/if%>
+                                                    <td><%$v["name"]%></td>
+                                                    <td><%$v["phone"]%></td>
+
+
                                                 </tr>
                                                 <%/foreach%>
                                                 </tbody>
