@@ -10,7 +10,6 @@ class CensusController extends Controller {
 
         $census = M('lp_census')->order('group_num asc')->select();
 
-        $sale_err = array();
         $count=0;
         foreach ($census as $user){
             $name=$user['name'];
@@ -23,14 +22,14 @@ class CensusController extends Controller {
                 ->find();
 
             if(!empty($ret)){
-                $sale_err1[]=$name;
+                $sale_err1[]=$phone;
                 continue;
             }
 
             $ret = M('lp_sales')->where(array('group_name'=>$info))
                 ->find();
             if(!empty($ret)){
-                $sale_err2[]=$name;
+                $sale_err2[]=$info;
                 continue;
             }
             //var_dump($phone2);
@@ -42,7 +41,7 @@ class CensusController extends Controller {
             }
             else{
                 if(empty($ret2)){
-                    $sale_err3[]=$name;
+                    $sale_err3[]=$phone2;
                     continue;
                 }else {
                     $user['lev1_id'] = $ret2['auto_id'];
@@ -65,10 +64,24 @@ class CensusController extends Controller {
                 $sale_err5[]=$name;
             }
         }
-        //var_dump($sale_err1);
-        //var_dump($sale_err2);
-        //var_dump($sale_err3);
-        //var_dump($sale_err4);
+        echo "电话存在";
+        echo "<br>";
+        var_dump($sale_err1);
+        echo "<br>";
+        echo "群组存在";
+        echo "<br>";
+        var_dump($sale_err2);
+        echo "<br>";
+        echo "推荐人不存在";
+        echo "<br>";
+        var_dump($sale_err3);
+        echo "<br>";
+        echo "写入失败";
+        echo "<br>";
+        var_dump($sale_err4);
+        echo "<br>";
+        echo "成功注册";
+        echo "<br>";
         var_dump($sale_err5);
         exit;
     }

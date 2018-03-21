@@ -844,7 +844,7 @@ class ManagerController extends HomeController
         if (!empty($ret)) {
             echo "<script language=\"JavaScript\">\r\n";
             echo " alert(\"订单取消成功!\");\r\n";
-            echo "window.location.href='myorder?token={$token}';\r\n";
+            echo "window.location.href='myorder?token={$token}&sale_id={$id}';\r\n";
             echo "</script>";
             exit;
         } else {
