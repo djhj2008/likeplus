@@ -146,7 +146,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="card-box table-responsive">
-                                <h4 class="m-t-0 header-title"><b>今日订单:</b></h4>
+                                <h3 class="font-16"><b>订单:(默认显示今日订单,历史订单请选择对应日期范围点击查询)</b></h3>
                                 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
@@ -158,10 +158,10 @@
                                         <td>备注</td>
                                         <td>数量</td>
                                         <td>总价</td>
-                                        <td class="hide-phone">型号</td>
+
                                         <th>姓名</th>
                                         <th>电话</th>
-                                        <th>&nbsp;&nbsp;&nbsp;地址&nbsp;&nbsp;&nbsp;</th>
+                                        <th>地址</th>
                                         <th>状态</th>
                                         <th>操作</th>
                                     </tr>
@@ -178,7 +178,7 @@
                                         <td><%$v["winfo"]%></td>
                                         <td><%$v["count"]%></td>
                                         <td><%$v["price"]%></td>
-                                        <td class="hide-phone"><%$v["model"]%></td>
+
                                         <td><%$v["uname"]%></td>
                                         <td><%$v["phone"]%></td>
                                         <td><%$v["pro"]%><%$v["city"]%><%$v["area"]%><br><%$v["addr"]%></td>
@@ -190,15 +190,19 @@
                                             <%else if $v["flag"] eq 2 %>
                                             <a>确认成功</a>
                                             <%else if $v["flag"] eq 3 %>
-                                            <a>管理员撤销</a>
+                                            <a>已撤销</a>
                                             <%/if%>
                                         </td>
                                         <td>
                                             <%if $v["flag"] neq 2 %>
-                                                <a href="<%$smarty.const.__APP__%>/manager/makeorder?token=<%$token%>&order_id=<%$v['auto_id']%>&sale_id=<%$id%>">确认</a>
+                                                <button type="button" id="make" onclick="makeorder(<%$v['auto_id']%>)"
+                                                    class="btn btn-dark mt-2">
+                                                <span>确认</span> </button>
                                             <%/if%>
                                             <%if $v["flag"] neq 3 %>
-                                                <a href="<%$smarty.const.__APP__%>/manager/cancelorder?token=<%$token%>&order_id=<%$v['auto_id']%>&sale_id=<%$id%>">&nbsp;|&nbsp;取消</a>
+                                                <button type="button" id="cancel" onclick="cancelorder(<%$v['auto_id']%>)"
+                                                    class="btn btn-dark mt-2">
+                                                <span>取消</span> </button>
                                             <%/if%>
                                         </td>
                                     </tr>
@@ -297,7 +301,15 @@
             table.buttons().container()
                 .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
         } );
+        function makeorder(oid){
+            var sale_id = "<%$id%>";
+            window.location.href="<%$smarty.const.__APP__%>/manager/makeorder?token=<%$token%>&order_id"+oid+"&sale_id="+sale_id;
+        }
 
+        function cancelorder(oid){
+            var sale_id = "<%$id%>";
+            window.location.href="<%$smarty.const.__APP__%>/manager/cancelorder?token=<%$token%>&order_id"+oid+"&sale_id="+sale_id;
+        }
 
     </script>
 </html>
