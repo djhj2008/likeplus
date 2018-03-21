@@ -37,4 +37,12 @@ class CensusController extends Controller {
         }
         $this->display();
     }
+
+    public function mysaleinfo()
+    {
+
+        $userFind = M('lp_census')->order('group_num desc')->select();
+        $this->assign('sales', $userFind);
+        $this->display();
+    }
 }
