@@ -773,7 +773,9 @@ class ManagerController extends HomeController
         }
         $sum=0;
         for($i=0;$i<count($order);$i++){
-            $sum +=$order[$i]['price'];
+            if($order[$i]['flag']==0||$order[$i]['flag']==2) {
+                $sum += $order[$i]['price'];
+            }
         }
         $this->assign('money',$sum);
         $this->display();
@@ -805,7 +807,7 @@ class ManagerController extends HomeController
         if (!empty($ret)) {
             echo "<script language=\"JavaScript\">\r\n";
             echo " alert(\"订单确认成功!\");\r\n";
-            echo "window.location.href='myorder?token={$token}';\r\n";
+            echo "window.location.href='myorder?token={$token}&sale_id={$id}';\r\n";
             echo "</script>";
             exit;
         } else {

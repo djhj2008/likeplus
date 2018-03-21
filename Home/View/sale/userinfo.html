@@ -175,12 +175,13 @@
                                                 <%$v["city"]%>
                                                 <%$v["area"]%><br>
                                                 <%$v["addr"]%></td>
-                                            <td><button type="button" id="edit" onclick="edit(<%$v["auto_id"]%>)"
-                                                class="btn btn-dark mt-2">
-                                                <span>修改</span> </button>
+                                            <td>
                                                 <button type="button" id="choose" onclick="userchoose(<%$v["auto_id"]%>)"
                                                 class="btn btn-dark mt-2">
                                                 <span>使用</span> </button>
+                                                <button type="button" id="edit" onclick="edit(<%$v["auto_id"]%>)"
+                                                class="btn btn-dark mt-2">
+                                                <span>修改</span> </button>
                                             </td>
                                         </tr>
                                         <%/foreach%>
@@ -274,6 +275,9 @@
                         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
             } );
 
+            function useradd(){
+                window.location.href="<%$smarty.const.__CONTROLLER__%>/useradd?ware_id=<%$ware_id%>&token=<%$token%>&sale_id=<%$id%>";
+            }
 
             function userchoose(uid){
                 var ware_id = "<%$ware_id%>";

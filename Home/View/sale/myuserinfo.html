@@ -272,6 +272,9 @@
                         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
             } );
 
+            function useradd(){
+                window.location.href="<%$smarty.const.__CONTROLLER__%>/myuseradd?ware_id=<%$ware_id%>&token=<%$token%>&sale_id=<%$id%>";
+            }
 
             function edit(uid){
                 var ware_id = "<%$ware_id%>";

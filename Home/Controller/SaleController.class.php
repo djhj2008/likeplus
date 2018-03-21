@@ -638,7 +638,9 @@ class SaleController extends HomeController {
         }
         $sum=0;
         for($i=0;$i<count($order);$i++){
-            $sum +=$order[$i]['price'];
+            if($order[$i]['flag']==0||$order[$i]['flag']==2) {
+                $sum += $order[$i]['price'];
+            }
         }
         $this->assign('money',$sum);
         //var_dump($order);
