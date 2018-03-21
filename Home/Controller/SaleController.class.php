@@ -144,6 +144,7 @@ class SaleController extends HomeController {
                      wares.factory_info as factory_info,
                      wares.flag as flag,
                      wares.pic_url as pic_url,
+                     wares.auto_id as wid,
                      wares.video_url as video_url')->select();
 
         $this->assign('wares',$wares);
@@ -364,7 +365,7 @@ class SaleController extends HomeController {
         $this->assign('uid',$uid);
         $this->assign('ware_id',$ware_id);
         //var_dump($user);
-        $this ->redirect('sale/userinfo',array('token'=>$token,'sale_id'=>$id,'uid'=>$uid,'ware_id'=>ware_id),0,'');
+        $this ->redirect('sale/userinfo',array('token'=>$token,'sale_id'=>$id,'uid'=>$uid,'ware_id'=>$ware_id),0,'');
     }
 
     public function usersaveonly(){
