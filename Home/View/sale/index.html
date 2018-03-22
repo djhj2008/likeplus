@@ -163,7 +163,7 @@
                                     <li>
                                         <div class="home-blog__carousel-wrapper">
                                             <figure class="home-blog__carousel-img">
-                                                <a  href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>">
+                                                <a  href="#">
                                                     <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$v['pic_url']%>" >
                                                 </a>
                                             </figure>
@@ -172,18 +172,18 @@
                                                     <ul class="post__meta-list">
                                                         <li>
                                                             <div class="price">
-                                                            <p  style="color:#959595"><del>零售价:￥<%$v['out_price']%></del></p>
+                                                                <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $v['out_price']*0.88)%></p>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="price">
-                                                            <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $v['out_price']*0.88)%></p>
+                                                                <p  style="color:#FFA560">赚:￥<%sprintf("%.02f", $v['out_price']*0.12)%></p>
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 <h3 class="post__title">
-                                                    <a href="#" rel="bookmark"><%$v["name"]%></a>
+                                                    <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark"><%$v["name"]%></a>
                                                 </h3>
                                                 <!--div class="post__text-content">
                                                     <p><%$v['info']%></p>
