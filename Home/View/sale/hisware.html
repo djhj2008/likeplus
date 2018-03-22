@@ -157,8 +157,6 @@
                                         <tr>
                                             <td width="40%">商品信息</td>
                                             <th width="40%"></th>
-                                            <th width="20%"></th>
-
                                         </tr>
                                         </thead>
 
@@ -170,13 +168,13 @@
                                                 <a class="text-custom font-18"><%$v["name"]%></a><br>
                                                 原价:<%$v["other_price"]%><br>
                                                 <a class="font-18">零售价:</a><a class="text-custom font-18"><%$v["out_price"]%></a><br>
+                                                <button type="button" id="choose" onclick="buynow(<%$v["wid"]%>)"
+                                                class="btn btn-dark mt-4">
+                                                <span>购买</span> </button>
                                             </td>
                                             <td><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$v['pic_url']%>" alt="" height="120"><br>
                                                 产品介绍:<br>
                                                 <%$v["factory_info"]%></td>
-                                            <td><button type="button" id="choose" onclick="buynow(<%$v["wid"]%>)"
-                                            class="btn btn-dark mt-4">
-                                            <span>购买</span> </button></td>
                                         </tr>
                                         <%/foreach%>
                                         </tbody>

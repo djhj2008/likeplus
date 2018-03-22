@@ -34,7 +34,7 @@ class SaleController extends HomeController {
         wares.auto_id as id,
         wares.pic_url as pic_url,
         type.name as tname')
-        ->order('wares.auto_id desc' )->select();
+        ->order('wares.date asc' )->select();
 
         $this->assign('wares',$wares);
         $this->display();
