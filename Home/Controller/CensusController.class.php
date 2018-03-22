@@ -124,7 +124,7 @@ class CensusController extends Controller {
         $user=M('lp_sales');
         $userFind =  $user
             ->join('as sale1 left join lp_sales as sale2 on sale1.lev1_id=sale2.auto_id')
-            ->where('sale1.group_name>1020')
+            ->where('sale1.group_name>1019')
             ->field('sale1.name as name,
             sale1.phone as phone,
             sale1.group_name as group_num,

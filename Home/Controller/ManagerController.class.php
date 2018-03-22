@@ -880,15 +880,15 @@ class ManagerController extends HomeController
         $role = M('lp_sales')->where( array('auto_id'=>$id))->field('role')->find();
         if(!empty($role)){
             $this->assign('role', $role['role']);
-            //var_dump($role);
-            //exit;
         }
 
         $qos = array();
         $qos['role']=array('neq',1);
-        $userFind = M('lp_sales')->where( $qos)->select();
+        $qos['group_name']=array('gt',1019);
 
-        $date = date("Y-m-d");
+        $user = M('lp_sales');
+        $userFind = $user->where( $qos)->select();
+
         $this->assign('sales', $userFind);
         $this->display();
     }
