@@ -291,9 +291,8 @@ class ManagerController extends HomeController
         $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $time = strtotime(date('Y-m-d 00:00:00'), time());
-        $end_time = date("Y-m-d", $time + 86400 - 1);
-        $today = date("Y-m-d", $time);
+        $today=date('Y-m-d 00:00:00',time());
+        $end_time = date("Y-m-d H:i:s", strtotime($today) + 86400 - 1);
         $date = array('between', array($today, $end_time));
 
         $user = M('lp_wares');

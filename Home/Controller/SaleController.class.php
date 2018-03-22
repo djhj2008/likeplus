@@ -19,7 +19,13 @@ class SaleController extends HomeController {
         $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $wares = M('lp_wares wares, lp_ware_type type')->where('wares.type = type.type and wares.flag = 1')
+
+        $today=date('Y-m-d 00:00:00',time());
+        $end_time = date("Y-m-d H:i:s", strtotime($today) + 86400 - 1);
+        $date = array('between', array($today, $end_time));
+
+        $wares = M('lp_wares wares, lp_ware_type type')
+            ->where(array('wares.type = type.type ',' wares.flag = 1','wares.date'=>$date))
         ->field('wares.auto_id as id, 
         wares.name as name,
         wares.out_price as out_price,
