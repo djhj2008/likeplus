@@ -176,23 +176,19 @@
                                         <ul class="post__meta-list">
                                             <li>
                                                 <div class="price">
-                                                    <p  style="color:#959595"><del>零售价:￥<%$ware['out_price']%></del></p>
+                                                    <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $ware['out_price']*0.88)%></p>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="price">
-                                                    <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $ware['out_price']*0.88)%></p>
+                                                    <p  style="color:#FFA560">赚:￥<%sprintf("%.02f", $ware['out_price']*0.12)%></p>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
-                                    <h3 class="post__title">
-                                        <a href="#" rel="bookmark"><%$ware["name"]%></a>
-                                    </h3>
                                     <div class="post__text-content">
-                                        <p><%$v['info']%></p>
+                                        <p><%$ware['factory_info']%></p>
                                     </div>
-
                                     <div class="shop-item__block ">
                                         <a href="<%$smarty.const.__APP__%>/sale/buyware?token=<%$token%>&ware_id=<%$ware['wid']%>&sale_id=<%$id%>" class="shop-item__button">购买</a>
                                     </div>
