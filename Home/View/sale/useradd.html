@@ -98,9 +98,11 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<%$smarty.const.__CONTROLLER__%>/hisware?token=<%$token%>&sale_id=<%$id%>">
-                                    <i class="fa fa-amazon"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 商品查询 </span>
-                                </a>
+                                <a href="javascript: void(0);"><i class="fa fa-amazon"></i> <span> 商品查询 </span><span class="menu-arrow"></span></a>
+                                <ul class="nav-second-level" aria-expanded="false">
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hiswarebyname?token=<%$token%>&sale_id=<%$id%>">商品名称搜索</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/hisware?token=<%$token%>&sale_id=<%$id%>">时间搜索</a></li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>

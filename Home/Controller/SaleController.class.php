@@ -102,6 +102,51 @@ class SaleController extends HomeController {
         exit;
     }
 
+
+    public function hiswarebyname(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+
+        $name = $_POST['name'];
+
+        if(empty($name)){
+            $this->display();
+            exit;
+        }
+
+        $lname = array('like','%'.$name.'%');
+        $wares = M('lp_wares wares, lp_ware_type type')
+            ->where(array('wares.type = type.type' , 'wares.flag = 1','wares.name'=>$lname))
+            ->order('wares.auto_id desc' )
+            ->field('wares.name as name,
+                     wares.out_price as out_price,
+                     wares.number as number,
+                     wares.other_price as other_price,
+                     wares.factory_info as factory_info,
+                     wares.flag as flag,
+                     wares.pic_url as pic_url,
+                     wares.auto_id as wid,
+                     wares.date as date,
+                     wares.video_url as video_url')->select();
+
+        $this->assign('wares',$wares);
+        $this->display();
+
+    }
+
     public function hisware(){
         $id=$_GET['sale_id'];
         if(empty($id)){
