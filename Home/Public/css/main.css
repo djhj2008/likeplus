@@ -10248,7 +10248,7 @@ a.shop-item__button:hover {
 
 .owl-carousel {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
 
 .owl-carousel:hover .owl-nav {

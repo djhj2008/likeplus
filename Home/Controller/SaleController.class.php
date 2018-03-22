@@ -31,8 +31,9 @@ class SaleController extends HomeController {
         wares.out_price as out_price,
         wares.other_price as other_price,
         wares.factory_info as info,
-        wares.auto_id as id,
+        wares.auto_id as wid,
         wares.pic_url as pic_url,
+        wares.pic_path as pic_path,
         type.name as tname')
         ->order('wares.date asc' )->select();
 
@@ -147,17 +148,18 @@ class SaleController extends HomeController {
 
     }
 
-    public function hisware(){
-        $id=$_GET['sale_id'];
-        if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+    public function hisware()
+    {
+        $id = $_GET['sale_id'];
+        if (empty($id)) {
+            Alert("登陆失败.", NULL, "login");
             exit;
         }
         $token = $_GET['token'];
         $ip = get_client_ip();
-        $mytoken = md5($ip.$id);
+        $mytoken = md5($ip . $id);
         if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            Alert(NULL,NULL,"login");
+            Alert(NULL, NULL, "login");
             exit;
         }
         $this->assign('id', $id);
@@ -186,8 +188,8 @@ class SaleController extends HomeController {
         $date = array('between', array($today, $end_time));
 
         $wares = M('lp_wares wares, lp_ware_type type')
-            ->where(array('wares.type = type.type' , 'wares.flag = 1','wares.date'=>$date))
-            ->order('wares.auto_id desc' )
+            ->where(array('wares.type = type.type', 'wares.flag = 1', 'wares.date' => $date))
+            ->order('wares.auto_id desc')
             ->field('wares.name as name,
                      wares.out_price as out_price,
                      wares.number as number,
@@ -195,11 +197,60 @@ class SaleController extends HomeController {
                      wares.factory_info as factory_info,
                      wares.flag as flag,
                      wares.pic_url as pic_url,
+                     wares.pic_path as pic_path,
                      wares.auto_id as wid,
                      wares.date as date,
                      wares.video_url as video_url')->select();
 
         $this->assign('wares',$wares);
+        $this->display();
+    }
+
+    public function wareinfo(){
+        $id = $_GET['sale_id'];
+        if (empty($id)) {
+            Alert("登陆失败.", NULL, "login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip . $id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL, NULL, "login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $ware_id = $_GET['ware_id'];
+
+        $wares = M('lp_wares wares')
+            ->where(array('wares.auto_id'=>$ware_id, 'wares.flag = 1'))
+            ->order('wares.auto_id desc')
+            ->field('wares.name as name,
+                     wares.out_price as out_price,
+                     wares.number as number,
+                     wares.other_price as other_price,
+                     wares.factory_info as factory_info,
+                     wares.flag as flag,
+                     wares.pic_url as pic_url,
+                     wares.pic_path as pic_path,
+                     wares.auto_id as wid,
+                     wares.date as date,
+                     wares.video_url as video_url')->find();
+
+        $photos = explode(";", $wares['pic_path']);
+
+        if (!empty($photos)) {
+            foreach ($photos as $photo) {
+                if (!empty($photo)) {
+                    $pic_path[] = $photo;
+                }
+            }
+        }
+
+        $this->assign('paths',$pic_path);
+        $this->assign('ware',$wares);
         $this->display();
     }
 

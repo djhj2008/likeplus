@@ -209,22 +209,34 @@ class ManagerController extends HomeController
         $upload->savePath = $sn . '/'; // 设置附件上传（子）目录
         // 上传文件
         $info = $upload->upload();
+        $pic_path="";
         if (!$info) {// 上传错误提示错误信息
             Alert("请选择上传图片!","back",NULL);
             exit;
-            exit;
         } else {// 上传成功
             foreach ($info as $file) {
-                $filename[] = $file['savepath'] . $file['savename'];
+
+                if ($file['key'] == "logo") {
+                    $filename[] = $file['savepath'] . $file['savename'];
+                }else{
+                    $pic_path= $pic_path.$file['savepath'] . $file['savename'].";";
+                }
             }
         }
+/*
+        $arr = explode(";",$pic_path);
+        foreach($arr as $u){
+            if(!empty($u)){
+                var_dump($u);
+            }
+        }
+        exit;
+*/
 
         $name = $_POST['name'];
         $in_price = $_POST['in_price'];
         $out_price = $_POST['out_price'];
         $date = $_POST['date'];
-        $pic_path = $_POST['pic_path'];
-        $video_url = $_POST['video_url'];
         $finfo = $_POST['info'];
         $other_price = $_POST['other_price'];
         $video_url = $_POST['video_url'];

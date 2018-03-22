@@ -18,7 +18,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>main.css?version=1.01.02" id="color-switcher-link">
+        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>main.css?version=1.01.01" id="color-switcher-link">
         <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>animations.css">
         <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>fonts.css">
 
@@ -144,82 +144,67 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-                <div class="ls section_padding_top_30">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg">
-                                <div class="page-about__title-wrapper">
-                                    <h3 class="content-block__title"><span class="content-block__title-block"><span>今日新品</span></span></h3>
+                    <div class="ls section_padding_top_30">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg">
+                                        <h3 ><span class="content-block__title-block"><span><%$ware['name']%></span></span></h3>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="ls section_padding_bottom_25">
+                    <div class="ls section_padding_bottom_25">
                         <div class="row">
                             <div class="col-lg-12">
-                                <ul id="gallery_blog-carousel" class="gallery_item-carousel home-blog__carousel">
-                                    <%foreach $wares as $v%>
+                                <ul id="gallery_blog-carousel" class="home-blog__carousel">
+                                    <%foreach $paths as $path%>
                                     <li>
                                         <div class="home-blog__carousel-wrapper">
                                             <figure class="home-blog__carousel-img">
-                                                <a  href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>">
-                                                    <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$v['pic_url']%>" >
-                                                </a>
-                                            </figure>
-                                            <div class="post__content">
-                                                <div class="post__meta">
-                                                    <ul class="post__meta-list">
-                                                        <li>
-                                                            <div class="price">
-                                                            <p  style="color:#959595"><del>零售价:￥<%$v['out_price']%></del></p>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="price">
-                                                            <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $v['out_price']*0.88)%></p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <h3 class="post__title">
-                                                    <a href="#" rel="bookmark"><%$v["name"]%></a>
-                                                </h3>
-                                                <div class="post__text-content">
-                                                    <p><%$v['info']%></p>
-                                                </div>
 
-                                                <div class="shop-item__block ">
-                                                    <a href="<%$smarty.const.__APP__%>/sale/buyware?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" class="shop-item__button">购买</a>
-                                                </div>
-                                            </div>
+                                                <a  href="#">
+                                                    <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$path%>">
+                                                </a>
+
+                                            </figure>
                                         </div>
                                     </li>
                                     <%/foreach%>
                                 </ul>
-                            </div>
-                        </div>
-                </div>
+                                <div class="post__content">
+                                    <div class="post__meta">
+                                        <ul class="post__meta-list">
+                                            <li>
+                                                <div class="price">
+                                                    <p  style="color:#959595"><del>零售价:￥<%$ware['out_price']%></del></p>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="price">
+                                                    <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $ware['out_price']*0.88)%></p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h3 class="post__title">
+                                        <a href="#" rel="bookmark"><%$ware["name"]%></a>
+                                    </h3>
+                                    <div class="post__text-content">
+                                        <p><%$v['info']%></p>
+                                    </div>
 
-                    <footer class="page_footer ds ms">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-6 footer-block__01 to_animate decoration__line_l  " >
-                                    <div class="widget widget_text page-footer__logo">
-                                        <p class="page-footer__logo-wrapper"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_bottom.png" alt=""></p>
-                                        <p>&nbsp;&nbsp;首先，欢迎您的到来，爱加HOME社交购物平台是全球供应链双向一体化电商服务平台。您现在所在的群即属于爱加HOME社交购物平台。本平台是将集团线下实体便利店所签约的
-                                            供应商、厂家的产品直接向您推荐，所有商品均来自经集团考察审核过的正规渠道，所有产品在便利店及超市均有销售。通过本社交购物频台所销售的产品，因为减少
-                                            了店租，运输等高昂的成本，所以价格要便宜很多，真正将边界与实惠带到您的身边。
-                                            我们每天会由爱加HOME社交购物平台向您推荐3-4款产品.</p>
+                                    <div class="shop-item__block ">
+                                        <a href="<%$smarty.const.__APP__%>/sale/buyware?token=<%$token%>&ware_id=<%$ware['wid']%>&sale_id=<%$id%>" class="shop-item__button">购买</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </footer>
+                    </div>
+
                     <footer class="footer text-right">
                         Copyright &copy; 2018.爱加社区
                     </footer>
-            </div>
+                </div>
             </div>
             <!-- ============================================================== -->
             <!-- End Right content here -->
@@ -227,6 +212,7 @@
         </div>
         <!-- END wrapper -->
     </body>
+
     <!-- jQuery  -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
