@@ -165,7 +165,8 @@
                                         <tbody>
                                         <%foreach $wares as $v%>
                                         <tr>
-                                            <td>编号:<br><%$v["number"]%><br>
+                                            <td>时间:<br><%$v["date"]%><br>
+                                                编号:<br><%$v["number"]%><br>
                                                 <a class="text-custom font-18"><%$v["name"]%></a><br>
                                                 原价:<%$v["other_price"]%><br>
                                                 <a class="font-18">零售价:</a><a class="text-custom font-18"><%$v["out_price"]%></a><br>
@@ -239,7 +240,7 @@
             var table = $('#datatable-buttons').DataTable({
                 lengthChange: false,
                 info: false,
-                buttons: ['excel'],
+                order: [[ 0, 'desc' ]],
                 language: {
                     "sProcessing": "处理中...",
                     "sLengthMenu": "显示 _MENU_ 项结果",

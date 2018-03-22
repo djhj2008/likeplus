@@ -151,6 +151,7 @@ class SaleController extends HomeController {
                      wares.flag as flag,
                      wares.pic_url as pic_url,
                      wares.auto_id as wid,
+                     wares.date as date,
                      wares.video_url as video_url')->select();
 
         $this->assign('wares',$wares);
