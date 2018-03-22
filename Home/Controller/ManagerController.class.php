@@ -162,7 +162,7 @@ class ManagerController extends HomeController
 
         $userFind = M('lp_sales')->where(array('auto_id' => $id, 'role' => 1))->find();
         if (empty($userFind)) {
-            Alert("身份验证失败!","login/login","",100);
+            Alert("身份验证失败!","back",NULL);
             exit;
         }
 
@@ -172,11 +172,6 @@ class ManagerController extends HomeController
 
         }else{
             $this->assign('type', $type);
-        }
-
-        if (empty($userFind)) {
-            Alert("身份验证失败!","login/login","",100);
-            exit;
         }
 
         $date = date("Y-m-d");
@@ -644,7 +639,7 @@ class ManagerController extends HomeController
             $in_price = $_POST['in_price'];
             $out_price = $_POST['out_price'];
             $date = $_POST['date'];
-            $pic_path = $_POST['pic_path'];
+            //$pic_path = $_POST['pic_path'];
             $finfo = $_POST['info'];
             $other_price = $_POST['other_price'];
             $video_url = $_POST['video_url'];
@@ -701,9 +696,11 @@ class ManagerController extends HomeController
                 if (empty($ret2)) {
                     echo $ret2;
                     exit;
+                }else{
+                    $ret3 = M('lp_wares')->where(array('auto_id' => $ware_id))->find();
                 }
             }
-            $this->assign('ware', $ret);
+            $this->assign('ware', $ret3);
             $this->assign('filename', $ret['pic_url']);
             $this->display();
         }

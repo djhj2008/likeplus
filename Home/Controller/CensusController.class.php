@@ -10,7 +10,6 @@ class CensusController extends Controller {
 
         $census = M('lp_census')->order('group_num asc')->select();
 
-        $count=0;
         foreach ($census as $user){
             $name=$user['name'];
             $phone=$user['phone'];
