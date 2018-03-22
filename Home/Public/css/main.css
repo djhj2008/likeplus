@@ -10474,6 +10474,13 @@ a.shop-item__button:hover {
   -webkit-transform-style: preserve-3d;
 }
 
+.owl-carousel .owl-item video {
+  display: block;
+  width: 100%;
+  height: 480px;
+  -webkit-transform-style: preserve-3d;
+}
+
 .owl-carousel.owl-text-select-on .owl-item {
   -webkit-user-select: auto;
   -moz-user-select: auto;
