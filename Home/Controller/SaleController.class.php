@@ -173,10 +173,10 @@ class SaleController extends HomeController {
 
         if (empty($today)) {
             $date = date("Y-m-d");
-            $this->assign('date1', $date);
-            $this->assign('date2', $date);
-            $this->display();
-            exit;
+            $today = $date;
+            $end_time = $date;
+            //$this->display();
+            //exit;
         }
         $this->assign('date1', $today);
         $this->assign('date2', $end_time);
