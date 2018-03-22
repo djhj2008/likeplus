@@ -157,11 +157,21 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul id="gallery_blog-carousel" class="home-blog__carousel">
+                                	<li>
+                                        <div class="home-blog__carousel-wrapper">
+                                            <figure class="home-blog__carousel-img">
+                                                <%if empty($ware['video_url']) neq true%>
+                                                    <video src="<%$smarty.const.PUBLIC_ROOT_URL%>videos/<%$ware['video_url']%>"
+                                                        width="400" height="500" preload="metadata"
+                                                        poster="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$ware['pic_url']%>" controls></video>
+                                                <%/if%>
+                                            </figure>
+                                        </div>
+                                    </li>
                                     <%foreach $paths as $path%>
                                     <li>
                                         <div class="home-blog__carousel-wrapper">
                                             <figure class="home-blog__carousel-img">
-
                                                 <a  href="#">
                                                     <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$path%>">
                                                 </a>
