@@ -173,7 +173,7 @@
                                         <td><%$v['time']%></td>
                                         <td><%$v["sn"]%></td>
                                         <td><%$v["sname"]%></td>
-                                        <td><%$v["group_name"]%></td>
+                                        <td> <a href="<%$smarty.const.__APP__%>/manager/chksaleorder?token=<%$token%>&sale_id=<%$id%>&sid=<%$v['sid']%>"><%$v["group_name"]%></a></td>
                                         <td><%$v["name"]%></td>
                                         <td><%$v["winfo"]%></td>
                                         <td><%$v["count"]%></td>
@@ -184,13 +184,13 @@
                                         <td><%$v["pro"]%><%$v["city"]%><%$v["area"]%><br><%$v["addr"]%></td>
                                         <td>
                                             <%if $v["flag"] eq 0 %>
-                                            <a>等待确认</a>
+                                            <a style="float:left;color:#008855">等待确认</a>
                                             <%else if $v["flag"] eq 1 %>
-                                            <a>已取消</a>
+                                            <a style="float:left;color:#f0c040">已取消</a>
                                             <%else if $v["flag"] eq 2 %>
-                                            <a>确认成功</a>
+                                            <a style="float:left;color:#0000F8">确认成功</a>
                                             <%else if $v["flag"] eq 3 %>
-                                            <a>已撤销</a>
+                                            <a style="float:left;color:#f0c040">管理员撤销</a>
                                             <%/if%>
                                         </td>
                                         <td>
@@ -303,12 +303,12 @@
         } );
         function makeorder(oid){
             var sale_id = "<%$id%>";
-            window.location.href="<%$smarty.const.__APP__%>/manager/makeorder?token=<%$token%>&order_id"+oid+"&sale_id="+sale_id;
+            window.location.href="<%$smarty.const.__APP__%>/manager/makeorder?token=<%$token%>&order_id="+oid+"&sale_id="+sale_id;
         }
 
         function cancelorder(oid){
             var sale_id = "<%$id%>";
-            window.location.href="<%$smarty.const.__APP__%>/manager/cancelorder?token=<%$token%>&order_id"+oid+"&sale_id="+sale_id;
+            window.location.href="<%$smarty.const.__APP__%>/manager/cancelorder?token=<%$token%>&order_id="+oid+"&sale_id="+sale_id;
         }
 
     </script>
