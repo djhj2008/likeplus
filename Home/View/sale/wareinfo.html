@@ -92,6 +92,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="<%$smarty.const.__CONTROLLER__%>/waretop?token=<%$token%>&sale_id=<%$id%>">
+                                    <i class="dripicons-trophy"></i><span class="badge badge-danger badge-pill pull-right"></span> <span> 热销TOP-10 </span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="javascript: void(0);"><i class="fa fa-amazon"></i> <span> 商品查询 </span><span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
                                     <li><a href="<%$smarty.const.__CONTROLLER__%>/hiswarebyname?token=<%$token%>&sale_id=<%$id%>">商品名称搜索</a></li>
@@ -157,7 +162,7 @@
                     <div class="home-blog__carousel-wrapper">
                         <figure class="home-blog__carousel-img">
                             <video src="<%$smarty.const.PUBLIC_ROOT_URL%>videos/<%$ware['video_url']%>"
-                                   poster="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$ware['pic_url']%>"
+                                   poster="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo2.jpg"
                                    preload="metadata" width="100%"
                                    controls></video>
                         </figure>

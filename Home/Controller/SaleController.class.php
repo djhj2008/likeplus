@@ -41,6 +41,40 @@ class SaleController extends HomeController {
         $this->display();
     }
 
+    public function waretop(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+
+        $wares = M('lp_wares wares, lp_ware_type type')
+            ->where(array('wares.type = type.type ',' wares.flag = 1'))
+            ->field('wares.auto_id as id, 
+        wares.name as name,
+        wares.out_price as out_price,
+        wares.other_price as other_price,
+        wares.factory_info as info,
+        wares.auto_id as wid,
+        wares.pic_url as pic_url,
+        wares.pic_path as pic_path,
+        type.name as tname')
+            ->order('wares.date asc' )->limit(10)->select();
+
+        $this->assign('wares',$wares);
+        $this->display();
+    }
+
     public function saleinfo(){
         $id=$_GET['sale_id'];
         if(empty($id)){
@@ -727,6 +761,7 @@ class SaleController extends HomeController {
             myorder.ware_model as model,
             myorder.count as count,
             myorder.winfo as winfo,
+            myware.auto_id as wid,
             myuser.name as uname,
             myuser.phone as phone,
             myuser.province as pro,
@@ -791,6 +826,7 @@ class SaleController extends HomeController {
             ->field('myorder.time as time,
             myorder.sn as sn,
             myware.name as name,
+            myware.auto_id as wid,
             myorder.ware_model as model,
             myorder.count as count,
             myorder.winfo as winfo,
