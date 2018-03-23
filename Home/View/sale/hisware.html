@@ -173,7 +173,7 @@
                                         <tr>
                                             <td>时间:<br><%$v["date"]%><br>
                                                 编号:<br><%$v["number"]%><br>
-                                                <a class="text-custom font-18"><%$v["name"]%></a><br>
+                                                <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark"  class="text-custom font-18"><%$v["name"]%></a><br>
                                                 原价:<%$v["other_price"]%><br>
                                                 <a class="font-18">零售价:</a><a class="text-custom font-18"><%$v["out_price"]%></a><br>
                                                 <button type="button" id="choose" onclick="buynow(<%$v["wid"]%>)"
