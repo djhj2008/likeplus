@@ -177,12 +177,12 @@
                                                     <ul class="post__meta-list">
                                                         <li>
                                                             <div class="price">
-                                                                <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $v['out_price']*0.88)%></p>
+                                                                <p  style="float:right;color:#0D4D78">零售价:￥<%$v['out_price']%></p>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div class="price">
-                                                                <p  style="color:#FFA560">赚:￥<%sprintf("%.02f", $v['out_price']*0.12)%></p>
+                                                                <p  style="color:#FFA560">赚￥<%sprintf("%.02f", $v['out_price']*0.12)%></p>
                                                             </div>
                                                         </li>
                                                     </ul>
