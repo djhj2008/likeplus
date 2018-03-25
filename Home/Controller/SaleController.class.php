@@ -69,7 +69,7 @@ class SaleController extends HomeController {
         wares.pic_url as pic_url,
         wares.pic_path as pic_path,
         type.name as tname')
-            ->order('wares.date asc' )->limit(10)->select();
+            ->order('wares.score desc' )->limit(10)->select();
 
         $this->assign('wares',$wares);
         $this->display();
@@ -255,6 +255,8 @@ class SaleController extends HomeController {
             exit;
         }
         */
+        $id = $_GET['sale_id'];
+        $token = $_GET['token'];
         $this->assign('id', $id);
         $this->assign('token', $token);
 
