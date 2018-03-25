@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 return array(
-	'SHOW_PAGE_TRACE' => true,
+	'SHOW_PAGE_TRACE' => false,
 	//设置请求的默认分组
     'MODULE_ALLOW_LIST' => array('Home','Admin'),//设置一个对比的分组列表    
 	'DEFAULT_MODULE'  => 'Home',//默认模块

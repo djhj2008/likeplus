@@ -158,7 +158,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <%if empty(<%$ware['video_url']%>) neq true%>
                     <div class="home-blog__carousel-wrapper">
                         <figure class="home-blog__carousel-img">
                             <video src="<%$smarty.const.PUBLIC_ROOT_URL%>videos/<%$ware['video_url']%>"
@@ -167,6 +167,7 @@
                                    controls></video>
                         </figure>
                     </div>
+                    <%/if%>
                     </div>
 
                     <div class="ls section_padding_bottom_25">
@@ -190,12 +191,12 @@
                                         <ul class="post__meta-list">
                                             <li>
                                                 <div class="price">
-                                                    <p  style="float:right;color:#0D4D78">订货价:￥<%sprintf("%.02f", $ware['out_price']*0.88)%></p>
+                                                    <p  style="float:right;color:#0D4D78">零售价:￥<%$ware['out_price']%></p>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="price">
-                                                    <p  style="color:#FFA560">赚:￥<%sprintf("%.02f", $ware['out_price']*0.12)%></p>
+                                                    <p  style="color:#FFA560">赚￥<%sprintf("%.02f", $ware['out_price']*0.12)%></p>
                                                 </div>
                                             </li>
                                         </ul>
