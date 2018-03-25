@@ -6,7 +6,7 @@ class SaleController extends HomeController {
     public function index(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -44,7 +44,7 @@ class SaleController extends HomeController {
     public function waretop(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -78,7 +78,7 @@ class SaleController extends HomeController {
     public function saleinfo(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -97,7 +97,7 @@ class SaleController extends HomeController {
     public function saleedit(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -141,7 +141,7 @@ class SaleController extends HomeController {
     public function hiswarebyname(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -186,7 +186,7 @@ class SaleController extends HomeController {
     {
         $id = $_GET['sale_id'];
         if (empty($id)) {
-            Alert("登陆失败.", NULL, "login");
+            Alert("请登陆.", NULL, "login");
             exit;
         }
         $token = $_GET['token'];
@@ -241,6 +241,7 @@ class SaleController extends HomeController {
     }
 
     public function wareinfo(){
+        /*
         $id = $_GET['sale_id'];
         if (empty($id)) {
             Alert("登陆失败.", NULL, "login");
@@ -253,6 +254,7 @@ class SaleController extends HomeController {
             Alert(NULL, NULL, "login");
             exit;
         }
+        */
         $this->assign('id', $id);
         $this->assign('token', $token);
 
@@ -296,7 +298,7 @@ class SaleController extends HomeController {
     {
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -346,7 +348,7 @@ class SaleController extends HomeController {
     public function userinfo(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -370,7 +372,7 @@ class SaleController extends HomeController {
     public function myuserinfo(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -394,7 +396,7 @@ class SaleController extends HomeController {
     public function useredit(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -419,7 +421,7 @@ class SaleController extends HomeController {
     public function myuseredit(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -443,7 +445,7 @@ class SaleController extends HomeController {
     public function usersave(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -508,7 +510,7 @@ class SaleController extends HomeController {
     public function usersaveonly(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -571,7 +573,7 @@ class SaleController extends HomeController {
     public function myuseradd(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -618,7 +620,7 @@ class SaleController extends HomeController {
     public function useradd(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -669,7 +671,7 @@ class SaleController extends HomeController {
     public function addorder(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -732,7 +734,7 @@ class SaleController extends HomeController {
     public function myorder(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
@@ -788,7 +790,7 @@ class SaleController extends HomeController {
     public function hisorder(){
         $id=$_GET['sale_id'];
         if(empty($id)){
-            Alert("登陆失败.",NULL,"login");
+            Alert("请登陆.",NULL,"login");
             exit;
         }
         $token = $_GET['token'];
