@@ -336,9 +336,7 @@ class ManagerController extends HomeController
         }
         if (empty($today)) {
             $date = date("Y-m-d");
-            $this->assign('date', $date);
-            $this->display();
-            exit;
+            $today = $date;
         }
         $this->assign('date', $today);
         $today =date("Y-m-d 00:00:00", strtotime($today));
@@ -347,7 +345,7 @@ class ManagerController extends HomeController
 
 
         $user = M('lp_wares');
-        $wares = $user->where(array('date' => $date))->select();
+        $wares = $user->where(array('flag'=>0))->select();
         //var_dump($user->getLastSql());
 
         if ($wares) {
@@ -383,10 +381,8 @@ class ManagerController extends HomeController
 
         if (empty($today)) {
             $date = date("Y-m-d");
-            $this->assign('date1', $date);
-            $this->assign('date2', $date);
-            $this->display();
-            exit;
+            $today = $date;
+            $end_time = $date;
         }
         $this->assign('date1', $today);
         $this->assign('date2', $end_time);
@@ -588,6 +584,13 @@ class ManagerController extends HomeController
         $this->assign('date1', $date1);
         $this->assign('date2', $date2);
 
+        $type = M('lp_ware_type')->select();
+
+        if(empty($type)){
+
+        }else{
+            $this->assign('type', $type);
+        }
 
         $ware = D('lp_wares')->where(array('auto_id' => $_GET['ware_id']))->find();
         if ($ware) {
@@ -651,6 +654,7 @@ class ManagerController extends HomeController
             $in_price = $_POST['in_price'];
             $out_price = $_POST['out_price'];
             $date = $_POST['date'];
+            $type = $_POST['type'];
             //$pic_path = $_POST['pic_path'];
             $finfo = $_POST['info'];
             $other_price = $_POST['other_price'];
@@ -672,13 +676,15 @@ class ManagerController extends HomeController
                 exit;
             }
 
-
             $ware = array();
             if($name!=$ret['name']){
                 $ware[ 'name'] = $name;
             }
             if($sn!=$ret['number']){
                 $ware[ 'number'] = $sn;
+            }
+            if($type!=$ret['type']){
+                $ware[ 'type'] = $type;
             }
             if($in_price!=$ret['in_price']){
                 $ware[ 'in_price'] = $in_price;
@@ -711,6 +717,12 @@ class ManagerController extends HomeController
                 }else{
                     $ret3 = M('lp_wares')->where(array('auto_id' => $ware_id))->find();
                 }
+            }else{
+                echo "<script language=\"JavaScript\">\r\n";
+                echo " alert(\"未修改!\");\r\n";
+                echo " history.back();\r\n";
+                echo "</script>";
+                exit;
             }
             $this->assign('ware', $ret3);
             $this->assign('filename', $ret['pic_url']);

@@ -137,7 +137,6 @@
             <div class="content-page">
                 <!-- Start content -->
                 <div class="content">
-
                         <div class="row">
                             <div class="col-md-6">
                             <div class="file_holder">
@@ -150,6 +149,18 @@
                                     <label class="col-4 col-form-label">商品名称:</label>
                                     <div class="col-8">
                                         <input type="text" name="name" value="<%$ware['name']%>"/>
+                                    </div>
+                                    <label class="col-4 col-form-label">商品类型:</label>
+                                    <div class="col-4">
+                                    <select name="type" id="type" class="form-control" data-style="btn-light">
+                                        <%foreach $type as $v%>
+                                            <%if $v['type'] eq  $ware['type'] %>
+                                                <option value ="<%$v['type']%>" selected="selected"><%$v['name']%></option>
+                                            <%else%>
+                                                <option value ="<%$v['type']%>"><%$v['name']%></option>
+                                            <%/if%>
+                                        <%/foreach%>
+                                    </select>
                                     </div>
                                     <label class="col-4 col-form-label">商品进货价:</label>
                                     <div class="col-8">
@@ -176,7 +187,7 @@
                                     </div>
                                     <label class="col-4 col-form-label">视频资料地址图片:</label>
                                     <div class="col-8">
-                                        <input type="url" name="video_url" value="<%$ware['video_url']%>"/>
+                                        <input type="text" name="video_url" value="<%$ware['video_url']%>"/>
                                     </div>
                                     <label for="info" class="col-4 col-form-label">商品介绍:</label>
                                     <div class="col-12">
