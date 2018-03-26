@@ -752,6 +752,11 @@ class ManagerController extends HomeController
         $end_time = $_POST['date2'];
 
         if (empty($today)) {
+            $today = $_GET['date1'];
+            $end_time = $_GET['date2'];
+        }
+
+        if (empty($today)) {
             $date = date("Y-m-d");
             $today = $date;
             $end_time = $date;
@@ -788,6 +793,7 @@ class ManagerController extends HomeController
             mysale.auto_id as sid,
             mysale.name as sname,
             mysale.group_name as group_name,
+            myorder.express as express,
             myorder.flag as flag')->select();
 
         if($order) {
@@ -795,7 +801,7 @@ class ManagerController extends HomeController
         }
         $sum=0;
         for($i=0;$i<count($order);$i++){
-            if($order[$i]['flag']==0||$order[$i]['flag']==2) {
+            if($order[$i]['flag']==0) {
                 $sum += $order[$i]['price'];
             }
         }
@@ -864,10 +870,13 @@ class ManagerController extends HomeController
         $user = M('lp_order');
         $ret = $user->where(array('auto_id' => $order_id))->save($save_flag);
 
+        $data1=$_GET['date1'];
+        $data2=$_GET['date2'];
+
         if (!empty($ret)) {
             echo "<script language=\"JavaScript\">\r\n";
             echo " alert(\"订单确认成功!\");\r\n";
-            echo "window.location.href='myorder?token={$token}&sale_id={$id}';\r\n";
+            echo "window.location.href='myorder?token={$token}&sale_id={$id}&date1={$data1}&date2={$data2}';\r\n";
             echo "</script>";
             exit;
         } else {
@@ -877,6 +886,56 @@ class ManagerController extends HomeController
             echo "</script>";
             exit;
         }
+    }
+
+    function addexpress(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $order_id = $_GET['order_id'];
+
+        $date1 = $_GET['date1'];
+        $date2 = $_GET['date2'];
+
+        $express = $_POST['express'];
+        if(!empty($express)) {
+            $save_express = array(
+                'express' =>$express,
+            );
+
+            $user = M('lp_order');
+            $ret = $user->where(array('auto_id' => $order_id))->save($save_express);
+
+            if (!empty($ret)) {
+                echo "<script language=\"JavaScript\">\r\n";
+                echo " alert(\"添加成功!\");\r\n";
+                echo "window.location.href='myorder?token={$token}&sale_id={$id}&date1={$date1}&date2={$date2}';\r\n";
+                echo "</script>";
+                exit;
+            } else {
+                echo "<script language=\"JavaScript\">\r\n";
+                echo " alert(\"添加失败!\");\r\n";
+                echo " history.back();\r\n";
+                echo "</script>";
+                exit;
+            }
+        }
+        $this->assign('order_id', $order_id);
+        $this->assign('date1', $date1);
+        $this->assign('date2', $date2);
+        $this->display();
     }
 
     function cancelorder(){
@@ -903,10 +962,13 @@ class ManagerController extends HomeController
         $user = M('lp_order');
         $ret = $user->where(array('auto_id' => $order_id))->save($save_flag);
 
+        $data1=$_GET['date1'];
+        $data2=$_GET['date2'];
+
         if (!empty($ret)) {
             echo "<script language=\"JavaScript\">\r\n";
             echo " alert(\"订单取消成功!\");\r\n";
-            echo "window.location.href='myorder?token={$token}&sale_id={$id}';\r\n";
+            echo "window.location.href='myorder?token={$token}&sale_id={$id}&date1={$data1}&date2={$data2}';\r\n";
             echo "</script>";
             exit;
         } else {
@@ -972,45 +1034,210 @@ class ManagerController extends HomeController
 
         $sid = $_GET['sid'];
         $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
-        $order=$User->Distinct(true)
+        $order = $User->Distinct(true)
             ->where(array(
                 'myorder.user_id=myuser.auto_id',
                 'myorder.ware_id=myware.auto_id',
-                'myorder.sale_id'=>$sid))
+                'myorder.flag=0',
+                'myorder.sale_id' => $sid))
             ->field('myorder.auto_id as auto_id,
-            myorder.time as time,
-            myorder.sn as sn,
-            myware.name as name,
-            myorder.ware_model as model,
-            myorder.count as count,
-            myuser.name as uname,
-            myuser.phone as phone,
-            myuser.province as pro,
-            myuser.city as city,
-            myuser.area as area,
-            myuser.addr as addr,
-            myorder.price as price,
-            myorder.flag as flag')->select();
+        myorder.time as time,
+        myorder.sn as sn,
+        myware.name as name,
+        myorder.ware_model as model,
+        myorder.count as count,
+        myuser.name as uname,
+        myuser.phone as phone,
+        myuser.province as pro,
+        myuser.city as city,
+        myuser.area as area,
+        myuser.addr as addr,
+        myorder.price as price,
+        myorder.flag as flag')->select();
 
-        $sale = M('lp_sales')->where(array('auto_id'=>$sid))->find();
-        if($sale){
-            $this->assign('sale_id',$sale['auto_id']);
-            $this->assign('sale_name',$sale['name']);
-            $this->assign('sale_group',$sale['group_name']);
+        $sale = M('lp_sales')->where(array('auto_id' => $sid))->find();
+        if ($sale) {
+            $this->assign('sale_id', $sale['auto_id']);
+            $this->assign('sale_name', $sale['name']);
+            $this->assign('sale_group', $sale['group_name']);
         }
 
-        if($order) {
-            $this->assign('myorder',$order);
+        if ($order) {
+            $this->assign('myorder', $order);
         }
-        $sum=0;
-        for($i=0;$i<count($order);$i++){
-            if($order[$i]['flag']==0||$order[$i]['flag']==2) {
+        $sum = 0;
+        for ($i = 0; $i < count($order); $i++) {
+            if ($order[$i]['flag'] == 0) {
                 $sum += $order[$i]['price'];
             }
         }
-        $this->assign('money',$sum);
+
+        $this->assign('sid', $sid);
+        $this->assign('money', $sum);
         $this->display();
     }
 
+    public function chksaleorderdone(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $today = $_POST['date1'];
+        $end_time = $_POST['date2'];
+
+        if (empty($today)) {
+            $today = $_GET['date1'];
+            $end_time = $_GET['date2'];
+        }
+
+        if (empty($today)) {
+            $date = date("Y-m-d");
+            $today = $date;
+            $end_time = $date;
+        }
+
+        $this->assign('date1', $today);
+        $this->assign('date2', $end_time);
+
+        $today = date("Y-m-d 0:0:0", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
+        $date = array('between', array($today, $end_time));
+
+        $sid = $_GET['sid'];
+        $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
+        $order = $User->Distinct(true)
+            ->where(array(
+                'myorder.user_id=myuser.auto_id',
+                'myorder.ware_id=myware.auto_id',
+                'myorder.flag=2',
+                'myorder.time'=>$date,
+                'myorder.sale_id' => $sid))
+            ->field('myorder.auto_id as auto_id,
+        myorder.time as time,
+        myorder.sn as sn,
+        myware.name as name,
+        myorder.ware_model as model,
+        myorder.count as count,
+        myuser.name as uname,
+        myuser.phone as phone,
+        myuser.province as pro,
+        myuser.city as city,
+        myuser.area as area,
+        myuser.addr as addr,
+        myorder.price as price,
+        myorder.flag as flag')->select();
+
+        $sale = M('lp_sales')->where(array('auto_id' => $sid))->find();
+        if ($sale) {
+            $this->assign('sale_id', $sale['auto_id']);
+            $this->assign('sale_name', $sale['name']);
+            $this->assign('sale_group', $sale['group_name']);
+        }
+
+        if ($order) {
+            $this->assign('myorder', $order);
+        }
+        $sum = 0;
+        for ($i = 0; $i < count($order); $i++) {
+            if ($order[$i]['flag'] == 2) {
+                $sum += $order[$i]['price'];
+            }
+        }
+        $this->assign('sid', $sid);
+        $this->assign('money', $sum);
+        $this->display();
+    }
+
+    public function chksaleorderother(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $today = $_POST['date1'];
+        $end_time = $_POST['date2'];
+
+        if (empty($today)) {
+            $today = $_GET['date1'];
+            $end_time = $_GET['date2'];
+        }
+
+        if (empty($today)) {
+            $date = date("Y-m-d");
+            $today = $date;
+            $end_time = $date;
+        }
+
+        $this->assign('date1', $today);
+        $this->assign('date2', $end_time);
+
+        $today = date("Y-m-d 0:0:0", strtotime($today));
+        $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
+        $date = array('between', array($today, $end_time));
+
+        $sid = $_GET['sid'];
+        $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
+        $order = $User->Distinct(true)
+            ->where(array(
+                'myorder.user_id=myuser.auto_id',
+                'myorder.ware_id=myware.auto_id',
+                'myorder.flag=3',
+                'myorder.sale_id' => $sid))
+            ->field('myorder.auto_id as auto_id,
+        myorder.time as time,
+        myorder.sn as sn,
+        myware.name as name,
+        myorder.ware_model as model,
+        myorder.count as count,
+        myuser.name as uname,
+        myuser.phone as phone,
+        myuser.province as pro,
+        myuser.city as city,
+        myuser.area as area,
+        myuser.addr as addr,
+        myorder.price as price,
+        myorder.flag as flag')->select();
+
+        $sale = M('lp_sales')->where(array('auto_id' => $sid))->find();
+        if ($sale) {
+            $this->assign('sale_id', $sale['auto_id']);
+            $this->assign('sale_name', $sale['name']);
+            $this->assign('sale_group', $sale['group_name']);
+        }
+
+        if ($order) {
+            $this->assign('myorder', $order);
+        }
+        $sum = 0;
+        for ($i = 0; $i < count($order); $i++) {
+            if ($order[$i]['flag'] == 2) {
+                $sum += $order[$i]['price'];
+            }
+        }
+        $this->assign('sid', $sid);
+        $this->assign('money', $sum);
+        $this->display();
+    }
 }
 ?>
