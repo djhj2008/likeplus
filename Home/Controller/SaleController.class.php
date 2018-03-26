@@ -773,6 +773,7 @@ class SaleController extends HomeController {
             myuser.area as area,
             myuser.addr as addr,
             myorder.price as price,
+            myorder.express as express,
             myorder.flag as flag')->select();
 
         if($order) {
@@ -841,6 +842,7 @@ class SaleController extends HomeController {
             myuser.area as area,
             myuser.addr as addr,
             myorder.price as price,
+            myorder.express as express,
             myorder.flag as flag')->select();
 
         if($order) {
@@ -848,6 +850,14 @@ class SaleController extends HomeController {
         }
         //var_dump($order);
         $this->display();
+    }
+
+    function chkexpress(){
+        $com="yunda";
+        $nu=$_GET['express'];
+        $context="查询";
+        $link="<a href='https://www.kuaidi100.com/chaxun?com=".$com."&nu=".$nu."'>".$context."</a >";
+        echo $link;
     }
 }
 ?>

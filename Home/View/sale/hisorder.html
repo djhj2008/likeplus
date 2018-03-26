@@ -173,13 +173,19 @@
                                     <tr>
                                         <td>订单号:<%$v["sn"]%><br>
                                             <%$v["time"]%><br>
-                                            <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark" class="text-custom font-18"><%$v["name"]%></a><br>
+                                            <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark" class="text-custom font-18">
+                                                <%$v["name"]%><i class="fa fa-caret-square-o-right m-t-0"></i>
+                                            </a><br>
                                             <a class="font-18">数量X</a><a class="text-custom font-18"><%$v["count"]%></a><br>
                                             <a class="font-18">价格:￥</a><a class="text-custom font-18"><%$v["price"]%></a><br>
                                             <a >备注:</a><%$v["winfo"]%></a><br>
                                             收货人:<%$v["uname"]%><br>
                                             <%$v["phone"]%><br>
                                             <%$v["pro"]%><%$v["city"]%><%$v["area"]%><br><%$v["addr"]%><br>
+                                            <%if empty($v["express"]) neq true %>
+                                            <a href="https://www.kuaidi100.com/shentong?com=yunda&nu=<%$v['express']%>" rel="bookmark" class="text-custom font-18">
+                                                快递单号：<%$v["express"]%></a>
+                                            <%/if%>
                                         </td>
                                         <td>
                                             <%if $v["flag"] eq 0 %>
