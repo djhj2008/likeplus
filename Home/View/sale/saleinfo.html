@@ -150,43 +150,39 @@
                 <!-- Start content -->
                 <div class="content">
                     <div class="container-fluid">
-                        <div class="card-box">
                             <div class="form-group row">
                                 <div>
-                                    <h4 class="mt-0 font-20">地址信息</h4>
+                                    <h5>修改密码:</h5>
                                 </div>
                             </div>
                             <form role="form" action="<%$smarty.const.__APP__%>/sale/saleedit?uid=<%$user[0]['auto_id']%>&token=<%$token%>&sale_id=<%$id%>"  method="post">
-                                <div class="form-group row">
-                                    <label for="oldpass" class="col-2 col-form-label">原密码</label>
-                                    <div class="col-4">
+                                <div class="form-group row ">
+                                    <label for="oldpass" class="col-4 col-form-label">原密码</label>
+                                    <div class="col-8">
                                         <input type="password" required class="form-control"
                                                id="oldpass" name="oldpass" placeholder="请输入原始密码">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="pass" class="col-2 col-form-label">新密码</label>
-                                    <div class="col-4">
+                                    <label for="pass" class="col-4 col-form-label">新密码</label>
+                                    <div class="col-8">
                                         <input type="password" required class="form-control"
                                                id="pass" name="pass" placeholder="请输入新密码">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="pass2" class="col-2 col-form-label">确认新密码</label>
-                                    <div class="col-4">
+                                    <label for="pass2" class="col-4 col-form-label">确认新密码</label>
+                                    <div class="col-8">
                                         <input type="password" required class="form-control"
                                                id="pass2" name="pass2" placeholder="请再次输入新密码">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-2">
-                                        <button type="submit" class="btn btn-github">
-                                            确定
-                                        </button>
-                                    </div>
+                                <div class="col ml-8">
+                                <button type="submit" class="btn btn-github">
+                                    确定
+                                </button>
                                 </div>
                             </form>
-                        </div>
                     </div> <!-- container -->
                     <footer class="footer text-right">
                         Copyright &copy; 2018.爱加社区
