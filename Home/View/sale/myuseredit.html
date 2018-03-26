@@ -162,7 +162,7 @@
                         <h4 class="mt-0 font-20">地址信息</h4>
                             </div>
                         </div>
-                        <form role="form" action="<%$smarty.const.__APP__%>/sale/usersaveonly?uid=<%$user[0]['auto_id']%>&token=<%$token%>&sale_id=<%$id%>"  method="post">
+                        <form role="form" onsubmit="return emp()" action="<%$smarty.const.__APP__%>/sale/usersaveonly?uid=<%$user[0]['auto_id']%>&token=<%$token%>&sale_id=<%$id%>"  method="post">
                             <div class="form-group row">
                                 <label for="name" class="col-4 col-form-label">姓名</label>
                                 <div class="col-8">
@@ -173,7 +173,7 @@
                             <div class="form-group row">
                                 <label for="number" class="col-4 col-form-label">电话</label>
                                 <div class="col-8">
-                                    <input id="number" name="number" type="number" placeholder="手机号" required
+                                    <input id="number" name="number" type="text" placeholder="手机号" required
                                            class="form-control" value="<%$user[0]['phone']%>">
                                 </div>
                             </div>
@@ -300,7 +300,18 @@
                 table.buttons().container()
                         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
             } );
-
+            function emp(){
+                //电话不能为空
+                var temp0 = document.getElementById("number");//捕获id
+                //对电话号进行正则验证
+                var myreg0 = /^1[34578]\d{9}$/;
+                if(!myreg0.test(temp0.value))
+                {
+                    alert('提示\n\n请输入有效的电话号码！');
+                    return false;
+                }
+                return true;
+            }
         </script>
 
     </body>

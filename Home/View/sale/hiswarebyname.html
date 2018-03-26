@@ -172,26 +172,30 @@
                                     <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
-                                            <td width="40%">商品信息</td>
-                                            <th width="40%"></th>
+                                            <th width="50%">商品信息</th>
+                                            <th width="50%">图片</th>
                                         </tr>
                                         </thead>
 
                                         <tbody>
                                         <%foreach $wares as $v%>
                                         <tr>
-                                            <td>时间:<br><%$v["date"]%><br>
-                                                编号:<br><%$v["number"]%><br>
-                                                <a  href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark" class="text-custom font-18"><%$v["name"]%></a><br>
-                                                原价:<%$v["other_price"]%><br>
-                                                <a class="font-18">零售价:</a><a class="text-custom font-18"><%$v["out_price"]%></a><br>
-                                                <button type="button" id="choose" onclick="buynow(<%$v["wid"]%>)"
-                                                class="btn btn-dark mt-4">
-                                                <span>购买</span> </button>
+                                            <td>
+                                                <div><!--
+                                                    时间:<br><%$v["date"]%><br>
+                                                    编号:<br><%$v["number"]%><br>-->
+                                                    <a  href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark" class="text-custom font-18"><%$v["name"]%>
+                                                        <i class="fa fa-caret-square-o-right m-t-0"></i></a><br>
+                                                    <a class="font-18">零售价:</a><a class="text-custom font-18"><%$v["out_price"]%></a><br>
+                                                    <p class="font-18"  style="color:#FFA560">赚￥<%sprintf("%.02f", $v['out_price']*0.12)%></p><br>
+                                                    <!--button type="button" id="choose" onclick="buynow(<%$v["wid"]%>)"
+                                                    class="btn btn-dark mt-4">
+                                                    <span>购买</span> </button-->
+                                                </div>
                                             </td>
-                                            <td><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$v['pic_url']%>" alt="" height="120"><br>
-                                                产品介绍:<br>
-                                                <%$v["factory_info"]%></td>
+                                            <td><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$v['pic_url']%>" alt="" height="100"><br>
+                                                <!--产品介绍:<br>
+                                                 <%$v["factory_info"]%>--></td>
                                         </tr>
                                         <%/foreach%>
                                         </tbody>

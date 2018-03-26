@@ -187,9 +187,9 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <a>点击名称进入详情</a>
+                                                <!--a>点击名称进入详情</a-->
                                                 <h3 class="post__title">
-                                                    <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark" style="color:#2080E0"><%$v["name"]%></a>
+                                                    <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$v['wid']%>&sale_id=<%$id%>" rel="bookmark" style="color:#2080E0" ><%$v["name"]%><i class="fa fa-caret-square-o-right m-t-0"></i></a>
                                                 </h3>
                                                 <!--div class="post__text-content">
                                                     <p><%$v['info']%></p>
@@ -233,6 +233,7 @@
         </div>
         <!-- END wrapper -->
     </body>
+
     <!-- jQuery  -->
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
     <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
