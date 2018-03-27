@@ -144,13 +144,23 @@
                         <div class="card-box">
                             <div class="form-group row">
                                 <div>
-                                    <h4 class="mt-0 font-20">添加快递单号</h4>
+                                    <h4 class="mt-0 font-20">添加快递信息</h4>
                                 </div>
                             </div>
                             <form role="form" action="<%$smarty.const.__APP__%>/manager/addexpress?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>&order_id=<%$order_id%>"  method="post">
-
-                                <h5 for="express">快递单号:</h5>
-                                <div class="col-6">
+                                <div class="form-group row">
+                                    <h5 for="exid" class="mt-2">快递公司:</h5>
+                                    <div class="col-4">
+                                        <select name="exid" id="exid" class="form-control" data-style="btn-light">
+                                            <%foreach $exid as $v%>
+                                            <option value ="<%$v['value']%>"><%$v['name']%></option>
+                                            <%/foreach%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                <h5 for="express" class="mt-2">快递单号:</h5>
+                                <div class="col-4">
                                     <div class="form-group row">
                                     <input type="text" required class="form-control"
                                            id="express" name="express" placeholder="请输入快递单号">
@@ -159,7 +169,7 @@
                                     </button>
                                     </div>
                                 </div>
-
+                                </div>
                             </form>
                         </div>
                     </div> <!-- container -->

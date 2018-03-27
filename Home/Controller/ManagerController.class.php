@@ -908,11 +908,13 @@ class ManagerController extends HomeController
 
         $date1 = $_GET['date1'];
         $date2 = $_GET['date2'];
-
         $express = $_POST['express'];
+        $ex_id = $_POST['exid'];
+
         if(!empty($express)) {
             $save_express = array(
                 'express' =>$express,
+                'exid' =>$ex_id,
             );
 
             $user = M('lp_order');
@@ -932,6 +934,9 @@ class ManagerController extends HomeController
                 exit;
             }
         }
+
+        $exid =  M('lp_express')->select();
+        $this->assign('exid', $exid);
         $this->assign('order_id', $order_id);
         $this->assign('date1', $date1);
         $this->assign('date2', $date2);

@@ -772,7 +772,9 @@ class SaleController extends HomeController {
             myuser.city as city,
             myuser.area as area,
             myuser.addr as addr,
+            myware.out_price as out_price,
             myorder.price as price,
+            myorder.exid as exid,
             myorder.express as express,
             myorder.flag as flag')->select();
 
