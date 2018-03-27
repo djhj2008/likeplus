@@ -113,7 +113,7 @@
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 购物 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>&sale_id=<%$id%>">今日订单</a></li>
+                                    <!--li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>&sale_id=<%$id%>">今日订单</a></li-->
                                     <li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder?token=<%$token%>&sale_id=<%$id%>">历史订单</a></li>
                                 </ul>
                             </li>
@@ -148,7 +148,7 @@
                 </div>
                 <!-- Sidebar -left -->
             </div>
-            <!-- Left Sidebar End -->s
+            <!-- Left Sidebar End -->
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -186,7 +186,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                        <div class="col-18">
+                                    <%if empty($user) neq true%>
+                                    <div class="col-18">
                                                 <form action="<%$smarty.const.__APP__%>/sale/addorder?uid=<%$uid%>&ware_id=<%$ware_id%>&token=<%$token%>&sale_id=<%$id%>" onSubmit="return chkinput(this)"  method="post">
                                                     <fieldset>
                                                     <div class="card-box">
@@ -249,6 +250,7 @@
                                                 </fieldset>
                                                 </form>
                                         </div>
+                                    <%/if%>
                                 </div>
                             </div> <!-- end col -->
                         </div>

@@ -760,6 +760,7 @@ class SaleController extends HomeController {
                 'myorder.ware_id=myware.auto_id',
                 'myorder.time'=>$date))
             ->field('myorder.time as time,
+            myorder.auto_id as auto_id,
             myorder.sn as sn,
             myware.name as name,
             myorder.ware_model as model,
@@ -812,10 +813,8 @@ class SaleController extends HomeController {
         $end_time = $_POST['date2'];
         if (empty($today)) {
             $date = date("Y-m-d");
-            $this->assign('date1', $date);
-            $this->assign('date2', $date);
-            $this->display();
-            exit;
+            $today = $date;
+            $end_time = $date;
         }
         $this->assign('date1',$today);
         $this->assign('date2',$end_time);
@@ -832,6 +831,7 @@ class SaleController extends HomeController {
                 'myorder.time'=>$date))
             ->field('myorder.time as time,
             myorder.sn as sn,
+            myorder.auto_id as auto_id,
             myware.name as name,
             myware.auto_id as wid,
             myorder.ware_model as model,
@@ -854,12 +854,63 @@ class SaleController extends HomeController {
         $this->display();
     }
 
-    function chkexpress(){
-        $com="yunda";
-        $nu=$_GET['express'];
-        $context="查询";
-        $link="<a href='https://www.kuaidi100.com/chaxun?com=".$com."&nu=".$nu."'>".$context."</a >";
-        echo $link;
+    function chkorder(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $today = $_POST['date1'];
+        $end_time = $_POST['date2'];
+
+        if (empty($today)) {
+            $date = date("Y-m-d");
+            $today = $date;
+            $end_time = $date;
+        }
+        $this->assign('date1',$today);
+        $this->assign('date2',$end_time);
+
+        $order_id = $_POST['order_id'];
+        $flag =  $_POST['flag'];
+        $save_flag = array(
+            'flag'=>$flag
+        );
+        $user = M('lp_order');
+        $ret = $user->where(array('auto_id' => $order_id))->save($save_flag);
+
+        if($flag==1){
+            $str = '取消';
+        }else{
+            $str = '恢复';
+        }
+
+
+        if (!empty($ret)) {
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"{$str}成功!\");\r\n";
+            echo "window.location.href='hisorder?token={$token}&sale_id={$id}&date1={$today}&date2={$end_time}';\r\n";
+            echo "</script>";
+            exit;
+        } else {
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"{$str}失败!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
     }
+
+
 }
 ?>

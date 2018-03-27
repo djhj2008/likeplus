@@ -870,13 +870,13 @@ class ManagerController extends HomeController
         $user = M('lp_order');
         $ret = $user->where(array('auto_id' => $order_id))->save($save_flag);
 
-        $data1=$_GET['date1'];
-        $data2=$_GET['date2'];
+        $date1=$_GET['date1'];
+        $date2=$_GET['date2'];
 
         if (!empty($ret)) {
             echo "<script language=\"JavaScript\">\r\n";
             echo " alert(\"订单确认成功!\");\r\n";
-            echo "window.location.href='myorder?token={$token}&sale_id={$id}&date1={$data1}&date2={$data2}';\r\n";
+            echo "window.location.href='myorder?token={$token}&sale_id={$id}&date1={$date1}&date2={$date2}';\r\n";
             echo "</script>";
             exit;
         } else {
