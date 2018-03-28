@@ -674,8 +674,10 @@ jQuery(document).ready(function() {
   
   $("#gallery_blog-carousel").owlCarousel({
     items : 4,
-    nav: true,
-    dots: false,
+    nav: false,
+    autoplay:false,
+    loop:false,
+    dots: true,
     margin:30,
     responsive:{
       0:{
@@ -689,7 +691,27 @@ jQuery(document).ready(function() {
       }
     }
   });
-  
+
+    $("#gallery_blog-carousel_info").owlCarousel({
+        items : 4,
+        nav: false,
+        autoplay:true,
+        loop:true,
+        dots: true,
+        margin:30,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:2
+            },
+            1000:{
+                items:3
+            }
+        }
+    });
+
 }); //end of "document ready" event
 
 jQuery(window).load(function(){

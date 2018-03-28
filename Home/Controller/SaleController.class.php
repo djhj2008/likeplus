@@ -834,6 +834,7 @@ class SaleController extends HomeController {
             myorder.auto_id as auto_id,
             myware.name as name,
             myware.auto_id as wid,
+            myware.out_price as out_price,
             myorder.ware_model as model,
             myorder.count as count,
             myorder.winfo as winfo,
@@ -850,6 +851,23 @@ class SaleController extends HomeController {
         if($order) {
             $this->assign('myorder',$order);
         }
+
+        $sum=0;
+        for($i=0;$i<count($order);$i++){
+            if($order[$i]['flag']==0||$order[$i]['flag']==2) {
+                $sum += $order[$i]['price'];
+            }
+        }
+        $sum2=0;
+        for($i=0;$i<count($order);$i++){
+            if($order[$i]['flag']==0||$order[$i]['flag']==2) {
+                $sum2 += $order[$i]['out_price']*$order[$i]['count'];
+            }
+        }
+
+        $this->assign('money',$sum);
+        $this->assign('money2',$sum2-$sum);
+
         //var_dump($order);
         $this->display();
     }
