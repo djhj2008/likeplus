@@ -192,19 +192,21 @@
                                             <%/if%>
                                         </td>
                                         <td>
-                                            <%if $v["flag"] neq 2 %>
+                                            <%if $v["flag"] eq 0 %>
                                                 <button type="button" id="make" onclick="makeorder(<%$v['auto_id']%>)"
                                                     class="btn btn-dark mt-2">
                                                 <span>确认</span> </button>
                                             <%/if%>
-                                            <%if $v["flag"] neq 3 %>
+                                            <%if $v["flag"] eq 2 %>
                                                 <button type="button" id="cancel" onclick="cancelorder(<%$v['auto_id']%>)"
                                                     class="btn btn-dark mt-2">
                                                 <span>取消</span> </button>
                                             <%/if%>
+                                            <%if $v["flag"] eq 2 %>
                                             <button type="button" id="express" onclick="addexpress(<%$v['auto_id']%>)"
                                                     class="btn btn-dark mt-2">
                                                 <span>快递单号</span> </button>
+                                            <%/if%>
                                         </td>
                                     </tr>
                                     <%/foreach%>

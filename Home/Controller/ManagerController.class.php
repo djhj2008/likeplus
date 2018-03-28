@@ -1202,12 +1202,14 @@ class ManagerController extends HomeController
         $date = array('between', array($today, $end_time));
 
         $sid = $_GET['sid'];
+        $flag = array('in',array('1','3'));
+
         $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
         $order = $User->Distinct(true)
             ->where(array(
                 'myorder.user_id=myuser.auto_id',
                 'myorder.ware_id=myware.auto_id',
-                'myorder.flag=3',
+                'myorder.flag'=>$flag,
                 'myorder.sale_id' => $sid))
             ->field('myorder.auto_id as auto_id,
         myorder.time as time,
@@ -1225,6 +1227,7 @@ class ManagerController extends HomeController
         myorder.flag as flag')->select();
 
         $sale = M('lp_sales')->where(array('auto_id' => $sid))->find();
+
         if ($sale) {
             $this->assign('sale_id', $sale['auto_id']);
             $this->assign('sale_name', $sale['name']);
