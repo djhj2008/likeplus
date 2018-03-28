@@ -224,6 +224,13 @@ class ManagerController extends HomeController
             }
         }
 
+        if(empty($filename)){
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"LOGO上传失败!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
 /*
         $arr = explode(";",$pic_path);
         foreach($arr as $u){
