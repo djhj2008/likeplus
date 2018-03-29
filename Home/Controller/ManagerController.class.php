@@ -918,6 +918,12 @@ class ManagerController extends HomeController
         $express = $_POST['express'];
         $ex_id = $_POST['exid'];
 
+        $order = M('lp_order')->where(array('auto_id' => $order_id))->find();
+        $uid = $order['user_id'];
+        $user = M('lp_users')->where(array('auto_id' => $uid))->find();
+        $addr = $user['name']."&nbsp;". $user['phone']."<br>".$user['province'].$user['city'].$user['area']."<br>".$user['addr'];
+        $this->assign('addr', $addr);
+
         if(!empty($express)) {
             $save_express = array(
                 'express' =>$express,

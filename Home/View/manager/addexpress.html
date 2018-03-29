@@ -147,6 +147,11 @@
                                     <h4 class="mt-0 font-20">添加快递信息</h4>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <div>
+                                    <h5 class="mt-0 font-20"><%$addr%></h5>
+                                </div>
+                            </div>
                             <form role="form" action="<%$smarty.const.__APP__%>/manager/addexpress?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>&order_id=<%$order_id%>"  method="post">
                                 <div class="form-group row">
                                     <h5 for="exid" class="mt-2">快递公司:</h5>

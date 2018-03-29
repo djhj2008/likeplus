@@ -845,6 +845,7 @@ class SaleController extends HomeController {
             myuser.area as area,
             myuser.addr as addr,
             myorder.price as price,
+            myorder.exid as exid,
             myorder.express as express,
             myorder.flag as flag')->select();
 
