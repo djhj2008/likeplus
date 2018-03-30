@@ -202,44 +202,17 @@ class ManagerController extends HomeController
             $this->display();
             exit;
         }
-        $upload = new \Think\Upload();// 实例化上传类
-        $upload->maxSize = 31457280;// 设置附件上传大小
-        $upload->exts = array('jpg', 'gif', 'png', 'jpeg', 'pdf');// 设置附件上传类型
-        $upload->rootPath = 'Home/Public/uploads/'; // 设置附件上传根目录
-        $upload->savePath = $sn . '/'; // 设置附件上传（子）目录
-        // 上传文件
-        $info = $upload->upload();
-        $pic_path="";
 
-        if (!$info) {// 上传错误提示错误信息
-            Alert($upload->getError(),"back",NULL);
-            exit;
-        } else {// 上传成功
-            foreach ($info as $file) {
-                if ($file['key'] == "logo") {
-                    $filename[] = $file['savepath'] . $file['savename'];
-                }else{
-                    $pic_path= $pic_path.$file['savepath'] . $file['savename'].";";
-                }
-            }
-        }
+        $pic_url =  $_POST['pic_url'];
+        $pic_path =  $_POST['pic_path'];
 
-        if(empty($filename)){
+        if(empty($pic_url)){
             echo "<script language=\"JavaScript\">\r\n";
             echo " alert(\"LOGO上传失败!\");\r\n";
             echo " history.back();\r\n";
             echo "</script>";
             exit;
         }
-/*
-        $arr = explode(";",$pic_path);
-        foreach($arr as $u){
-            if(!empty($u)){
-                var_dump($u);
-            }
-        }
-        exit;
-*/
 
         $name = $_POST['name'];
         $in_price = $_POST['in_price'];
@@ -272,7 +245,7 @@ class ManagerController extends HomeController
             'factory_info' => $finfo3,
             'date' => $date,
             'time' => time(),
-            'pic_url' => $filename[0],
+            'pic_url' => $pic_url,
             'pic_path' => $pic_path,
             'video_url' => $video_url,
         );
@@ -285,8 +258,39 @@ class ManagerController extends HomeController
             exit;
         }
         $this->assign('ware', $ware);
-        $this->assign('filename', $filename);
+        $this->assign('filename', $pic_url);
         $this->display();
+    }
+
+    public function upload2()
+    {
+        $id=$_GET['sale_id'];
+        $token = $_GET['token'];
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $sn = $_POST['sn'];
+
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize = 31457280;// 设置附件上传大小
+        $upload->exts = array('jpg', 'gif', 'png', 'jpeg', 'pdf');// 设置附件上传类型
+        $upload->rootPath = 'Home/Public/uploads/'; // 设置附件上传根目录
+        $upload->savePath = $sn . '/'; // 设置附件上传（子）目录
+        // 上传文件
+        $info = $upload->upload();
+
+        $i=0;
+        if(!$info) {// 上传错误提示错误信息
+            $a[$i]['flag']="no";
+            $this->ajaxReturn($a,'JSON');
+        }else{// 上传成功 获取上传文件信息
+            foreach($info as $file){
+                $a[$i]['flag']=$file['savepath'].$file['savename'];
+                $i++;
+            }
+        }
+        $this->ajaxReturn($a,'JSON');
+
     }
 
     public function myware()
