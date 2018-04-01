@@ -269,10 +269,16 @@
 <script type="text/javascript">
     $(document).ready(function() {
         //Buttons examples
+        var group = '爱加'+"<%$sale_group%>"+"_<%$tday%>";
         var table = $('#datatable-buttons').DataTable({
             lengthChange: true,
             info: true,
-            buttons: ['excel'],
+            buttons: [
+                {
+                    extend: 'excel',
+                    title: group,
+                }
+            ],
             language: {
                 "sProcessing": "处理中...",
                 "sLengthMenu": "显示 _MENU_ 项结果",

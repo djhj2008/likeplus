@@ -6,7 +6,7 @@ class ManagerController extends HomeController
 {
     public function saleinfo(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -25,7 +25,7 @@ class ManagerController extends HomeController
 
     public function saleedit(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -69,7 +69,7 @@ class ManagerController extends HomeController
     public function regsale(){
         //error_reporting(E_ALL);
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert(NULL,"登陆失败.","login");
             exit;
         }
@@ -143,7 +143,7 @@ class ManagerController extends HomeController
     {
         //error_reporting(E_ALL);
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert(NULL,"登陆失败.","login");
             exit;
         }
@@ -183,7 +183,7 @@ class ManagerController extends HomeController
     public function upload()
     {
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -275,7 +275,7 @@ class ManagerController extends HomeController
         $upload->maxSize = 31457280;// 设置附件上传大小
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg', 'pdf');// 设置附件上传类型
         $upload->rootPath = 'Home/Public/uploads/'; // 设置附件上传根目录
-        $upload->savePath = $sn . '/'; // 设置附件上传（子）目录
+        $upload->savePath = $sn . '/'; // 设置附件上传（子）目录ch
         // 上传文件
         $info = $upload->upload();
 
@@ -296,7 +296,7 @@ class ManagerController extends HomeController
     public function myware()
     {
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -328,7 +328,7 @@ class ManagerController extends HomeController
     public function chkwarebydate()
     {
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -369,7 +369,7 @@ class ManagerController extends HomeController
     public function chkwaremore()
     {
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -416,7 +416,7 @@ class ManagerController extends HomeController
     public function changeware()
     {
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -470,7 +470,7 @@ class ManagerController extends HomeController
     public function changewarebydate()
     {
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -523,7 +523,7 @@ class ManagerController extends HomeController
     public function changewaremore()
     {
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -576,7 +576,7 @@ class ManagerController extends HomeController
 
     public function editwaremore(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -623,7 +623,7 @@ class ManagerController extends HomeController
 
     public function uploadmore(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -745,7 +745,7 @@ class ManagerController extends HomeController
 
     public function myorder(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -816,13 +816,14 @@ class ManagerController extends HomeController
                 $sum += $order[$i]['price'];
             }
         }
+        $this->assign('tday', date("Y-m-d"));
         $this->assign('money',$sum);
         $this->display();
     }
 
     function makesaleorder(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -841,7 +842,7 @@ class ManagerController extends HomeController
             'flag'=>2
         );
         $user = M('lp_order');
-        $ret = $user->where(array('sale_id' => $sid))->save($save_flag);
+        $ret = $user->where(array('sale_id' => $sid,'flag'=>0))->save($save_flag);
 
         if (!empty($ret)) {
             echo "<script language=\"JavaScript\">\r\n";
@@ -860,7 +861,7 @@ class ManagerController extends HomeController
 
     function makeorder(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -901,7 +902,7 @@ class ManagerController extends HomeController
 
     function addexpress(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -962,7 +963,7 @@ class ManagerController extends HomeController
 
     function cancelorder(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -1006,7 +1007,7 @@ class ManagerController extends HomeController
     {
         //error_reporting(E_ALL);
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert(NULL,"登陆失败.","login");
             exit;
         }
@@ -1040,7 +1041,7 @@ class ManagerController extends HomeController
 
     public function chksaleorder(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -1069,6 +1070,7 @@ class ManagerController extends HomeController
         myorder.ware_model as model,
         myorder.count as count,
         myuser.name as uname,
+        myorder.winfo as winfo,
         myuser.phone as phone,
         myuser.province as pro,
         myuser.city as city,
@@ -1094,6 +1096,7 @@ class ManagerController extends HomeController
             }
         }
 
+        $this->assign('tday', date("Y-m-d"));
         $this->assign('sid', $sid);
         $this->assign('money', $sum);
         $this->display();
@@ -1101,7 +1104,7 @@ class ManagerController extends HomeController
 
     public function chksaleorderdone(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -1150,6 +1153,7 @@ class ManagerController extends HomeController
         myorder.sn as sn,
         myware.name as name,
         myorder.ware_model as model,
+        myorder.winfo as winfo,
         myorder.count as count,
         myuser.name as uname,
         myuser.phone as phone,
@@ -1176,6 +1180,7 @@ class ManagerController extends HomeController
                 $sum += $order[$i]['price'];
             }
         }
+        $this->assign('tday', date("Y-m-d"));
         $this->assign('sid', $sid);
         $this->assign('money', $sum);
         $this->display();
@@ -1183,7 +1188,7 @@ class ManagerController extends HomeController
 
     public function chksaleorderother(){
         $id=$_GET['sale_id'];
-        if(empty($id)){
+        if(empty($id)||$id>200){
             Alert("登陆失败.",NULL,"login");
             exit;
         }
@@ -1260,6 +1265,7 @@ class ManagerController extends HomeController
                 $sum += $order[$i]['price'];
             }
         }
+        $this->assign('tday', date("Y-m-d"));
         $this->assign('sid', $sid);
         $this->assign('money', $sum);
         $this->display();
