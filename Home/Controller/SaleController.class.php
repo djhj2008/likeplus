@@ -930,6 +930,13 @@ class SaleController extends HomeController {
         }
     }
 
+    function touch(){
+        $id = $_GET['sale_id'];
+        $token = $_GET['token'];
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+        $this->display();
+    }
 
 }
 ?>
