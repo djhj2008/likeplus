@@ -955,7 +955,21 @@ class SaleController extends HomeController {
         $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $this_month = date_format(time(),'%Y-%m');
+        $beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+        $endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+        $begin= date("Y-m-d 0:0:0", $beginThismonth);
+        $end = date("Y-m-d 23:59:59", $endThismonth);
+
+        $date = date("Y-m-d");
+        $timestamp=strtotime($date);
+        $firstday=date('Y-m-01 0:0:0',strtotime(date('Y',$timestamp).'-'.(date('m',$timestamp)-1).'-01'));
+        $lastday=date('Y-m-d 23:59:59',strtotime("$firstday +1 month -1 day"));
+
+        $month = date('m',strtotime(date('Y',$timestamp).'-'.(date('m',$timestamp)-1).'-01'));
+
+        $date = array('between',array($begin,$end));
+        $pre_date = array('between',array($firstday,$lastday));
+
         $User = M('lp_order');
         //$orders = $user->where(array('sale_id' =>$id ,date_format('time','%Y-%m')=>$this_month))->select();
         $orders=$User->table('lp_order myorder')
@@ -965,7 +979,39 @@ class SaleController extends HomeController {
             ->where(array(
                 'myorder.sale_id'=>$id,
                 'myorder.flag'=>2,
+                'myorder.time'=>$date,
                 ))
+            ->field('myorder.auto_id as auto_id,
+            myorder.time as time,
+            myorder.sn as sn,
+            myware.name as name,
+            myorder.ware_model as model,
+            myorder.count as count,
+            myware.out_price as out_price,
+            myorder.winfo as winfo,
+            myuser.name as uname,
+            myuser.phone as phone,
+            myuser.province as pro,
+            myuser.city as city,
+            myuser.area as area,
+            myuser.addr as addr,
+            myorder.price as price,
+            mysale.auto_id as sid,
+            mysale.name as sname,
+            mysale.group_name as group_name,
+            myorder.express as express,
+            myorder.flag as flag')
+            ->select();
+
+        $pre_orders=$User->table('lp_order myorder')
+            ->join('LEFT JOIN lp_users myuser on myorder.user_id=myuser.auto_id')
+            ->join('LEFT JOIN lp_wares myware on myorder.ware_id=myware.auto_id')
+            ->join('LEFT JOIN lp_sales mysale on myorder.sale_id=mysale.auto_id')
+            ->where(array(
+                'myorder.sale_id'=>$id,
+                'myorder.flag'=>2,
+                'myorder.time'=>$pre_date,
+            ))
             ->field('myorder.auto_id as auto_id,
             myorder.time as time,
             myorder.sn as sn,
@@ -1020,13 +1066,23 @@ class SaleController extends HomeController {
                 $sum_type8+=$order['out_price']*$order['count'];
             }
         }
+        $sum_get = $sum_all-$sum_pay;
+
+        $pre_sum_all=0;
+        $pre_sum_pay=0;
+
+        foreach ($pre_orders as $pre_order ){
+            $pre_sum_all+=$pre_order['out_price']*$pre_order['count'];
+            $pre_sum_pay+=$pre_order['price'];
+        }
+
+        $pre_sum_get = $pre_sum_all-$pre_sum_pay;
 
         $types = M('lp_ware_type')->select();
 
-        $sum_get = $sum_all-$sum_pay;
-
         $this->assign('types', $types);
         $this->assign('orders', $orders);
+        $this->assign('month', $month);
         $this->assign('sum_all', $sum_all);
         $this->assign('sum_pay', $sum_pay);
         $this->assign('sum_get', $sum_get);
@@ -1039,6 +1095,10 @@ class SaleController extends HomeController {
         $this->assign('sum_type7', $sum_type7);
         $this->assign('sum_type8', $sum_type8);
 
+        $this->assign('pre_orders', $pre_orders);
+        $this->assign('pre_sum_all', $pre_sum_all);
+        $this->assign('pre_sum_pay', $pre_sum_pay);
+        $this->assign('pre_sum_get', $pre_sum_get);
         $this->display();
     }
 }
