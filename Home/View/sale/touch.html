@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>爱加HOME</title>
+        <title>下午茶时光</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -163,18 +163,23 @@
                                                     <p  style="color:#00b389">幻想</p>
                                                     <p  style="color:#00b389">这时候需要一份精致诱人下午茶</p>
                                                     <p  style="color:#00b389">才配得上这美妙的午后时光</p>
+                                                    <audio id="music1" controls="controls" autoplay="autoplay" preload id="music1" >
+                                                        <source src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch/music.mp3" type="audio/mpeg" />
+                                                    </audio>
                                                 </div>
-
                                                 <span class="badge badge-info">爱加推荐</span>
 
                                                 <figure class="home-blog__carousel-img">
                                                     <a  href="#">
-                                                        <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch/scofe.png" >
+                                                        <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch/scofe.jpg" >
                                                     </a>
                                                 </figure>
                                                 <h3 class="post__title">
-                                                    <a href="#" rel="bookmark" style="color:#2080E0" >星巴克咖啡<i class="fa fa-caret-square-o-right m-t-0"></i></a>
+                                                    <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=30&sale_id=<%$id%>" rel="bookmark" style="color:#2080E0" >蓝山咖啡<i class="fa fa-caret-square-o-right m-t-0"></i></a>
                                                 </h3>
+                                                <div class="post__text-content">
+                                                    <p>浓郁了心情，柔滑了时光</p>
+                                                </div>
                                                 <figure class="home-blog__carousel-img">
                                                     <a  href="#">
                                                         <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch/cofee.jpg" >
@@ -183,14 +188,20 @@
                                                 <h3 class="post__title">
                                                     <a href="#" rel="bookmark" style="color:#2080E0" >英伦骨瓷杯<i class="fa fa-caret-square-o-right m-t-0"></i></a>
                                                 </h3>
+                                                <div class="post__text-content">
+                                                    <p>精致简约,追求生活品质</p>
+                                                </div>
                                                 <figure class="home-blog__carousel-img">
                                                     <a  href="#">
                                                         <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch/cake1.jpg" >
                                                     </a>
                                                 </figure>
                                                 <h3 class="post__title">
-                                                    <a href="#" rel="bookmark" style="color:#2080E0" >抹茶巧克力曲奇<i class="fa fa-caret-square-o-right m-t-0"></i></a>
+                                                    <a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=45&sale_id=<%$id%>" rel="bookmark" style="color:#2080E0" >抹茶巧克力曲奇<i class="fa fa-caret-square-o-right m-t-0"></i></a>
                                                 </h3>
+                                                <div class="post__text-content">
+                                                   <p>不同的夹心,代表不同的心情<br></p>
+                                               </div>
                                             </div>
                                         </div>
                                     </li>
@@ -232,4 +243,5 @@
 
     <script src="<%$smarty.const.AJS_URL%>compressed.js"></script>
     <script src="<%$smarty.const.AJS_URL%>main.js?version=00.00.01"></script>
+
 </html>
