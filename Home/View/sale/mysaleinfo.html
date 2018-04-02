@@ -180,7 +180,7 @@
                                     <%foreach $orders as $v%>
                                     <tr>
                                         <td><%$v['time']%></td>
-                                        <td style="color:#f0c040">￥<%$v['out_price']*$v['count']-$v['price']%></td>
+                                        <td style="color:#f0c040"><i class="mdi mdi-plus text-danger"></i>￥<%$v['out_price']*$v['count']-$v['price']%></td>
                                     </tr>
                                     <%/foreach%>
                                     </tbody>
