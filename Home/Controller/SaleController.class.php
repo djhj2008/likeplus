@@ -938,5 +938,108 @@ class SaleController extends HomeController {
         $this->display();
     }
 
+
+    function mysaleinfo(){
+        $id=$_GET['sale_id'];
+        if(empty($id)){
+            Alert("登陆失败.",NULL,"login");
+            exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $this_month = date_format(time(),'%Y-%m');
+        $User = M('lp_order');
+        //$orders = $user->where(array('sale_id' =>$id ,date_format('time','%Y-%m')=>$this_month))->select();
+        $orders=$User->table('lp_order myorder')
+            ->join('LEFT JOIN lp_users myuser on myorder.user_id=myuser.auto_id')
+            ->join('LEFT JOIN lp_wares myware on myorder.ware_id=myware.auto_id')
+            ->join('LEFT JOIN lp_sales mysale on myorder.sale_id=mysale.auto_id')
+            ->where(array(
+                'myorder.sale_id'=>$id,
+                'myorder.flag'=>2,
+                ))
+            ->field('myorder.auto_id as auto_id,
+            myorder.time as time,
+            myorder.sn as sn,
+            myware.name as name,
+            myorder.ware_model as model,
+            myorder.count as count,
+            myware.out_price as out_price,
+            myorder.winfo as winfo,
+            myuser.name as uname,
+            myuser.phone as phone,
+            myuser.province as pro,
+            myuser.city as city,
+            myuser.area as area,
+            myuser.addr as addr,
+            myorder.price as price,
+            mysale.auto_id as sid,
+            mysale.name as sname,
+            mysale.group_name as group_name,
+            myorder.express as express,
+            myorder.flag as flag')
+            ->select();
+
+        $sum_all=0;
+        $sum_pay=0;
+        $sum_type1=0;
+        $sum_type2=0;
+        $sum_type3=0;
+        $sum_type4=0;
+        $sum_type5=0;
+        $sum_type6=0;
+        $sum_type7=0;
+        $sum_type8=0;
+
+        foreach ($orders as $order ){
+            $sum_all+=$order['out_price']*$order['count'];
+            $sum_pay+=$order['price'];
+            if($order['type']==1){
+                $sum_type1+=$order['out_price']*$order['count'];
+            }else if($order['type']==2){
+                $sum_type2+=$order['out_price']*$order['count'];
+            }else if($order['type']==3){
+                $sum_type3+=$order['out_price']*$order['count'];
+            }else if($order['type']==4){
+                $sum_type4+=$order['out_price']*$order['count'];
+            }else if($order['type']==5){
+                $sum_type5+=$order['out_price']*$order['count'];
+            }else if($order['type']==6){
+                $sum_type6+=$order['out_price']*$order['count'];
+            }else if($order['type']==7){
+                $sum_type7+=$order['out_price']*$order['count'];
+            }else if($order['type']==8){
+                $sum_type8+=$order['out_price']*$order['count'];
+            }
+        }
+
+        $types = M('lp_ware_type')->select();
+
+        $sum_get = $sum_all-$sum_pay;
+
+        $this->assign('types', $types);
+        $this->assign('orders', $orders);
+        $this->assign('sum_all', $sum_all);
+        $this->assign('sum_pay', $sum_pay);
+        $this->assign('sum_get', $sum_get);
+        $this->assign('sum_type1', $sum_type1);
+        $this->assign('sum_type2', $sum_type2);
+        $this->assign('sum_type3', $sum_type3);
+        $this->assign('sum_type4', $sum_type4);
+        $this->assign('sum_type5', $sum_type5);
+        $this->assign('sum_type6', $sum_type6);
+        $this->assign('sum_type7', $sum_type7);
+        $this->assign('sum_type8', $sum_type8);
+
+        $this->display();
+    }
 }
 ?>

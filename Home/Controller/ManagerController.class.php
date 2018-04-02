@@ -780,13 +780,15 @@ class ManagerController extends HomeController
         $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
         $date = array('between', array($today, $end_time));
 
-        $User = M('lp_order myorder,lp_users myuser, lp_wares myware,lp_sales mysale');
-        $order=$User->Distinct(true)
+        $User = M('lp_order');
+        //$orders = $user->where(array('sale_id' =>$id ,date_format('time','%Y-%m')=>$this_month))->select();
+        $order=$User->table('lp_order myorder')
+            ->join('LEFT JOIN lp_users myuser on myorder.user_id=myuser.auto_id')
+            ->join('LEFT JOIN lp_wares myware on myorder.ware_id=myware.auto_id')
+            ->join('LEFT JOIN lp_sales mysale on myorder.sale_id=mysale.auto_id')
             ->where(array(
-                'myorder.user_id=myuser.auto_id',
-                'myorder.ware_id=myware.auto_id',
-                'myorder.sale_id=mysale.auto_id',
-                'myorder.time'=>$date))
+                'myorder.time'=>$date,
+            ))
             ->field('myorder.auto_id as auto_id,
             myorder.time as time,
             myorder.sn as sn,
@@ -805,7 +807,8 @@ class ManagerController extends HomeController
             mysale.name as sname,
             mysale.group_name as group_name,
             myorder.express as express,
-            myorder.flag as flag')->select();
+            myorder.flag as flag')
+            ->select();
 
         if($order) {
             $this->assign('myorder',$order);
@@ -1029,12 +1032,18 @@ class ManagerController extends HomeController
         }
 
         $qos = array();
-        $qos['role']=array('neq',1);
-        $qos['group_name']=array('gt',1019);
+        $qos['mysale.role']=array('neq',1);
+        $qos['mysale.group_name']=array('gt',1019);
 
         $user = M('lp_sales');
-        $userFind = $user->where( $qos)->select();
-
+        $userFind = $user->table('lp_sales mysale')
+            ->join('LEFT JOIN lp_order myorder on myorder.sale_id=mysale.auto_id and myorder.flag=0')
+            ->group('mysale.auto_id')
+            ->where( $qos)
+            ->field('count(myorder.auto_id) as count,
+            mysale.*')
+            ->order('mysale.group_name')
+            ->select();
         $this->assign('sales', $userFind);
         $this->display();
     }
@@ -1056,28 +1065,37 @@ class ManagerController extends HomeController
         $this->assign('token', $token);
 
         $sid = $_GET['sid'];
-        $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
-        $order = $User->Distinct(true)
+
+        $User = M('lp_order');
+        //$orders = $user->where(array('sale_id' =>$id ,date_format('time','%Y-%m')=>$this_month))->select();
+        $order=$User->table('lp_order myorder')
+            ->join('LEFT JOIN lp_users myuser on myorder.user_id=myuser.auto_id')
+            ->join('LEFT JOIN lp_wares myware on myorder.ware_id=myware.auto_id')
+            ->join('LEFT JOIN lp_sales mysale on myorder.sale_id=mysale.auto_id')
             ->where(array(
-                'myorder.user_id=myuser.auto_id',
-                'myorder.ware_id=myware.auto_id',
                 'myorder.flag=0',
-                'myorder.sale_id' => $sid))
+                'myorder.sale_id' => $sid)
+            )
             ->field('myorder.auto_id as auto_id,
-        myorder.time as time,
-        myorder.sn as sn,
-        myware.name as name,
-        myorder.ware_model as model,
-        myorder.count as count,
-        myuser.name as uname,
-        myorder.winfo as winfo,
-        myuser.phone as phone,
-        myuser.province as pro,
-        myuser.city as city,
-        myuser.area as area,
-        myuser.addr as addr,
-        myorder.price as price,
-        myorder.flag as flag')->select();
+            myorder.time as time,
+            myorder.sn as sn,
+            myware.name as name,
+            myorder.ware_model as model,
+            myorder.count as count,
+            myorder.winfo as winfo,
+            myuser.name as uname,
+            myuser.phone as phone,
+            myuser.province as pro,
+            myuser.city as city,
+            myuser.area as area,
+            myuser.addr as addr,
+            myorder.price as price,
+            mysale.auto_id as sid,
+            mysale.name as sname,
+            mysale.group_name as group_name,
+            myorder.express as express,
+            myorder.flag as flag')
+            ->select();
 
         $sale = M('lp_sales')->where(array('auto_id' => $sid))->find();
         if ($sale) {
@@ -1140,29 +1158,36 @@ class ManagerController extends HomeController
         $date = array('between', array($today, $end_time));
 
         $sid = $_GET['sid'];
-        $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
-        $order = $User->Distinct(true)
+        $User = M('lp_order');
+        //$orders = $user->where(array('sale_id' =>$id ,date_format('time','%Y-%m')=>$this_month))->select();
+        $order=$User->table('lp_order myorder')
+            ->join('LEFT JOIN lp_users myuser on myorder.user_id=myuser.auto_id')
+            ->join('LEFT JOIN lp_wares myware on myorder.ware_id=myware.auto_id')
+            ->join('LEFT JOIN lp_sales mysale on myorder.sale_id=mysale.auto_id')
             ->where(array(
-                'myorder.user_id=myuser.auto_id',
-                'myorder.ware_id=myware.auto_id',
                 'myorder.flag=2',
                 'myorder.time'=>$date,
                 'myorder.sale_id' => $sid))
             ->field('myorder.auto_id as auto_id,
-        myorder.time as time,
-        myorder.sn as sn,
-        myware.name as name,
-        myorder.ware_model as model,
-        myorder.winfo as winfo,
-        myorder.count as count,
-        myuser.name as uname,
-        myuser.phone as phone,
-        myuser.province as pro,
-        myuser.city as city,
-        myuser.area as area,
-        myuser.addr as addr,
-        myorder.price as price,
-        myorder.flag as flag')->select();
+            myorder.time as time,
+            myorder.sn as sn,
+            myware.name as name,
+            myorder.ware_model as model,
+            myorder.count as count,
+            myorder.winfo as winfo,
+            myuser.name as uname,
+            myuser.phone as phone,
+            myuser.province as pro,
+            myuser.city as city,
+            myuser.area as area,
+            myuser.addr as addr,
+            myorder.price as price,
+            mysale.auto_id as sid,
+            mysale.name as sname,
+            mysale.group_name as group_name,
+            myorder.express as express,
+            myorder.flag as flag')
+            ->select();
 
         $sale = M('lp_sales')->where(array('auto_id' => $sid))->find();
         if ($sale) {
@@ -1226,27 +1251,35 @@ class ManagerController extends HomeController
         $sid = $_GET['sid'];
         $flag = array('in',array('1','3'));
 
-        $User = M('lp_order myorder,lp_users myuser, lp_wares myware');
-        $order = $User->Distinct(true)
+        $User = M('lp_order');
+        //$orders = $user->where(array('sale_id' =>$id ,date_format('time','%Y-%m')=>$this_month))->select();
+        $order=$User->table('lp_order myorder')
+            ->join('LEFT JOIN lp_users myuser on myorder.user_id=myuser.auto_id')
+            ->join('LEFT JOIN lp_wares myware on myorder.ware_id=myware.auto_id')
+            ->join('LEFT JOIN lp_sales mysale on myorder.sale_id=mysale.auto_id')
             ->where(array(
-                'myorder.user_id=myuser.auto_id',
-                'myorder.ware_id=myware.auto_id',
                 'myorder.flag'=>$flag,
                 'myorder.sale_id' => $sid))
             ->field('myorder.auto_id as auto_id,
-        myorder.time as time,
-        myorder.sn as sn,
-        myware.name as name,
-        myorder.ware_model as model,
-        myorder.count as count,
-        myuser.name as uname,
-        myuser.phone as phone,
-        myuser.province as pro,
-        myuser.city as city,
-        myuser.area as area,
-        myuser.addr as addr,
-        myorder.price as price,
-        myorder.flag as flag')->select();
+            myorder.time as time,
+            myorder.sn as sn,
+            myware.name as name,
+            myorder.ware_model as model,
+            myorder.count as count,
+            myorder.winfo as winfo,
+            myuser.name as uname,
+            myuser.phone as phone,
+            myuser.province as pro,
+            myuser.city as city,
+            myuser.area as area,
+            myuser.addr as addr,
+            myorder.price as price,
+            mysale.auto_id as sid,
+            mysale.name as sname,
+            mysale.group_name as group_name,
+            myorder.express as express,
+            myorder.flag as flag')
+            ->select();
 
         $sale = M('lp_sales')->where(array('auto_id' => $sid))->find();
 
