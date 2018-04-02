@@ -37,6 +37,25 @@ class SaleController extends HomeController {
         type.name as tname')
         ->order('wares.date asc' )->select();
 
+        if(empty($wares)){
+            $wares = M('lp_wares wares, lp_ware_type type')
+                ->where(array('wares.type = type.type ',' wares.flag = 1'))
+                ->field('wares.auto_id as id, 
+        wares.name as name,
+        wares.out_price as out_price,
+        wares.other_price as other_price,
+        wares.factory_info as info,
+        wares.auto_id as wid,
+        wares.pic_url as pic_url,
+        wares.pic_path as pic_path,
+        type.name as tname')
+                ->order('wares.date desc' )
+                ->limit(3)
+                ->select();
+
+        }
+
+
         $this->assign('wares',$wares);
         $this->display();
     }
