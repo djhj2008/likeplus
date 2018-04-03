@@ -648,26 +648,13 @@ class ManagerController extends HomeController
                 $this->display();
                 exit;
             }
-            $upload = new \Think\Upload();// 实例化上传类
-            $upload->maxSize = 31457280;// 设置附件上传大小
-            $upload->exts = array('jpg', 'gif', 'png', 'jpeg', 'pdf');// 设置附件上传类型
-            $upload->rootPath = 'home/public/Uploads/'; // 设置附件上传根目录
-            $upload->savePath = $sn . '/'; // 设置附件上传（子）目录
-            // 上传文件
-            $info = $upload->upload();
-            if (!$info) {// 上传错误提示错误信息
 
-            } else {// 上传成功
-                foreach ($info as $file) {
-                    $filename[] = $file['savepath'] . $file['savename'];
-                }
-            }
             $name = $_POST['name'];
             $in_price = $_POST['in_price'];
             $out_price = $_POST['out_price'];
             $date = $_POST['date'];
             $type = $_POST['type'];
-            //$pic_path = $_POST['pic_path'];
+            $pic_url = $_POST['pic_url'];
             $finfo = $_POST['info'];
             $other_price = $_POST['other_price'];
             $video_url = $_POST['video_url'];
@@ -713,8 +700,8 @@ class ManagerController extends HomeController
             if(date("Y-m-d 0:0:0", strtotime($date))!=date("Y-m-d 0:0:0", strtotime($ret['date']))){
                 $ware[ 'date'] = $date;
             }
-            if(!empty($filename[0])){
-                $ware[ 'pic_url'] = $filename[0];
+            if(!empty($pic_url)){
+                $ware[ 'pic_url'] = $pic_url;
             }
             if($video_url!=$ret['video_url']){
                 $ware[ 'video_url'] = $video_url;
