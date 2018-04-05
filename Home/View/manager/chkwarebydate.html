@@ -151,18 +151,13 @@
                                 <h4>默认显示最新的商品:</h4>
                                 <ul class="nav nav-pills navtab-bg nav-justified">
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
-                                            今日商品
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
+                                            商品管理
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="<%$smarty.const.__CONTROLLER__%>/chkwarebydate?token=<%$token%>&sale_id=<%$id%>" class="nav-link active">
                                             已下架商品
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
-                                            商品编辑
                                         </a>
                                     </li>
                                 </ul>

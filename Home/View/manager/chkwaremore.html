@@ -100,7 +100,7 @@
                             <li>
                                 <a href="javascript: void(0);"><i class="fa fa-cart-plus"></i> <span> 商品和订单 </span> <span class="menu-arrow"></span></a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>&sale_id=<%$id%>">商品管理</a></li>
+                                    <li><a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>">商品管理</a></li>
                                     <li><a href="<%$smarty.const.__CONTROLLER__%>/myorder?token=<%$token%>&sale_id=<%$id%>">订单管理</a></li>
                                 </ul>
                             </li>
@@ -150,18 +150,13 @@
                                 <h4>默认显示最新的商品:</h4>
                                 <ul class="nav nav-pills navtab-bg nav-justified">
                                     <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/myware?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
-                                            今日商品
+                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>" class="nav-link active">
+                                            商品管理
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="<%$smarty.const.__CONTROLLER__%>/chkwarebydate?token=<%$token%>&sale_id=<%$id%>" class="nav-link">
                                             已下架商品
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>" class="nav-link active">
-                                            商品编辑
                                         </a>
                                     </li>
                                 </ul>
@@ -224,13 +219,30 @@
                                                 </tbody>
                                             </table>
                                             <form action="<%$smarty.const.__CONTROLLER__%>/chkwaremore?token=<%$token%>&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>"  method="post" >
-                                                <div class="col-8">
+                                                <div class="col-6 mt-2">
+                                                    <h4 class="m-t-0 header-title"><b>商品类型:</b></h4>
+                                                <select name="type" id="type" class="form-control" data-style="btn-light">
+                                                    <%if $type eq  0 %>
+                                                        <option value ="0" selected="selected">全部</option>
+                                                    <%else%>
+                                                        <option value ="0">全部</option>
+                                                    <%/if%>
+                                                    <%foreach $types as $v%>
+                                                        <%if $type eq  <%$v['type']%> %>
+                                                            <option value ="<%$v['type']%>" selected="selected"><%$v['name']%></option>
+                                                        <%else%>
+                                                            <option value ="<%$v['type']%>"><%$v['name']%></option>
+                                                        <%/if%>
+                                                    <%/foreach%>
+                                                </select>
+                                                </div>
+                                                <div class="col-6 mt-2">
                                                     <h4 class="m-t-0 header-title"><b>开始日期:</b></h4>
                                                     <input type="date" name="date1" value="<%$date1%>" />
                                                     <h4 class="m-t-0 header-title"><b>结束日期:</b></h4>
                                                     <input type="date" name="date2" value="<%$date2%>" />
                                                 </div>
-                                                <div class="col-8 mt-2">
+                                                <div class="col-6 mt-2">
                                                     <button type="submit" class="btn btn-github" >查询</button>
                                                 </div>
                                             </form>
@@ -326,15 +338,16 @@
         } );
 
         function changewaremoreup(ware_id,flag){
-            window.location.href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id="+ware_id+"&flag="+flag+"&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>";
+            window.location.href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id="+ware_id+"&flag="+flag+"&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>&type=<%$type%>";
         }
 
         function changewaremoredown(ware_id,flag){
-            window.location.href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id="+ware_id+"&flag="+flag+"&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>";
+            window.location.href="<%$smarty.const.__APP__%>/manager/changewaremore?token=<%$token%>&ware_id="+ware_id+"&flag="+flag+"&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>&type=<%$type%>";
         }
 
         function editwaremore(ware_id){
-            window.location.href="<%$smarty.const.__APP__%>/manager/editwaremore?token=<%$token%>&ware_id="+ware_id+"&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>";
+            var type = $('#type').find("option:selected").val();
+            window.location.href="<%$smarty.const.__APP__%>/manager/editwaremore?token=<%$token%>&ware_id="+ware_id+"&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>&type="+type;
         }
 
     </script>

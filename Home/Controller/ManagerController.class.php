@@ -401,15 +401,33 @@ class ManagerController extends HomeController
 
         $today = date("Y-m-d 0:0:0", strtotime($today));
         $end_time = date("Y-m-d 23:59:59", strtotime($end_time));
-        $date = array('between', array($today, $end_time));
+        $date = array();
+        $date['date'] = array('between', array($today, $end_time));
+
+        $type = $_POST['type'];
+        if(empty($type)){
+            $type = $_GET['type'];
+        }
+
+        if($type!=0){
+            $date['type'] = $type;
+        }
 
         $user = M('lp_wares');
-        $wares = $user->where(array('date' => $date))->select();
+        $wares = $user->where($date)->select();
         //var_dump($user->getLastSql());
+
+        $types = M('lp_ware_type')->select();
 
         if ($wares) {
             $this->assign('dateware', $wares);
         }
+
+        if ($types) {
+            $this->assign('types', $types);
+        }
+
+        $this->assign('type', $type);
         $this->display();
     }
 
@@ -548,6 +566,9 @@ class ManagerController extends HomeController
         } else {
             $save_flag['flag'] = 1;
         }
+
+        $type = $_GET['type'];
+
         $user = M('lp_wares');
         $ret = $user->where(array('auto_id' => $ware_id))->save($save_flag);
 
@@ -558,7 +579,7 @@ class ManagerController extends HomeController
             } else {
                 echo " alert(\"上架成功!\");\r\n";
             }
-            echo "window.location.href='chkwaremore?token={$token}&sale_id={$id}&date1={$date1}&date2={$date2}';\r\n";
+            echo "window.location.href='chkwaremore?token={$token}&sale_id={$id}&date1={$date1}&date2={$date2}&type={$type}';\r\n";
             echo "</script>";
             exit;
         } else {
