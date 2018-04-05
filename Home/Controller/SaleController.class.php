@@ -958,6 +958,14 @@ class SaleController extends HomeController {
     }
 
 
+    function touch2(){
+        $id = $_GET['sale_id'];
+        $token = $_GET['token'];
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+        $this->display();
+    }
+
     function mysaleinfo(){
         $id=$_GET['sale_id'];
         if(empty($id)){
