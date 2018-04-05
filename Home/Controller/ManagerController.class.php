@@ -675,7 +675,8 @@ class ManagerController extends HomeController
             $out_price = $_POST['out_price'];
             $date = $_POST['date'];
             $type = $_POST['type'];
-            $pic_url = $_POST['pic_url'];
+            $pic_url =  $_POST['pic_url'];
+            $pic_path =  $_POST['pic_path'];
             $finfo = $_POST['info'];
             $other_price = $_POST['other_price'];
             $video_url = $_POST['video_url'];
@@ -724,6 +725,11 @@ class ManagerController extends HomeController
             if(!empty($pic_url)){
                 $ware[ 'pic_url'] = $pic_url;
             }
+
+            if(!empty($pic_path)){
+                $ware[ 'pic_path'] = $pic_path;
+            }
+
             if($video_url!=$ret['video_url']){
                 $ware[ 'video_url'] = $video_url;
             }
