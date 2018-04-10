@@ -12,5 +12,6 @@ define('ABOOT_URL','/likeplus/Home/Public/bootstrap/');
 define('ACK_URL','/likeplus/Home/Public/ckeditor/');
 define('AIMAGE_URL','/likeplus/Home/Public/images/');
 define('PUBLIC_ROOT_URL','/likeplus/Home/Public/');
+define('SCWS_DICT_URL','/likeplus/Home/Public/dict/');
 //引入tp框架的接口文件
 include "./ThinkPHP/ThinkPHP.php";

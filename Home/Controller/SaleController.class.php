@@ -2,6 +2,7 @@
 namespace Home\Controller;
 use Tools\HomeController; 
 use Think\Controller;
+
 class SaleController extends HomeController {
     public function index(){
         $id=$_GET['sale_id'];
@@ -18,7 +19,6 @@ class SaleController extends HomeController {
         }
         $this->assign('id', $id);
         $this->assign('token', $token);
-
 
         $today=date('Y-m-d 00:00:00',time());
         $end_time = date("Y-m-d H:i:s", strtotime($today) + 86400 - 1);
@@ -610,6 +610,35 @@ class SaleController extends HomeController {
         if(empty($id)){
             $this ->redirect('login/index',array(),0,'');
         }
+
+        $parse = $_POST['parse'];
+        if(!empty($parse)){
+            $mydata = $_POST['mydata'];
+            $ret = parseaddr($mydata);
+            $name = @iconv('GB2312', 'UTF-8', $ret['name']);
+            $phone = @iconv('GB2312', 'UTF-8', $ret['phone']);
+            $pro = @iconv('GB2312', 'UTF-8', $ret['pro']);
+            $ci = @iconv('GB2312', 'UTF-8', $ret['city']);
+            $ar = @iconv('GB2312', 'UTF-8', $ret['area']);
+            $ad = @iconv('GB2312', 'UTF-8', $ret['addr']);
+
+            if(empty($pro)){
+                $pro = $ci;
+            }
+
+            $this->assign('name',$name);
+            $this->assign('phone',$phone);
+            $this->assign('pro',$pro);
+            $this->assign('ci',$ci);
+            $this->assign('ar',$ar);
+            $this->assign('ad',$ad);
+            $this->assign('sale_id',$id);
+            $this->assign('mydata',$mydata);
+            $this->display();
+            exit;
+        }
+
+
         $name = $_POST['name'];
         $phone = $_POST['number'];
         $pro = $_POST['pro'];
