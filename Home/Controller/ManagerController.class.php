@@ -833,8 +833,17 @@ class ManagerController extends HomeController
                 $sum += $order[$i]['price'];
             }
         }
+
+        $sum2=0;
+        for($i=0;$i<count($order);$i++){
+            if($order[$i]['flag']==2) {
+                $sum2 += $order[$i]['price'];
+            }
+        }
+
         $this->assign('tday', date("Y-m-d"));
         $this->assign('money',$sum);
+        $this->assign('money2',$sum2);
         $this->display();
     }
 
