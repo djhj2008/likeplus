@@ -213,6 +213,9 @@
                                                         <button type="button" id="editwaremore" onclick="editwaremore(<%$v['auto_id']%>)"
                                                                 class="btn btn-dark mt-2">
                                                             <span>编辑</span> </button>
+                                                        <button type="button" id="warebanner" onclick="warebanner(<%$v['auto_id']%>)"
+                                                                class="btn btn-dark mt-2">
+                                                            <span>广告</span> </button>
                                                     </td>
                                                 </tr>
                                                 <%/foreach%>
@@ -350,5 +353,10 @@
             window.location.href="<%$smarty.const.__APP__%>/manager/editwaremore?token=<%$token%>&ware_id="+ware_id+"&sale_id=<%$id%>&date1=<%$date1%>&date2=<%$date2%>&type="+type;
         }
 
+
+        function warebanner(ware_id){
+            var type = $('#type').find("option:selected").val();
+            window.location.href="<%$smarty.const.__APP__%>/manager/banner?token=<%$token%>&ware_id="+ware_id+"&sale_id=<%$id%>";
+        }
     </script>
 </html>

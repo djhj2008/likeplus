@@ -8,7 +8,7 @@
 <meta content="Coderthemes" name="author" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<link rel="stylesheet" href="<%$smarty.const.SHOP_URL%>css/index.css" type="text/css">
+<link rel="stylesheet" href="<%$smarty.const.SHOP_URL%>css/index.css?v=01.01.01" type="text/css">
 <link rel="stylesheet" href="<%$smarty.const.SHOP_URL%>css/swiper.min.css?v=01.01.01" type="text/css">
 <script type="text/javascript" src="<%$smarty.const.SHOP_URL%>js/swiper.min.js"></script>
 <script type="text/javascript" src="<%$smarty.const.SHOP_URL%>js/jquery-1.4.4.min.js"></script>
@@ -44,9 +44,9 @@
 	<!--banner-->
 	<div class="swiper_container_1">
 	    <div class="swiper-wrapper">
-	        <div class="swiper-slide"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/banner2.jpg"></a></div>
-	        <div class="swiper-slide"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/banner1.jpg"></a></div>
-	        <div class="swiper-slide"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/banner.jpg"></a></div>
+			<%foreach $banner as $ban%>
+	        <div class="swiper-slide"><a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$ban['ware_id']%>"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$ban['logo']%>"></a></div>
+			<%/foreach%>
 	    </div>
 	    <!-- Add Pagination -->
 	    <div class="swiper_pagination_1"></div>
@@ -62,7 +62,7 @@
 
 	<!--导航-->
 	<div class="neir_beij"> 
-		<ul>
+		<ul><!--640x380-->
 			<li><a href="#"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/7.png"></div><p>我的客户</p></a></li>
 			<li><a href="BenDiShengHuo.html"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/1.png"></div><p>本地生活</p></a></li>
 			<li><a href="#"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/2.png"></div><p>团购专区</p></a></li>
@@ -74,66 +74,24 @@
 		</ul>
 	</div>
 
-
-	<div class="qieh_chengs">
-		<div class="qieh_zhonj_kuang">
-			<p>美食频道 <span><a href="XuanZeChengShi.html">[点击进入]</a></span><em>丨</em><span class="fenh">打造特色美食商城</span></p>
-		</div>
-	</div>
-
-	<div class="bendi_sh">
-		<div class="zuob">
-			<div class="tup"><img src="<%$smarty.const.SHOP_URL%>images/jiank_meis.jpg"></div>
-			<div class="wenz"><a href="#"><p>健康美食</p><span>让生活   更健康<br>更美味   更舒心</span></a></div>
-		</div>
-		<div class="bend_youb">
-			<div class="shang">
-				<p>全部</p>
-				<ul>
-					<li><a href="#">曲奇&饼干</a></li>
-					<li><a href="#">巧克力&糖果</a></li>
-					<li><a href="#">面包&蛋糕</a></li>
-					<li><a href="#">干锅</a></li>
-					<li><a href="#">肉铺</a></li>
-					<li><a href="#">饮品</a></li>
-				</ul>
-			</div>
-			<div class="liange_anniu">
-				<div class="ds"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/b1.jpg"></a></div>
-				<div class="ds"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/b2.jpg"></a></div>
-			</div>
-		</div>
-	</div>
 	<div class="henx"></div>
 	<div class="swiper_container_2">
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide">
 	        	<a href="#">
-	        		<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy.jpg"></div>
-	        		<div class="kuaij_td_wenz"><p class="p2">鸡蛋还能这样吃</p><p class="p1">家用电器</p></div>
+	        		<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy1.jpg"></div>
+	        		<div class="kuaij_td_wenz"><p class="p2">爱加-下午茶</p><p class="p1">让生活   更美味</p></div>
 	        	</a>
 	        </div>
 	        <div class="swiper-slide">
 	        	<a href="#">
-					<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy1.jpg"></div>
-	        		<div class="kuaij_td_wenz"><p class="p2">冬季生宝宝</p><p class="p1">母婴</p></div>
-	        	</a>
-	        </div>
-	        <div class="swiper-slide">
-	        	<a href="#">
-					<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy.jpg"></div>
-	            	<div class="kuaij_td_wenz"><p class="p2">鸡蛋还能这样吃</p><p class="p1">家用电器</p></div>
-	            </a>
-	        </div>
-	        <div class="swiper-slide">
-	        	<a href="#">
-					<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy1.jpg"></div>
-	        		<div class="kuaij_td_wenz"><p class="p2">鸡蛋还能这样吃</p><p class="p1">家用电器</p></div>
+					<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy2.jpg"></div>
+	        		<div class="kuaij_td_wenz"><p class="p2">爱加-品尝</p><p class="p1">美味零食</p></div>
 	        	</a>
 	        </div>
 	    </div>
 	    <!-- Add Pagination -->
-	    <div class="swiper_pagination_2"></div>
+	    <!--div class="swiper_pagination_2"></div-->
 	</div>
 	<script>
 	var swiper = new Swiper('.swiper_container_2', {
@@ -159,7 +117,7 @@
 			<div class="zuo">
 				<a href="#">
 					<p>厨房&餐厅</p>
-					<span>美食工厂</span>
+					<span>美食工厂</span><!--195x146-->
 					<div class="zuo_tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_c.jpg"></div>
 				</a>
 			</div>
@@ -177,7 +135,7 @@
 					<div class="youx_bq">
 						<a href="#">
 							<div class="wez">
-								<p class="px24">办公室小件</p>
+								<p class="px24">办公室生活</p>
 								<span class="px22 color_h">精挑细选</span>
 							</div>
 							<div class="youx_tu1_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_bih.jpg"></div>
@@ -186,8 +144,8 @@
 					<div class="youx_bq youx_wubk">
 						<a href="#">
 							<div class="wez">
-								<p class="px24 wuj_color">汽车用品</p>
-								<span class="px22 color_h">必买尖货儿</span>
+								<p class="px24 wuj_color">优质工具</p>
+								<span class="px22 color_h">生活助手</span>
 							</div>
 							<div class="youx_tu1_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_wuj.jpg"></div>
 						</a>
@@ -195,26 +153,30 @@
 				</div>
 			</div>
 		</div>
-		<div class="yic_xia_b">
-			<div class="zuo">
-				<a href="#">
+		<%foreach $wares2 as $key=>$v%>
+		<%if $key%2 eq 0 %>
+		<div class="tonyi_k">
+			<div class="zuo_sp">
+				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares2[$key]['id']%>">
+					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares2[$key]['pic_url']%>"></div>
 					<div class="wez">
-						<p class="px24 wuj_color">太空铝厨房置物架</p>
-						<span class="px26">￥59.00</span>
+						<p class="px22"><%$wares2[$key]['name']%></p>
+						<span class="px24">¥ <%$wares2[$key]['out_price']%></span>
 					</div>
-					<div class="youc_xia_tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_weibl.jpg"></div>
 				</a>
 			</div>
-			<div class="zuo you_wux">
-				<a href="#">
+			<div class="zuo_sp you_sp">
+				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares2[$key+1]['id']%>">
+					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares2[$key+1]['pic_url']%>"></div>
 					<div class="wez">
-						<p class="px24 wuj_color">蕉下小黑伞</p>
-						<span class="px26">￥109.00</span>
+						<p class="px22"><%$wares2[$key+1]['name']%></p>
+						<span class="px24">¥ <%$wares2[$key+1]['out_price']%></span>
 					</div>
-					<div class="youc_xia_tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_s.jpg"></div>
 				</a>
 			</div>
 		</div>
+		<%/if%>
+		<%/foreach%>
 	</div>
 
 	<!--
@@ -432,86 +394,30 @@
 		</div>
 	</div>
 	<div class="rem_sp_b">
+		<%foreach $wares as $key=>$v%>
+		<%if $key%2 eq 0 %>
 		<div class="tonyi_k">
 			<div class="zuo_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r1.jpg"></div>
+				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares[$key]['id']%>">
+					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares[$key]['pic_url']%>"></div>
 					<div class="wez">
-						<p class="px22">御泥坊 清洁净肤黑面膜套装 21片装</p>
-						<span class="px24">¥ 69.90</span>
+						<p class="px22"><%$wares[$key]['name']%></p>
+						<span class="px24">¥ <%$wares[$key]['out_price']%></span>
 					</div>
 				</a>
 			</div>
 			<div class="zuo_sp you_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r2.jpg"></div>
+				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares[$key+1]['id']%>">
+					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares[$key+1]['pic_url']%>"></div>
 					<div class="wez">
-						<p class="px22">盈菲妮秋季软妹子粉嫩少女风兔耳朵长袖</p>
-						<span class="px24">¥119.00</span>
+						<p class="px22"><%$wares[$key+1]['name']%></p>
+						<span class="px24">¥ <%$wares[$key+1]['out_price']%></span>
 					</div>
 				</a>
 			</div>
 		</div>
-		<div class="tonyi_k">
-			<div class="zuo_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r3.jpg"></div>
-					<div class="wez">
-						<p class="px22">安娅萱2016软妹子宽松女学生短袖t恤女</p>
-						<span class="px24">¥ 69.90</span>
-					</div>
-				</a>
-			</div>
-			<div class="zuo_sp you_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r4.jpg"></div>
-					<div class="wez">
-						<p class="px22">小米(MI)Air 13.3英寸全金属轻薄笔记本(i5-7200U</p>
-						<span class="px24">¥2519.00</span>
-					</div>
-				</a>
-			</div>
-		</div>
-		<div class="tonyi_k">
-			<div class="zuo_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r1.jpg"></div>
-					<div class="wez">
-						<p class="px22">御泥坊 清洁净肤黑面膜套装 21片装</p>
-						<span class="px24">¥ 69.90</span>
-					</div>
-				</a>
-			</div>
-			<div class="zuo_sp you_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r2.jpg"></div>
-					<div class="wez">
-						<p class="px22">盈菲妮秋季软妹子粉嫩少女风兔耳朵长袖</p>
-						<span class="px24">¥119.00</span>
-					</div>
-				</a>
-			</div>
-		</div>
-		<div class="tonyi_k">
-			<div class="zuo_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r3.jpg"></div>
-					<div class="wez">
-						<p class="px22">安娅萱2016软妹子宽松女学生短袖t恤女</p>
-						<span class="px24">¥ 69.90</span>
-					</div>
-				</a>
-			</div>
-			<div class="zuo_sp you_sp">
-				<a href="#"> 
-					<div class="tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/r4.jpg"></div>
-					<div class="wez">
-						<p class="px22">小米(MI)Air 13.3英寸全金属轻薄笔记本(i5-7200U</p>
-						<span class="px24">¥2519.00</span>
-					</div>
-				</a>
-			</div>
-		</div>
+		<%/if%>
+		<%/foreach%>
 	</div>
 	<!--div class="jiazz">
 		<p class="px22">拼命加载中...</p>
@@ -585,12 +491,13 @@
 		</ul>
 	</div>
 </div>
+
 </body>
 </html>
 
 <script type="text/javascript">
-	window.onload=function(){
-		onload2();/*
+    window.onload=function(){
+        onload2();/*
 		var TheMenu=document.getElementById('zhu_caid');
 		var LieBiao=document.getElementById('daoh_lb'); 
 		var Html=document.getElementsByTagName("html")[0];//0 第一个数组
@@ -610,22 +517,22 @@
 		}
 	};*/
 
-	function onload2()
-	{
-		var Sos=document.getElementById('sos_tanc');
-		var ShouYe=document.getElementById('yemnr');
-		var SosYe=document.getElementById('shous_yem');
-		var SosFanHui=document.getElementById('sous_fanh_sy');
-		Sos.onclick=function()
-		{
-			ShouYe.style.display=('none');
-			SosYe.style.display=('block');
-		}
-		SosFanHui.onclick=function()
-		{
-			ShouYe.style.display=('block');
-			SosYe.style.display=('none');
-		}
-	};
-	};
+        function onload2()
+        {
+            var Sos=document.getElementById('sos_tanc');
+            var ShouYe=document.getElementById('yemnr');
+            var SosYe=document.getElementById('shous_yem');
+            var SosFanHui=document.getElementById('sous_fanh_sy');
+            Sos.onclick=function()
+            {
+                ShouYe.style.display=('none');
+                SosYe.style.display=('block');
+            }
+            SosFanHui.onclick=function()
+            {
+                ShouYe.style.display=('block');
+                SosYe.style.display=('none');
+            }
+        };
+    };
 </script>

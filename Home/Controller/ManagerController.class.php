@@ -293,7 +293,44 @@ class ManagerController extends HomeController
 
     }
 
-    public function myware()
+    public function upload3()
+    {
+        $id=$_GET['sale_id'];
+        $token = $_GET['token'];
+        $this->assign('id', $id);
+        $this->assign('token', $token);
+
+        $sn = $_GET['sn'];
+
+        if(empty($sn)){
+            $a[0]['flag']="no";
+            $this->ajaxReturn($a,'JSON');
+            exit;
+        }
+
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize = 31457280;// 设置附件上传大小
+        $upload->exts = array('jpg', 'gif', 'png', 'jpeg', 'pdf');// 设置附件上传类型
+        $upload->rootPath = 'Home/Public/uploads/'; // 设置附件上传根目录
+        $upload->savePath = $sn . '/'; // 设置附件上传（子）目录ch
+        // 上传文件
+        $info = $upload->upload();
+
+        $i=0;
+        if(!$info) {// 上传错误提示错误信息
+            $a[$i]['flag']="no";
+            $this->ajaxReturn($a,'JSON');
+        }else{// 上传成功 获取上传文件信息
+            foreach($info as $file){
+                $a[$i]['flag']=$file['savepath'].$file['savename'];
+                $i++;
+            }
+        }
+        $this->ajaxReturn($a,'JSON');
+
+    }
+
+    public function banner()
     {
         $id=$_GET['sale_id'];
         if(empty($id)||$id>200){
@@ -310,19 +347,98 @@ class ManagerController extends HomeController
         $this->assign('id', $id);
         $this->assign('token', $token);
 
-        $today=date('Y-m-d 00:00:00',time());
-        $end_time = date("Y-m-d H:i:s", strtotime($today) + 86400 - 1);
-        $date = array('between', array($today, $end_time));
+        $ware = D('lp_wares')->where(array('auto_id' => $_GET['ware_id']))->find();
+        if ($ware) {
+            $this->assign('ware', $ware);
+            $this->display();
+            exit;
+        }else{
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"商品错误!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
+    }
 
-        $user = M('lp_wares');
-        $wares = $user->where(array('date' => $date))->select();
-        //var_dump($user->getLastSql());
+    public function addbanner(){
+        $id=$_GET['sale_id'];
+        if(empty($id)||$id>200){
+        Alert("登陆失败.",NULL,"login");
+        exit;
+        }
+        $token = $_GET['token'];
+        $ip = get_client_ip();
+        $mytoken = md5($ip.$id);
+        if (empty($token) || empty($mytoken) || $token != $mytoken) {
+            Alert(NULL,NULL,"login");
+            exit;
+        }
+        $this->assign('id', $id);
+        $this->assign('token', $token);
 
-        if ($wares) {
-            $this->assign('myware', $wares);
+        $sn = $_POST['sn'];
+        if (empty($sn)) {
+            $this->display();
+            exit;
         }
 
-        $this->display();
+        $pic_url =  $_POST['pic_url'];
+        $ware_id=  $_GET['ware_id'];
+
+        if(empty($pic_url)){
+            echo "<script language=\"JavaScript\">\r\n";
+            echo " alert(\"广告上传失败!\");\r\n";
+            echo " history.back();\r\n";
+            echo "</script>";
+            exit;
+        }
+
+        $banner = array(
+            'logo' => $pic_url,
+            'ware_id' => $ware_id,
+        );
+
+        $ret = D('lp_banner')->add($banner);
+        if (empty($ret)) {
+            echo $ret;
+            exit;
+        }
+
+        $this ->redirect('manager/chkwaremore',array('token'=>$token,'sale_id'=>$id),0,'');
+
+        }
+
+        public function myware()
+        {
+            $id=$_GET['sale_id'];
+            if(empty($id)||$id>200){
+                Alert("登陆失败.",NULL,"login");
+                exit;
+            }
+            $token = $_GET['token'];
+            $ip = get_client_ip();
+            $mytoken = md5($ip.$id);
+            if (empty($token) || empty($mytoken) || $token != $mytoken) {
+                Alert(NULL,NULL,"login");
+                exit;
+            }
+            $this->assign('id', $id);
+            $this->assign('token', $token);
+
+            $today=date('Y-m-d 00:00:00',time());
+            $end_time = date("Y-m-d H:i:s", strtotime($today) + 86400 - 1);
+            $date = array('between', array($today, $end_time));
+
+            $user = M('lp_wares');
+            $wares = $user->where(array('date' => $date))->select();
+            //var_dump($user->getLastSql());
+
+            if ($wares) {
+                $this->assign('myware', $wares);
+            }
+
+            $this->display();
     }
 
     public function chkwarebydate()
