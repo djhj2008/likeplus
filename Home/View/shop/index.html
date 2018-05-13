@@ -118,7 +118,7 @@
 			<div class="zuo">
 				<a href="#">
 					<p>厨房&餐厅</p>
-					<span>美食工厂</span><!--195x146-->
+					<span>(敬请期待)</span><!--195x146美食工厂-->
 					<div class="zuo_tu_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_c.jpg"></div>
 				</a>
 			</div>
@@ -127,7 +127,7 @@
 					<a href="#">
 						<div class="wez">
 							<p class="px24">夏季生活</p>
-							<span class="px22 color_h">最重要的是防晒</span>
+							<span class="px22 color_h">(敬请期待)</span><!--最重要的是防晒-->
 						</div>
 						<div class="uou_tu1_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_d.jpg"></div>
 					</a>
@@ -137,7 +137,7 @@
 						<a href="#">
 							<div class="wez">
 								<p class="px24">办公室生活</p>
-								<span class="px22 color_h">精挑细选</span>
+								<span class="px22 color_h">(敬请期待)</span><!--精挑细选-->
 							</div>
 							<div class="youx_tu1_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_bih.jpg"></div>
 						</a>
@@ -146,7 +146,7 @@
 						<a href="#">
 							<div class="wez">
 								<p class="px24 wuj_color">优质工具</p>
-								<span class="px22 color_h">生活助手</span>
+								<span class="px22 color_h">(敬请期待)</span><!--生活助手-->
 							</div>
 							<div class="youx_tu1_k"><img src="<%$smarty.const.SHOP_URL%>images/web/yic_wuj.jpg"></div>
 						</a>
@@ -158,7 +158,7 @@
 		<%if $key%2 eq 0 %>
 		<div class="tonyi_k">
 			<div class="zuo_sp">
-				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares2[$key]['id']%>">
+				<a href="<%$smarty.const.__APP__%>/shop/wareinfo?ware_id=<%$wares2[$key]['id']%>">
 					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares2[$key]['pic_url']%>"></div>
 					<div class="wez">
 						<p class="px22"><%$wares2[$key]['name']%></p>
@@ -167,7 +167,7 @@
 				</a>
 			</div>
 			<div class="zuo_sp you_sp">
-				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares2[$key+1]['id']%>">
+				<a href="<%$smarty.const.__APP__%>/shop/wareinfo?ware_id=<%$wares2[$key+1]['id']%>">
 					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares2[$key+1]['pic_url']%>"></div>
 					<div class="wez">
 						<p class="px22"><%$wares2[$key+1]['name']%></p>
@@ -372,7 +372,6 @@
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/xia_banner1.jpg"></a></div>
 	        <div class="swiper-slide"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/xia_banner2.jpg"></a></div>
-	        <div class="swiper-slide"><a href="#"><img src="<%$smarty.const.SHOP_URL%>images/web/xia_banner1.jpg"></a></div>
 	    </div>
 	    <!-- Add Pagination -->
 	    <div class="swiper_pagination_3"></div>
@@ -399,7 +398,7 @@
 		<%if $key%2 eq 0 %>
 		<div class="tonyi_k">
 			<div class="zuo_sp">
-				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares[$key]['id']%>">
+				<a href="<%$smarty.const.__APP__%>/shop/wareinfo?ware_id=<%$wares[$key]['id']%>">
 					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares[$key]['pic_url']%>"></div>
 					<div class="wez">
 						<p class="px22"><%$wares[$key]['name']%></p>
@@ -408,7 +407,7 @@
 				</a>
 			</div>
 			<div class="zuo_sp you_sp">
-				<a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$wares[$key+1]['id']%>">
+				<a href="<%$smarty.const.__APP__%>/shop/wareinfo?ware_id=<%$wares[$key+1]['id']%>">
 					<div class="tu_k"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$wares[$key+1]['pic_url']%>"></div>
 					<div class="wez">
 						<p class="px22"><%$wares[$key+1]['name']%></p>
@@ -452,8 +451,8 @@
 			</div>
 		</div-->
 		<div class="gs_beian">
-			<p>京公网安备：11010602030054号</p>
-			<p>京ICP备：14012449号 黔ICP证：B2-20140009号</p>
+			<p>2018 - 2019 © 爱加. - aijiashopping.com</p>
+			<p>辽ICP备18005225号</p>
 		</div>
 	</div>
 

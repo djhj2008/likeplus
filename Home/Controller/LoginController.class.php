@@ -33,8 +33,8 @@ class LoginController extends HomeController {
                     if($userFind['role']==1) {
                         $this->redirect('manager/index', array('token' => $token,'sale_id'=>$userFind['auto_id']), 0, '');
                     }else{
-                        S('token',$token,600000);
-                        S('sale_id',$userFind['auto_id'],600000);
+                        S('token',$token,24*3600);
+                        S('sale_id',$userFind['auto_id'],24*3600);
                         $this->redirect('shop/index', array(), 0, '');
                     }
 				}else{
