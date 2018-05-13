@@ -33,7 +33,9 @@ class LoginController extends HomeController {
                     if($userFind['role']==1) {
                         $this->redirect('manager/index', array('token' => $token,'sale_id'=>$userFind['auto_id']), 0, '');
                     }else{
-                        $this->redirect('sale/index', array('token' => $token,'sale_id'=>$userFind['auto_id']), 0, '');
+                        S('token',$token,600000);
+                        S('sale_id',$userFind['auto_id'],600000);
+                        $this->redirect('shop/index', array(), 0, '');
                     }
 				}else{
 						$jarr=array('ret'=>array('ret_message'=>'register error','status_code'=>10000107));

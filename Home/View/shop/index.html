@@ -22,8 +22,8 @@
 	<!--头部--> 
 	<div class="toub_beij toub_beij_shouye">
 		<div class="zhongj_k">
-			<div class="logo_k"><a href="index.html"><img src="<%$smarty.const.SHOP_URL%>images/web/logo.png"></a></div>
-			<div class="shous_k"><span></span><input id="sos_tanc"  type="search" input_key="" placeholder="限时疯抢,折扣多多." placeholder_str="" style="line-height:100%; height:100%;vertical-align:middle;"></div>
+			<div class="logo_k"><a href="<%$smarty.const.__CONTROLLER__%>/index"><img src="<%$smarty.const.SHOP_URL%>images/web/logo.png"></a></div>
+			<!--div class="shous_k"><span></span><input id="sos_tanc"  type="search" input_key="" placeholder="限时疯抢,折扣多多." placeholder_str="" style="line-height:100%; height:100%;vertical-align:middle;"></div-->
 			<div class="dengl">
 				<a href="#"><!--跳转到登录--><div class="caid_img" ><img src="<%$smarty.const.SHOP_URL%>images/web/cd.png"></div></a>
 			</div>
@@ -45,7 +45,7 @@
 	<div class="swiper_container_1">
 	    <div class="swiper-wrapper">
 			<%foreach $banner as $ban%>
-	        <div class="swiper-slide"><a href="<%$smarty.const.__APP__%>/sale/wareinfo?token=<%$token%>&ware_id=<%$ban['ware_id']%>"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$ban['logo']%>"></a></div>
+	        <div class="swiper-slide"><a href="<%$smarty.const.__APP__%>/shop/wareinfo?ware_id=<%$ban['ware_id']%>"><img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/<%$ban['logo']%>"></a></div>
 			<%/foreach%>
 	    </div>
 	    <!-- Add Pagination -->
@@ -63,14 +63,15 @@
 	<!--导航-->
 	<div class="neir_beij"> 
 		<ul><!--640x380-->
-			<li><a href="#"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/7.png"></div><p>我的客户</p></a></li>
-			<li><a href="BenDiShengHuo.html"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/1.png"></div><p>本地生活</p></a></li>
-			<li><a href="#"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/2.png"></div><p>团购专区</p></a></li>
-			<li><a href="GeRenZhongXin_JiFenShnagC.html"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/3.png"></div><p>积分商城</p></a></li>
-			<li><a href="#"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/4.png"></div><p>分销系统</p></a></li>
-			<li><a href="#"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/5.png"></div><p>工单系统</p></a></li>
-			<li><a href="#"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/6.png"></div><p>礼品中心</p></a></li>
-			<li><a href="GeRenZhongXin.html"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/8.png"></div><p>个人中心</p></a></li>
+			<li><a href="<%$smarty.const.__CONTROLLER__%>/today"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/1.png"></div><p>今日新品</p></a></li>
+			<li><a href="<%$smarty.const.__CONTROLLER__%>/hiswarebyname"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/6.png"></div><p>查找商品</p></a></li>
+			<li><a href="<%$smarty.const.__CONTROLLER__%>/hisware"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/3.png"></div><p>历史商品</p></a></li>
+			<li><a href="<%$smarty.const.__CONTROLLER__%>/waretop"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/4.png"></div><p>热销排行</p></a></li>
+
+			<li><a href="<%$smarty.const.__CONTROLLER__%>/myuserinfo"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/7.png"></div><p>我的客户</p></a></li>
+			<li><a href="<%$smarty.const.__CONTROLLER__%>/mysaleinfo"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/2.png"></div><p>销售详情</p></a></li>
+			<li><a href="<%$smarty.const.__CONTROLLER__%>/hisorder"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/5.png"></div><p>订单系统</p></a></li>
+			<li><a href="<%$smarty.const.__APP__%>/shop/saleinfo"><div class="daohangk"><img src="<%$smarty.const.SHOP_URL%>images/8.png"></div><p>个人中心</p></a></li>
 		</ul>
 	</div>
 
@@ -78,13 +79,13 @@
 	<div class="swiper_container_2">
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide">
-	        	<a href="#">
+	        	<a href="<%$smarty.const.__CONTROLLER__%>/touch2">
 	        		<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy1.jpg"></div>
 	        		<div class="kuaij_td_wenz"><p class="p2">爱加-下午茶</p><p class="p1">让生活   更美味</p></div>
 	        	</a>
 	        </div>
 	        <div class="swiper-slide">
-	        	<a href="#">
+	        	<a href="<%$smarty.const.__CONTROLLER__%>/touch2">
 					<div class="kuaij_td_img"><img src="<%$smarty.const.SHOP_URL%>images/web/kuy2.jpg"></div>
 	        		<div class="kuaij_td_wenz"><p class="p2">爱加-品尝</p><p class="p1">美味零食</p></div>
 	        	</a>
@@ -457,14 +458,14 @@
 	</div>
 
 	<!--底部导航-->
-	<div class="dib_daoh_b">
+	<!--div class="dib_daoh_b">
 		<ul>
-			<li><a href="index.html"><div class="fup"><img src="<%$smarty.const.SHOP_URL%>images/web/d2-2.png"></div><p class="dh_dq">首 页</p></a></li>
-			<li><a href="wangid_ShangP_FenL.html"><div class="fup"><img src="<%$smarty.const.SHOP_URL%>images/web/d1.png"></div><p>分 类</p></a></li>
+			<li><a href="<%$smarty.const.__APP__%>/shop/index"><div class="fup"><img src="<%$smarty.const.SHOP_URL%>images/web/d2-2.png"></div><p class="dh_dq">首 页</p></a></li>
+			<li><a href="<%$smarty.const.__APP__%>/shop/hiswarebyname"><div class="fup"><img src="<%$smarty.const.SHOP_URL%>images/web/d1.png"></div><p>分 类</p></a></li>
 			<li><a href="wanagid_GouWuChe.html"><div class="fup"><img src="<%$smarty.const.SHOP_URL%>images/web/d3.png"></div><p>购物车</p></a></li>
 			<li><a href="GeRenZhongXin.html"><div class="fup"><img src="<%$smarty.const.SHOP_URL%>images/web/d4.png"></div><p>我</p></a></li>
 		</ul>
-	</div>
+	</div-->
 </div>
 <!--大小限制--> 
 </div>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>爱加HOME</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/images/favicon.ico">
+
+        <!-- Plugins css-->
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/switchery/switchery.min.css">
+        
+        <!-- App css -->
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css?version=1.01.01" rel="stylesheet" type="text/css" />
+
+        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
+        <script src="<%$smarty.const.AJS_URL%>region_select.js"></script>
+    </head>
+
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+            <!-- Top Bar Start -->
+            <div class="topbar">
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href="<%$smarty.const.__CONTROLLER__%>/index" class="logo">
+                        <span>
+                            <img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_title.png" alt="" height="50">
+                        </span>
+                        <i>
+                            <img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_sm.png" alt="" height="64">
+                        </i>
+                    </a>
+                </div>
+                <nav class="navbar-custom">
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                        <li class="dropdown notification-list">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="false" aria-expanded="false">
+                                <i class="fa fa-user-o mr-0"></i> <span class="ml-1"><i class="mdi mdi-chevron-down"></i> </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                <!-- item-->
+                                <div class="dropdown-item noti-title">
+                                    <h6 class="text-overflow m-0">欢迎!</h6>
+                                </div>
+
+                                <!-- item-->
+                                <a href="<%$smarty.const.__APP__%>/shop/saleinfo" class="dropdown-item notify-item">
+                                    <i class="fi-head"></i> <span>修改密码</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="<%$smarty.const.__APP__%>/login" class="dropdown-item notify-item">
+                                    <i class="fi-power"></i> <span>退出登陆</span>
+                                </a>
+
+                            </div>
+                        </li>
+
+                    </ul>
+                    <ul class="list-inline menu-left mb-0">
+                        <li class="float-left">
+                            <button class="button-menu-mobile" onclick="homepage()">
+                                <i class="dripicons-menu"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Top Bar End -->
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="card-box">
+                                    <div class="card-box">
+                                        <div class="form-group row">
+                                            <div>
+                                                <h4 class="mt-0 font-20">地址信息</h4>
+                                                <%if empty($user) neq true %>
+                                                    <br>
+                                                <%else%>
+                                                    <p class="text-muted font-14 mb-2">
+                                                        请选择详细的购买用户地址信息.
+                                                    </p>
+                                                <%/if%>
+                                                <div>
+                                                    <h6 id="userinfo" name="userinfo"><%$user%></h6>
+                                                    <p id="addr" name="addr"><%$addr%></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-6 offset-2">
+                                                    <button type="button" id="search_user" onclick="search_user()"
+                                                            class="btn btn-github" >
+                                                        <i class="fa fa-address-book mr-0"></i>
+                                                        <span>查找</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%if empty($user) neq true%>
+                                    <div class="col-18">
+                                                <form action="<%$smarty.const.__APP__%>/shop/addorder?uid=<%$uid%>&ware_id=<%$ware_id%>" onSubmit="return chkinput(this)"  method="post">
+                                                    <fieldset>
+                                                    <div class="card-box">
+                                                    <div class="form-group row">
+                                                        <h4 class="font-20 mr-4"><b><%$ware[0]['name']%></b></h4>
+                                                        <p class="text-custom mt-2 font-16">单价:￥<%sprintf("%.02f", $ware[0]['out_price']*0.88)%></p>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <div>
+                                                        <p class="text-muted font-16  mt-3">购买数量:</p>
+                                                        </div>
+                                                        <div class="btn-group col-6">
+                                                            <button type="button" id="del" onclick="code1()" class="btn btn-github mb-3 mt-2">-</button>
+                                                            <input type="number" id="count" name="count" oninput="code3()" class="form-control  mb-3 mt-2" value="1"/>
+                                                            <button type="button" id="add" onclick="code2()" class="btn btn-github mb-3 mt-2">+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div>
+                                                        <p class="text-muted font-16  mt-2">总价:</p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="text" id="money" name="money" class="form-control" readonly="" value="<%sprintf('%.02f', $ware[0]['out_price']*0.88)%>"/>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-custom font-16 mt-2">RMB</p>
+                                                        </div>
+                                                    </div>
+                                                    <%if empty($model) neq true %>
+                                                        <div class="form-group row">
+                                                         <div>
+                                                             <p class="text-muted font-16  mt-2">型号:</p>
+                                                         </div>
+                                                        <div class="col-6">
+                                                            <select name="model" id="model"  class="form-control" data-style="btn-light">
+                                                                    <%foreach $model as $v%>
+                                                                        <option value="<%$v['ware_id']%>"><%$v['model']%></option>
+                                                                    <%/foreach%>
+                                                            </select>
+                                                        </div>
+                                                        </div>
+                                                    <%/if%>
+                                                    <div class="form-group row" >
+                                                        <div>
+                                                            <p class="text-muted font-16  mt-2">备注信息:</p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <textarea class="form-control" name="winfo" id="winfo" placeholder="颜色,款式等要求(50字以内)"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div  class="col offset-8">
+                                                            <button type="submit" class="btn btn-github" onclick="">
+                                                                下单
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                </form>
+                                        </div>
+                                    <%/if%>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div> <!-- container -->
+                </div> <!-- content -->
+                <footer class="footer text-right">
+                    Copyright &copy; 2018.爱加社区
+                </footer>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- END wrapper -->
+    </body>
+    <script type="text/javascript">
+        function code1(){
+            var count = document.getElementById('count').value;
+            count = Number(count);
+            if(count>1){
+                count = count-1;
+            }else{
+                count = 1;
+            }
+            document.getElementById('count').value=count;
+            var price = count*<%$ware[0]["out_price"]%>*0.88;
+            document.getElementById('money').value=price.toFixed(2);
+        }
+
+        function code2(){
+            var count = document.getElementById('count').value;
+            count = Number(count);
+            if(count<100){
+                count = count+1;
+            }else{
+                count = 100;
+            }
+            document.getElementById('count').value=count;
+            var price = count*<%$ware[0]["out_price"]%>*0.88;
+            document.getElementById('money').value=price.toFixed(2);
+        }
+
+        function code3(){
+            var count = document.getElementById('count').value;
+            count = Number(count);
+            if(count < 1){
+                count = 1;
+                document.getElementById('count').value=count;
+            }else if(count > 100){
+                count = 100;
+                document.getElementById('count').value=count;
+            }
+            var price = count*<%$ware[0]["out_price"]%>;
+            document.getElementById('money').value=price.toFixed(2);
+        }
+    </script>
+
+    <script type="text/javascript">
+        function search_user(){
+            window.location.href="<%$smarty.const.__CONTROLLER__%>/userinfo?ware_id=<%$ware_id%>";
+        }
+
+        function chkinput(form) {
+            var user = "<%$user%>";
+            var addr = "<%$addr%>";
+            if(user==""||addr==""){
+                alert("请选择用户详细地址.");
+                return false;
+            }
+        }
+
+        function creat_order(){
+            var count = $('#count').val();
+            var model = $('#model').find("option:selected").text();
+            var model_len = $('#model').length;
+            var price = $('#money').val();
+            var user = "<%$user%>";
+            var addr = "<%$addr%>";
+            if(user==""||addr==""){
+                alert("请选择用户详细地址.");
+                return false;
+            }
+            var winfo = $('#winfo').val();
+            var url = "<%$smarty.const.__CONTROLLER__%>/addorder?uid=<%$uid%>"+
+                    "&ware_id=<%$ware_id%>&count="+count+"&money="+price;
+           if(model_len>0){
+               url+="&model="+model;
+            }
+            window.location.href=url;
+        }
+    </script>
+    <!-- jQuery  -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/jszip.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/pdfmake.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/vfs_fonts.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.html5.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.print.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+    <!-- App js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
+
+
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/switchery/switchery.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/select2/js/select2.min.js" type="text/javascript"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-select/js/bootstrap-select.js" type="text/javascript"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js" type="text/javascript"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js" type="text/javascript"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/bootstrap-maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/autocomplete/jquery.mockjax.js"></script>
+    <script type="text/javascript" src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/autocomplete/jquery.autocomplete.min.js"></script>
+    <script type="text/javascript" src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/autocomplete/countries.js"></script>
+    <script type="text/javascript" src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.autocomplete.init.js"></script>
+
+    <!-- Init Js file -->
+    <script type="text/javascript" src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.form-advanced.init.js"></script>
+    <script type="text/javascript">
+        function homepage(){
+            window.location.href=" <%$smarty.const.__APP__%>/shop/index";
+        }
+    </script>
+</html>

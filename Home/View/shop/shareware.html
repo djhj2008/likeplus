@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爱加HOME</title>
+</head>
+<body>
+<div id="qrcodeCanvas"></div>
+<div img="imgOne"></div>
+</body>
+</html>
+<script type="text/javascript" src="<%$smarty.const.AJS_URL%>jquery-1.11.1.js" ></script>
+<script type="text/javascript" src="<%$smarty.const.AJS_URL%>jquery.qrcode.js" ></script>
+<script type="text/javascript" src="<%$smarty.const.AJS_URL%>qrcode.js" ></script>
+<script type="text/javascript" src="<%$smarty.const.AJS_URL%>utf.js" ></script>
+<script>
+    var qrcode = jQuery('#qrcodeCanvas').qrcode({
+        render    : "canvas",
+        text    : "http://39.104.109.87/likeplus/index.php/sale/wareinfo?ware_id=<%$ware['wid']%>",
+        width : "500",               //二维码的宽度
+        height : "500",              //二维码的高度
+        background : "#ffffff",       //二维码的后景色
+        foreground : "#000000",        //二维码的前景色
+        src: '<%$smarty.const.PUBLIC_ROOT_URL%>images/logo.png'             //二维码中间的图片
+    });
+    var canvas=qrcode.find('canvas').get(0);
+    $('#imgOne').attr('src',canvas.toDataURL('image/jpg'))
+</script>

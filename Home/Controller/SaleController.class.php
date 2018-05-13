@@ -260,20 +260,6 @@ class SaleController extends HomeController {
     }
 
     public function wareinfo(){
-        /*
-        $id = $_GET['sale_id'];
-        if (empty($id)) {
-            Alert("登陆失败.", NULL, "login");
-            exit;
-        }
-        $token = $_GET['token'];
-        $ip = get_client_ip();
-        $mytoken = md5($ip . $id);
-        if (empty($token) || empty($mytoken) || $token != $mytoken) {
-            Alert(NULL, NULL, "login");
-            exit;
-        }
-        */
         $id = $_GET['sale_id'];
         $token = $_GET['token'];
         $this->assign('id', $id);

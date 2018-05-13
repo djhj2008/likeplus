@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>爱加美味-品尝</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/images/favicon.ico">
+        <!-- App css -->
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css?version=1.01.02" rel="stylesheet" type="text/css" />
+        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>main.css?version=1.01.02" id="color-switcher-link">
+        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>animations.css">
+        <link rel="stylesheet" href="<%$smarty.const.ACSS_URL%>fonts.css">
+
+    </head>
+    <body>
+        <!-- Begin page -->
+        <div id="wrapper">
+            <!-- Top Bar Start -->
+            <div class="topbar">
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href="<%$smarty.const.__CONTROLLER__%>/index" class="logo">
+                        <span>
+                            <img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_title.png" alt="" height="50">
+                        </span>
+                        <i>
+                            <img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_sm.png" alt="" height="64">
+                        </i>
+                    </a>
+                </div>
+                <nav class="navbar-custom">
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                        <li class="dropdown notification-list">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="false" aria-expanded="false">
+                                <i class="fa fa-user-o mr-0"></i> <span class="ml-1"><i class="mdi mdi-chevron-down"></i> </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                <!-- item-->
+                                <div class="dropdown-item noti-title">
+                                    <h6 class="text-overflow m-0">欢迎!</h6>
+                                </div>
+
+                                <!-- item-->
+                                <a href="<%$smarty.const.__APP__%>/shop/saleinfo" class="dropdown-item notify-item">
+                                    <i class="fi-head"></i> <span>修改密码</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="<%$smarty.const.__APP__%>/login" class="dropdown-item notify-item">
+                                    <i class="fi-power"></i> <span>退出登陆</span>
+                                </a>
+
+                            </div>
+                        </li>
+
+                    </ul>
+                    <ul class="list-inline menu-left mb-0">
+                        <li class="float-left">
+                            <button class="button-menu-mobile" onclick="homepage()">
+                                <i class="dripicons-menu"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Top Bar End -->
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                <div class="ls section_padding_bottom_25">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul id="gallery_blog-carousel" class="gallery_item-carousel home-blog__carousel">
+                                    <li>
+                                        <div class="home-blog__carousel-wrapper">
+                                            <figure class="home-blog__carousel-img">
+                                                <a  href="#">
+                                                    <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch2/touch.jpg" >
+                                                </a>
+                                            </figure>
+                                            <div class="post__content">
+                                                <h3 class="post__title">
+                                                    <a href="#" rel="bookmark" style="color:#7070C0" >品尝</a>
+                                                </h3>
+                                                <div class="post__text-content">
+                                                    <p  style="color:#bb0000">关于美味的食物</p>
+                                                    <p  style="color:#bb0000">我们并不是懂得比您多</p>
+                                                    <p  style="color:#bb0000">只是我们先一步买了回来</p>
+                                                    <p  style="color:#bb0000">认真品尝和思考,反复挑选和体验</p>
+                                                    <p  style="color:#bb0000">最终</p>
+                                                    <p  style="color:#bb0000">为您送上爱加-美味</p>
+                                                    <audio id="music1" controls="controls" autoplay="autoplay" preload id="music1" >
+                                                        <source src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch2/music.mp3" type="audio/mpeg" />
+                                                    </audio>
+                                                </div>
+                                                <span class="badge badge-info">爱加推荐</span>
+
+                                                <figure class="home-blog__carousel-img">
+                                                    <a  href="#">
+                                                        <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch2/zimi.jpg" >
+                                                    </a>
+                                                </figure>
+                                                <h3 class="post__title">
+                                                    <a href="<%$smarty.const.__APP__%>/shop/wareinfo?ware_id=53" rel="bookmark" style="color:#7f007f" >网红紫米面包<i class="fa fa-caret-square-o-right m-t-0"></i></a>
+                                                </h3>
+                                                <div class="post__text-content">
+                                                    <p>微甜混合着紫米香 足料的奶酪满满快要溢出来的口感 松软的面包</p>
+                                                    <p>特调的夹心酱 软糯的紫米，一切都是那么地恰到好处</p>
+                                                </div>
+                                                <figure class="home-blog__carousel-img">
+                                                    <a  href="#">
+                                                        <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch2/manyuemei.jpg" >
+                                                    </a>
+                                                </figure>
+                                                <h3 class="post__title">
+                                                    <a href="<%$smarty.const.__APP__%>/shop/wareinfo?&ware_id=55" rel="bookmark" style="color:#ff0084" >蔓越莓曲奇饼干<i class="fa fa-caret-square-o-right m-t-0"></i></a>
+                                                </h3>
+                                                <div class="post__text-content">
+                                                    <p>蔓越莓绝对不是单纯的酸甜，而是美食中的重要点缀。有了蔓越莓曲奇的味道有了酸甜的惊喜，有了蔓越莓蛋糕美味口感更加丰富</p>
+                                                    <p>酸甜的蔓越莓与酥脆的手工曲奇的完美结合，每一口都能品尝到它的美妙滋味，这就是蔓越莓曲奇饼干的味道。</p>
+                                                </div>
+                                                <figure class="home-blog__carousel-img">
+                                                    <a  href="#">
+                                                        <img src="<%$smarty.const.PUBLIC_ROOT_URL%>uploads/touch2/qingtuan.jpg" >
+                                                    </a>
+                                                </figure>
+                                                <h3 class="post__title">
+                                                    <a href="<%$smarty.const.__APP__%>/shop/wareinfo?ware_id=36" rel="bookmark" style="color:#008200" >豆沙青团<i class="fa fa-caret-square-o-right m-t-0"></i></a>
+                                                </h3>
+                                                <div class="post__text-content">
+                                                   <p>软糯的浆麦草糯米皮中的细腻红豆沙，好像时刻不勾引着心中最缠绵的柔软</p>
+                                                    <p>在古时，它专属春天，一入夏，它便稍纵即逝
+                                                       <br>浆麦草的汁拌进糯米粉里，再包裹进豆沙馅儿，带着清淡却悠长的青草香气</p>
+
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                </div>
+                    <footer class="footer text-right">
+                        Copyright &copy; 2018.爱加社区
+                    </footer>
+            </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- END wrapper -->
+    </body>
+
+    <!-- jQuery  -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/counterup/jquery.counterup.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/chart.js/chart.bundle.js"></script>
+
+    <!-- init dashboard -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.dashboard.init.js"></script>
+
+    <!-- App js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
+
+    <script src="<%$smarty.const.AJS_URL%>compressed.js"></script>
+    <script src="<%$smarty.const.AJS_URL%>main.js?version=00.00.01"></script>
+    <script type="text/javascript">
+        function homepage(){
+            window.location.href=" <%$smarty.const.__APP__%>/shop/index";
+        }
+    </script>
+</html>

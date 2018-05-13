@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>爱加HOME</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/images/favicon.ico">
+
+        <!-- DataTables -->
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- App css -->
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+        <link href="<%$smarty.const.PUBLIC_ROOT_URL%>assets/css/style.css" rel="stylesheet" type="text/css" />
+
+        <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/modernizr.min.js"></script>
+
+    </head>
+    <body>
+        <!-- Begin page -->
+        <div id="wrapper">
+            <!-- Top Bar Start -->
+            <div class="topbar">
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href="<%$smarty.const.__CONTROLLER__%>/index" class="logo">
+                        <span>
+                            <img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_title.png" alt="" height="50">
+                        </span>
+                        <i>
+                            <img src="<%$smarty.const.PUBLIC_ROOT_URL%>images/logo_sm.png" alt="" height="64">
+                        </i>
+                    </a>
+                </div>
+                <nav class="navbar-custom">
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                        <li class="dropdown notification-list">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="false" aria-expanded="false">
+                                <i class="fa fa-user-o mr-0"></i> <span class="ml-1"><i class="mdi mdi-chevron-down"></i> </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                <!-- item-->
+                                <div class="dropdown-item noti-title">
+                                    <h6 class="text-overflow m-0">欢迎!</h6>
+                                </div>
+
+                                <!-- item-->
+                                <a href="<%$smarty.const.__APP__%>/shop/saleinfo" class="dropdown-item notify-item">
+                                    <i class="fi-head"></i> <span>修改密码</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="<%$smarty.const.__APP__%>/login" class="dropdown-item notify-item">
+                                    <i class="fi-power"></i> <span>退出登陆</span>
+                                </a>
+
+                            </div>
+                        </li>
+
+                    </ul>
+                    <ul class="list-inline menu-left mb-0">
+                        <li class="float-left">
+                            <button class="button-menu-mobile" onclick="homepage()">
+                                <i class="dripicons-menu"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Top Bar End -->
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container-fluid">
+                            <div class="form-group row">
+                                <div>
+                                    <h5>修改密码:</h5>
+                                </div>
+                            </div>
+                            <form role="form" action="<%$smarty.const.__APP__%>/sale/saleedit?uid=<%$user[0]['auto_id']%>&token=<%$token%>&sale_id=<%$id%>"  method="post">
+                                <div class="form-group row ">
+                                    <label for="oldpass" class="col-4 col-form-label">原密码</label>
+                                    <div class="col-8">
+                                        <input type="password" required class="form-control"
+                                               id="oldpass" name="oldpass" placeholder="请输入原始密码">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="pass" class="col-4 col-form-label">新密码</label>
+                                    <div class="col-8">
+                                        <input type="password" required class="form-control"
+                                               id="pass" name="pass" placeholder="请输入新密码">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="pass2" class="col-4 col-form-label">确认新密码</label>
+                                    <div class="col-8">
+                                        <input type="password" required class="form-control"
+                                               id="pass2" name="pass2" placeholder="请再次输入新密码">
+                                    </div>
+                                </div>
+                                <div class="col ml-8">
+                                <button type="submit" class="btn btn-github">
+                                    确定
+                                </button>
+                                </div>
+                            </form>
+                    </div> <!-- container -->
+                    <footer class="footer text-right">
+                        Copyright &copy; 2018.爱加社区
+                    </footer>
+            </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- END wrapper -->
+    </body>
+    <!-- jQuery  -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/popper.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/bootstrap.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/metisMenu.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/waves.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.slimscroll.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/counterup/jquery.counterup.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>plugins/chart.js/chart.bundle.js"></script>
+
+    <!-- init dashboard -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/pages/jquery.dashboard.init.js"></script>
+
+    <!-- App js -->
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.core.js"></script>
+    <script src="<%$smarty.const.PUBLIC_ROOT_URL%>assets/js/jquery.app.js"></script>
+
+    <script src="<%$smarty.const.AJS_URL%>compressed.js"></script>
+    <script src="<%$smarty.const.AJS_URL%>main.js"></script>
+    <script type="text/javascript">
+        function homepage(){
+            window.location.href=" <%$smarty.const.__APP__%>/shop/index";
+        }
+    </script>
+</html>
